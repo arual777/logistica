@@ -1,0 +1,211 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(213, 214, 255);
+}
+
+header{
+    color: white;
+}
+.logo{
+    width:7em;
+    height: 5em;
+    margin:1em;
+}
+.encabezado{
+    display:flex;
+    justify-content: center;
+    background-color:#465fff;
+}
+
+.tituloPagina{
+    top: 1em;
+    left: 5em;
+    font-style: italic;
+
+}
+
+h1{
+    color: white;
+}
+
+.centrar{
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+
+.btnLogin {
+    background-color: #0e03ac;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btnLogin:hover {
+    opacity: 0.8;
+}
+
+.contenedor {
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(1, 0, 54);
+    padding: 10px 10px 10px 10px;
+    margin-top: 25em;
+}
+
+.inputLogin{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0 8px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.inputLogin:focus{
+    border: 1px solid #0e03ac;
+    outline: none;
+}
+.contenedorCentro{
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(1, 0, 54);
+    padding: 10px 10px 10px 10px;
+    margin-top: 3em;
+    margin-left: 5em;
+    width: 30%;
+}
+.centro {
+    margin: 0;
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.btnRegistro{
+    display: flex;
+    background-color: darkolivegreen;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 1em;
+    border:none;
+    cursor: pointer;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+}
+@media screen and (max-width: 700px) {
+    .contenedor {
+        background-color: rgb(255, 255, 255);
+        border: 3px solid rgb(1, 0, 54);
+        padding: 10px 10px 10px 10px;
+        width: 80%;
+    }
+}
+
+/*--------------------home----------------------*/
+.menu li{list-style:none;}
+.menu a{text-decoration:none;
+    color:#fff;
+    padding:10px;
+    display:block;
+}
+nav.menu{background-color:grey;}
+.menu ul{
+    display:flex;
+    justify-content:center;
+}
+
+.collapse navbar-collapse{
+
+    display:flex;
+    text-align: right;
+    position: absolute;
+    left: 2em;
+}
+
+.btnUser{
+    position:absolute;
+    left:70em;
+    top: 1em;
+}
+
+.cerrarSesion{
+    background-color: skyblue;
+    padding: 1em;
+
+}
+/*--------------------registro----------------------*/
+
+.btnRegistroR{
+    width:100%;
+    text-align: center;
+    background-color: darkgreen;
+    padding: 0.7em;
+}
+
+/*--------------------footer----------------------*/
+footer{
+    max-width:100%;
+    height:auto;
+    margin:auto;
+    margin-top:30em;
+    background-color: #383442;
+    color: aliceblue;
+}
+.container{
+    display:grid;
+    grid-template-columns: 28em 28em 28em;
+    grid-template-rows: 2em 6em;
+    column-gap:6em; /*separacion entre columnas*/
+    background-color:#383442;
+    height:7.5em;
+    max-width:100%;
+    padding-top:1em;
+}
+.container a{
+    color:white;
+    text-decoration:none;
+    max-width:100%;
+}
+.item1{
+    margin-left:5em;
+    max-width:100%;
+}
+.item2{
+    margin-left:3em;
+    max-width:100%;
+}
+.item5{
+    margin-left:4em;
+    font-size:0.8em;
+    max-width:100%;
+}
+.item4{
+    font-size:0.8em;
+    margin-left:6em;
+    max-width:100%;
+}
+.item4 li{
+    list-style: none;
+    max-width:100%;
+}
+.item5 li{
+    list-style:none;
+    font-size:1em;
+    max-width:100%;
+}
+.item6{
+    max-width: 50%;
+}
+.item3{
+    max-width: 50%;
+}
