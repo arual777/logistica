@@ -21,10 +21,12 @@
 
                     <button type="submit" class="btnLogin">Ingresar</button>
 
-                    <a href="registro.html">¿No estás registrado? Hacé click en: </a><br>
+                    <a >¿No estás registrado? Hacé click en: </a><br>
                     <button class="btnRegistro" type="button"
                             data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
-                            aria-controls="collapseTwo">
+                            aria-controls="collapseTwo"
+                            onClick="document.location.href='usuario/registrar'"
+                    >
                         Registrarse
                     </button>
                 </div>
