@@ -1,10 +1,10 @@
 <?php
 include("helper/Seguridad.php");
 
-class AutorizacionController
+class AutorizacionController  //Podemos cambiar el nombre a loginout
 {
     private $render;
-
+    //el controlador necesita un render para poder mostrar las vistas
     public function __construct($render)
     {
         $this->render = $render;

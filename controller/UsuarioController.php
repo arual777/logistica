@@ -14,11 +14,6 @@ class UsuarioController
         echo $this->render->render("view/usuario.php");
     }
 
-    public function registrar()
-    {
-
-    }
-
     public function activar($id)
     {
 
@@ -37,5 +32,9 @@ class UsuarioController
     public function actualizar()
     {
 
+    }
+
+    public function registrar(){
+        echo $this->render->render("view/registro.php");
     }
 }
