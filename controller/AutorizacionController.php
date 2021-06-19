@@ -1,13 +1,14 @@
 <?php
-include("helper/Seguridad.php");
 
 class AutorizacionController  //Podemos cambiar el nombre a loginout
 {
     private $render;
+    private $usuarioModel;
     //el controlador necesita un render para poder mostrar las vistas
-    public function __construct($render)
+    public function __construct($render, $usuarioModel)
     {
         $this->render = $render;
+        $this->usuarioModel = $usuarioModel;
     }
 
     public function execute()  //método que renderiza la vista del login
@@ -16,22 +17,29 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
     }
 
     /*
-     * método que realiza la validación del usuario e inicia la sesion.
+     * método que realiza la validación del usuario
      * toma la contraseña y la encripta para validarla con la contraseña almacenada en la BD
     */
     public function login()
     {
-        if (isset($_POST["nombre"])&& isset($_POST["contrasenia"])){
-            $data = array();
-            $data["nombre"] = $_POST["nombre"];
-            $data["contrasenia"]  = $_POST["contrasenia"];
-            $seguridad = new Seguridad();
-            $contraseniaEncriptada = $seguridad->encriptar($data["contrasenia"]);
-        }
-        //Falta hacer la validación
-        //cuando es exitoso, devuelve la vista de usuario
+        if (isset($_POST["usuario"])&& isset($_POST["contrasenia"])){
+            $usuario = $_POST["usuario"];
+            $contrasenia  = $_POST["contrasenia"];
+            $usuarioExistente= $this->usuarioModel->validarLogin($usuario, $contrasenia);
 
-        echo $this->render->render("view/usuario.php");
+            if($usuarioExistente){
+                echo $this->render->render("view/usuario.php");
+            }else{
+                 $data = array();
+                 $data["mensajeError"] = "Usuario no existente";
+                 echo $this->render->render("view/login.php", $data);
+             }
+        }
+        else{
+            $data = array();
+            $data["mensajeError"] = "Usuario o contraseña no pueden estar vacios";
+            echo $this->render->render("view/login.php", $data);
+        }
     }
 
     /*
