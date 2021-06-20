@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <form action="autorizacion/login" method="post">
+            <form action="/logistica/autorizacion/login/" method="post">
                 <div class="contenedor centro">
                     <label for="usuario"><b>Usuario</b></label>
                     <input type="text" placeholder="Ingrese usuario" name="usuario" required class="inputLogin">
@@ -25,10 +25,13 @@
                     <button class="btnRegistro" type="button"
                             data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                             aria-controls="collapseTwo"
-                            onClick="document.location.href='usuario/registrar'"
-                    >
+                            onClick="document.location.href='usuario/registrar'">
                         Registrarse
                     </button>
+                    <!--Si mensajeError tiene elementos entra y muestra solo el primer elemento-->
+                    {{#mensajeError}}
+                        {{.}}
+                    {{/mensajeError}}
                 </div>
             </form>
         </main>
