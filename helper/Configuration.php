@@ -4,13 +4,14 @@ include_once("helper/Render.php");
 include_once("helper/UrlHelper.php");
 include_once("helper/Seguridad.php");
 include_once("model/UsuarioModel.php");
+include_once("model/PermisoModel.php");
 
 include_once("controller/AutorizacionController.php");
 include_once("controller/UsuarioController.php");
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once("Router.php");
-
+include_once("Constantes.php");
 
 class Configuration{
     private function getDatabase(){
@@ -49,6 +50,10 @@ class Configuration{
         return new UsuarioModel($database, $seguridad);
     }
 
+    public function getPermisoModel(){
+        $database = $this->getDatabase();
+        return new PermisoModel($database);
+    }
     public function getRouter(){
         return new Router($this);
     }

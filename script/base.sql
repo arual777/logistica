@@ -203,18 +203,17 @@ INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '0fd1604be5660d917f837442f
 INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', 'c06397df996adb426b5d43f33b95c2df', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
 INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', 'f2bb07ee54b82f34f3f9f301115ffdf4', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
 
-INSERT INTO Seccion (id_Seccion,descripcion) VALUES (1,'Espera rol');
-INSERT INTO Seccion VALUES(2, 'Alta/Baja/Modificacion Empleados/Usuarios');
-INSERT INTO Seccion VALUES(3, 'Alta/Baja/Modificacion Vehiculos/Viajes');
-INSERT INTO Seccion VALUES(4, 'Alta/Baja/Modificacion Viajes');
-INSERT INTO Seccion VALUES(5, 'Alta/Baja/Modificacion Services a Vehiculos');
+INSERT INTO Seccion VALUES(1, 'Usuarios');
+INSERT INTO Seccion VALUES(2, 'Viajes');
+INSERT INTO Seccion VALUES(3, 'Vehiculos');
+INSERT INTO Seccion VALUES(4, 'Services');
 
 INSERT INTO Rol_Seccion(id_Rol,id_Seccion,alta,baja,modificacion,lectura)
-VALUES (1,1,1,1,1,1);
-INSERT INTO Rol_Seccion VALUES(2,2,1,1,1,1);
-INSERT INTO Rol_Seccion VALUES(3,3,1,1,1,1);
-INSERT INTO Rol_Seccion VALUES(4,4,0,0,0,0);
-INSERT INTO Rol_Seccion VALUES(5,5,0,0,0,0);
+VALUES (1,1,0,0,0,0);
+INSERT INTO Rol_Seccion VALUES(2,1,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(3,1,0,0,1,1);
+INSERT INTO Rol_Seccion VALUES(4,1,0,0,1,1);
+INSERT INTO Rol_Seccion VALUES(5,1,0,0,1,1);
 
 
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (1,'Tractor');
