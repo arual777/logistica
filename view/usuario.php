@@ -1,6 +1,10 @@
 {{> header}}
 <main>
+<<<<<<< Updated upstream
     <a href="logout.php"><input type="submit" value="Cerrar sesion"></a>
+=======
+    <a href="/logistica/autorizacion/logout"><input type="submit" class="form-control" value="Cerrar sesion"></a>
+>>>>>>> Stashed changes
     <div>
             <nav class="menu">
                 <ul class="listaMenu">
