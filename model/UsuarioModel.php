@@ -20,6 +20,15 @@ class UsuarioModel
     }
 
     public function validarLogin($usuario, $contrasenia){
+
+        if(isset($_SESSION['usuario'])){
+            header("Location:view/usuario.php");
+            exit();
+        }else if(!isset($_POST['usuario'],$_POST['contrasenia'])) {
+            header("Location:view/login.php");
+            exit();
+        }
+
         $contraseniaEncriptada= $this->seguridad->encriptar ($contrasenia);
         $usuarioUpper=strtoupper($usuario);
         $solicitud= "select * from Usuario where UPPER(mail)='$usuarioUpper' and clave='$contraseniaEncriptada'";

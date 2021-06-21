@@ -47,6 +47,6 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
      */
     public function logout()
     {
-
     }
 }
+

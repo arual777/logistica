@@ -191,6 +191,77 @@ insert into tipo_licencia(descripcion) values ('sin licencia');
 
 /**
 test@gmail/testclave
+super@gmail.com/123456
+admin@gmail.com/252423
+chofer@gmail.com/344654
+mecanico@gmail.com/261158
 **/
-INSERT INTO Usuario (id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
-VALUES (1, 1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
+INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
+VALUES (1,1, 1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
+INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
+INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '0fd1604be5660d917f837442fcaeca49', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
+INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', 'c06397df996adb426b5d43f33b95c2df', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
+INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', 'f2bb07ee54b82f34f3f9f301115ffdf4', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
+
+INSERT INTO Seccion (id_Seccion,descripcion) VALUES (1,'Espera rol');
+INSERT INTO Seccion VALUES(2, 'Alta/Baja/Modificacion Empleados/Usuarios');
+INSERT INTO Seccion VALUES(3, 'Alta/Baja/Modificacion Vehiculos/Viajes');
+INSERT INTO Seccion VALUES(4, 'Alta/Baja/Modificacion Viajes');
+INSERT INTO Seccion VALUES(5, 'Alta/Baja/Modificacion Services a Vehiculos');
+
+INSERT INTO Rol_Seccion(id_Rol,id_Seccion,alta,baja,modificacion,lectura)
+VALUES (1,1,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(2,2,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(3,3,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(4,4,0,0,0,0);
+INSERT INTO Rol_Seccion VALUES(5,5,0,0,0,0);
+
+
+INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (1,'Tractor');
+INSERT INTO Tipo_Vehiculo VALUES (2, 'Camion');
+
+INSERT INTO Tipo_Semi(id_Tipo,descripcion) VALUES (1, 'Semiremolque');
+INSERT INTO Tipo_Semi VALUES (2,'Acoplado');
+
+INSERT INTO Vehiculo(id_Vehiculo, id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
+VALUES (1,1,1,'Iveco','','ABC123',1,'FKE345','20190320',850,'Usado');
+INSERT INTO Vehiculo VALUES (2,2,2, 'Iveco','' ,'JKE2034', 2 , 'hjks2345', '20180913', 1800, 'Bien');
+
+INSERT INTO Tipo_Service(id_service, descripcion) VALUES (1,'Revision motor');
+INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
+INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
+
+INSERT INTO Service(id_Service, id_Vehiculo, id_Usuario, id_TipoService, fecha, kilometraje, detalle, repuestos_cambiados)
+VALUES (1,1,4,1,'20210618', 850, 'Funciona ok', 'Motor');
+INSERT INTO Service VALUES (2,2,4,2,'20210601',1900,'Reparación valvulas', 'Valvula nueva');
+
+INSERT INTO Tipo_Gasto(id_Gasto, descripcion) VALUES (123,'Estimado');
+INSERT INTO Tipo_Gasto(id_Gasto,descripcion) VALUES (234, 'Real');
+
+INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
+INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
+
+INSERT INTO Carga (id_Carga, id_TipoCarga, refrigeracion, graduacion)
+VALUES (1,222, 1, 2);
+INSERT INTO Carga VALUES (2,333, 2,3);
+
+INSERT INTO Viaje(id_viaje, id_usuario, id_vehiculo, id_carga, origen, destino, fecha_carga, fecha_viaje, tiempo_estimadoLlegada, tiempo_estimadoDeSalida, codigo_qr)
+VALUES (1,1,1,1,'Buenos Aires', 'Parana', '20210304','20210305','20210307', '20210308','');
+INSERT INTO Viaje VALUES (2,2,2,2,'La Pampa','Rio de Janeiro', '20210501', '20210503', '20210515',  '20210518','');
+
+INSERT INTO Costo_Real(id_CostoReal, id_Viaje, id_TipoGasto, importe, cantidad, kilometraje, latitud, longitud, fecha)
+VALUES (1,2,234, 80000.0, 1000,1300,80.0,20.0,'20210307');
+
+INSERT INTO Costo_Estimado(id_CostoEstimado, id_Viaje, id_TipoGasto, importe, cantidad, kilometraje, fecha)
+VALUES (2,1,123, 9000.0, 2340,1400,'20210308');
+
+INSERT INTO Posicion_Viaje (id_Posicion, id_viaje, latitud, longitud, fecha)
+VALUES (1,1,54.0,23.0,'20210308');
+INSERT INTO Posicion_Viaje VALUES (2,2,67.0,24.0,'20210501');
+
+INSERT INTO Cliente (id_Cliente, nombre, apellido, CUIT) VALUES (1, 'Roberto', 'Gonzalez', 234567654);
+INSERT INTO Cliente VALUES (2,'Esteban', 'Longchamps', 23465436);
+
+INSERT INTO Proforma (id_factura, id_costoReal, id_cliente, numero, nombre, importe)
+VALUES (1,1,1,5,'Roberto', 9000.0);
+INSERT INTO Proforma VALUES (2,1,2,6,'Esteban', 15000.0);
