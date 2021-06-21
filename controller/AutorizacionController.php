@@ -55,8 +55,6 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
      */
     public function logout()
     {
-<<<<<<< Updated upstream
-=======
         if (isset($_SESSION['usuario'])) {
             session_unset();
             session_destroy();
@@ -65,7 +63,6 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
             header("Location:view/login.php");
             exit();
         }
->>>>>>> Stashed changes
     }
 }
 
