@@ -22,6 +22,14 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
     */
     public function login()
     {
+        if(isset($_SESSION['usuario'])){
+            header("Location:view/usuario.php");
+            exit();
+        }else if(!isset($_POST['usuario'],$_POST['contrasenia'])) {
+            header("Location:view/login.php");
+            exit();
+        }
+
         if (isset($_POST["usuario"])&& isset($_POST["contrasenia"])){
             $usuario = $_POST["usuario"];
             $contrasenia  = $_POST["contrasenia"];
@@ -47,6 +55,17 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
      */
     public function logout()
     {
+<<<<<<< Updated upstream
+=======
+        if (isset($_SESSION['usuario'])) {
+            session_unset();
+            session_destroy();
+            header("Location:view/login.php");
+        } else {
+            header("Location:view/login.php");
+            exit();
+        }
+>>>>>>> Stashed changes
     }
 }
 
