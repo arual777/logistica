@@ -8,6 +8,7 @@ include_once("model/PermisoModel.php");
 
 include_once("controller/AutorizacionController.php");
 include_once("controller/UsuarioController.php");
+include_once("controller/RegistroController.php");
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once("Router.php");
@@ -37,6 +38,11 @@ class Configuration{
         $render = $this->getRender();
         $usuarioModel = $this->getusuarioModel();
         return new AutorizacionController($render, $usuarioModel);
+    }
+    public function getRegistroController(){
+        $render = $this->getRender();
+        $usuarioModel = $this->getusuarioModel();
+        return new RegistroController($render, $usuarioModel);
     }
 
     public function getUsuarioController(){
