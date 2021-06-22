@@ -188,6 +188,13 @@ VALUES ('sin rol'),
        ('mecanico');
 
 insert into tipo_licencia(descripcion) values ('sin licencia');
+insert into tipo_licencia(descripcion) values ('A');
+insert into tipo_licencia(descripcion) values ('B');
+insert into tipo_licencia(descripcion) values ('C');
+insert into tipo_licencia(descripcion) values ('D');
+insert into tipo_licencia(descripcion) values ('E');
+insert into tipo_licencia(descripcion) values ('F');
+
 
 /**
 test@gmail/testclave
