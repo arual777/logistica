@@ -193,6 +193,7 @@ insert into tipo_licencia(descripcion) values ('B');
 insert into tipo_licencia(descripcion) values ('C');
 insert into tipo_licencia(descripcion) values ('D');
 insert into tipo_licencia(descripcion) values ('E');
+insert into tipo_licencia(descripcion) values ('F');
 
 
 /**
@@ -270,5 +271,3 @@ INSERT INTO Cliente VALUES (2,'Esteban', 'Longchamps', 23465436);
 INSERT INTO Proforma (id_factura, id_costoReal, id_cliente, numero, nombre, importe)
 VALUES (1,1,1,5,'Roberto', 9000.0);
 INSERT INTO Proforma VALUES (2,1,2,6,'Esteban', 15000.0);
-
-select * from Usuario;

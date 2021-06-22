@@ -6,7 +6,6 @@ class RegistroController
     private $render;
     private $usuarioModel;
 
-    //el controlador necesita un render para poder mostrar las vistas
     public function __construct($render, $usuarioModel)
     {
         $this->render = $render;
@@ -14,7 +13,7 @@ class RegistroController
     }
 
 
-    public function execute()  //método que renderiza la vista del login
+    public function execute()
     {
         echo $this->render->render("view/registro.php");
     }
@@ -45,7 +44,6 @@ class RegistroController
                 if($licenciaExistente){
                     $data['licenciaExistente'] = "Esta licencia, ya se encuentra en nuestro registro, por favor verifica que hayas puesto tu licencia de forma correcta";
                     echo $this->render->render("view/registro.php", $data);
-                    echo $codigoLicencia;
                     exit();
                 }
             }
@@ -60,7 +58,9 @@ class RegistroController
                 exit();
             } else {
                 $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password, $usuario, $apellido, $dni, $fecha_nac, $codigoLicencia);
-                echo $this->render->render("view/login.php");
+                $data = array();
+                $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un admin te asigne un rol para poder iniciar sesión";
+                echo $this->render->render("view/login.php",$data);
                 exit();
 
             }

@@ -1,25 +1,20 @@
 <?php
 
-class AutorizacionController  //Podemos cambiar el nombre a loginout
+class AutorizacionController
 {
     private $render;
     private $usuarioModel;
-    //el controlador necesita un render para poder mostrar las vistas
     public function __construct($render, $usuarioModel)
     {
         $this->render = $render;
         $this->usuarioModel = $usuarioModel;
     }
 
-    public function execute()  //método que renderiza la vista del login
+    public function execute()
     {
         echo $this->render->render("view/login.php");
     }
 
-    /*
-     * método que realiza la validación del usuario
-     * toma la contraseña y la encripta para validarla con la contraseña almacenada en la BD
-    */
     public function login()
     {
         if(isset($_SESSION['usuario'])){
@@ -50,9 +45,6 @@ class AutorizacionController  //Podemos cambiar el nombre a loginout
         }
     }
 
-    /*
-      metodo que se encarga de cerrar la sesion
-     */
     public function logout()
     {
         if (isset($_SESSION['usuario'])) {

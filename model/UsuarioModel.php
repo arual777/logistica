@@ -11,7 +11,6 @@ class UsuarioModel
         $this->seguridad = $seguridad;
     }
 
-    //Acá faltan las query
 
     public function getUsuarios()
     {

@@ -22,6 +22,9 @@
                         <p class="text-danger">{{#mensajeError}}
                         {{.}}
                             {{/mensajeError}}</p>
+                        <p class="text-success">{{#registroExitoso}}
+                            {{.}}
+                            {{/registroExitoso}}</p>
                         <a href="registro">¿No estás registrado? Hacé click en:
                             <button class="btn btn-success" type="button">Registrarse</button></a>
                     </form>
