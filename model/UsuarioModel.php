@@ -76,4 +76,14 @@ class UsuarioModel
 
     }
 
+    public function obtenerUsuarios()
+    {
+        return $this->database->query("SELECT * FROM Usuario");
+    }
+
+    public function obtenerUsuario($id)
+    {
+        return $this->database->query("SELECT * FROM Usuario WHERE id_Usuario = $id ");
+
+    }
 }

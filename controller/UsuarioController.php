@@ -3,10 +3,14 @@
 class UsuarioController
 {
     private $render;
+    private $model;
 
-    public function __construct($render)
+
+    public function __construct($render, $model)
     {
         $this->render = $render;
+        $this->model = $model;
+
     }
 
     public function execute()
@@ -21,7 +25,15 @@ class UsuarioController
 
     public function listar()
     {
+        $data["usuarios"] = $this->model->obtenerUsuarios();
+        echo $this->render->render( "view/verUsuarios.php", $data );
+    }
 
+    public function mostrarUsuario(){
+        $id = $_GET["id"];
+
+        $data["usuario"] = $this->model->obtenerUsuario($id);
+        echo $this->render->render( "view/infoUsuario.php", $data );
     }
 
     public function buscarPorId($id)
