@@ -5,10 +5,12 @@ include_once("helper/UrlHelper.php");
 include_once("helper/Seguridad.php");
 include_once("model/UsuarioModel.php");
 include_once("model/PermisoModel.php");
+include_once("model/ProformaModel.php");
 
 include_once("controller/AutorizacionController.php");
 include_once("controller/UsuarioController.php");
 include_once("controller/RegistroController.php");
+include_once("controller/ProformaController.php");
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once("Router.php");
@@ -51,6 +53,12 @@ class Configuration{
         return new UsuarioController($render, $model);
     }
 
+    public function getProformaController(){
+        $render = $this->getRender();
+        $proformaModel = $this->getProformaModel();
+        return new ProformaController($render, $proformaModel);
+    }
+
     public function getusuarioModel(){
         $database = $this->getDatabase();
         $seguridad = $this->getSeguridad();
@@ -61,6 +69,12 @@ class Configuration{
         $database = $this->getDatabase();
         return new PermisoModel($database);
     }
+
+    public function getProformaModel(){
+        $database = $this->getDatabase();
+        return new ProformaModel($database);
+    }
+
     public function getRouter(){
         return new Router($this);
     }

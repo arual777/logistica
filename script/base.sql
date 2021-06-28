@@ -98,57 +98,49 @@ CREATE TABLE Tipo_Carga(
                            primary key (id_TipoCarga)
 );
 
-CREATE TABLE Carga(
-                      id_Carga int not null auto_increment,
+CREATE TABLE Tipo_Hazard ( id_TipoHazard int not null auto_increment,
+                           descripcion varchar (50) not null,
+                           primary Key (id_TipoHazard));
+
+
+CREATE TABLE Carga(   id_Carga int not null auto_increment,
                       id_TipoCarga int not null,
+                      id_TipoHazard int not null,
                       refrigeracion int not null,
                       graduacion int null,
+                      peso decimal not null,
                       primary key (id_Carga),
-                      foreign key (id_TipoCarga) references Tipo_Carga (id_TipoCarga)
+                      foreign key (id_TipoCarga) references Tipo_Carga (id_TipoCarga),
+                      foreign key (id_TipoHazard) references Tipo_Hazard (id_TipoHazard)
 );
 
 CREATE TABLE Viaje(
                       id_viaje int not null auto_increment,
                       id_usuario int not null,
-                      id_vehiculo int not null,
                       id_carga int not null,
                       origen varchar (30) not null,
                       destino varchar (30) not null,
                       fecha_carga date,
-                      fecha_viaje date,
                       tiempo_estimadoLlegada date,
-                      tiempo_estimadoDeSalida date,
-                      codigo_qr text,
+                      codigo_qr text null,
                       primary key (id_viaje),
                       foreign key (id_usuario) references Usuario(id_Usuario),
-                      foreign key (id_carga) references Carga (id_Carga),
-                      foreign key (id_vehiculo) references Vehiculo(id_Vehiculo));
+                      foreign key (id_carga) references Carga (id_Carga));
 
-CREATE TABLE Costo_Real(
-                           id_CostoReal int not null auto_increment,
-                           id_Viaje int not null,
-                           id_TipoGasto int not null,
-                           importe decimal not null,
-                           cantidad int not null,
-                           kilometraje int not null,
-                           latitud decimal not null,
-                           longitud decimal not null,
-                           fecha date,
-                           primary key (id_CostoReal),
-                           foreign key (id_TipoGasto) references Tipo_Gasto (id_Gasto),
-                           foreign key (id_Viaje) references Viaje (id_Viaje));
+CREATE TABLE Costo(         id_Costo int not null auto_increment,
+                            id_Viaje int not null,
+                            importeReal decimal null,
+                            cantidadReal int null,
+                            kilometrajeReal int null,
+                            latitud decimal null,
+                            longitud decimal null,
+                            fecha date,
+                            importeEstimado decimal not null,
+                            cantidadEstimada int null,
+                            kilometrajeEstimado int not null,
 
-CREATE TABLE Costo_Estimado(
-                               id_CostoEstimado int not null auto_increment,
-                               id_Viaje int not null,
-                               id_TipoGasto int not null,
-                               importe decimal not null,
-                               cantidad int not null,
-                               kilometraje int not null,
-                               fecha date,
-                               primary key (id_CostoEstimado),
-                               foreign key (id_TipoGasto) references Tipo_Gasto (id_Gasto),
-                               foreign key (id_Viaje) references Viaje (id_Viaje));
+                            primary key (id_Costo),
+                            foreign key (id_Viaje) references Viaje (id_Viaje));
 
 CREATE TABLE Posicion_Viaje(
                                id_Posicion int not null auto_increment,
@@ -169,14 +161,14 @@ CREATE TABLE Cliente(
 
 CREATE TABLE Proforma(
                          id_factura int not null auto_increment,
-                         id_costoReal int not null,
+                         id_costo int not null,
                          id_cliente int not null,
-                         numero int not null,
-                         nombre varchar (30) not null,
+                         id_viaje int not null,
                          importe decimal not null,
                          primary key (id_factura),
-                         foreign key (id_costoReal) references Costo_Real (id_CostoReal),
-                         foreign key (id_cliente) references Cliente (id_Cliente)
+                         foreign key (id_costo) references Costo (id_Costo),
+                         foreign key (id_cliente) references Cliente (id_Cliente),
+                         foreign key (id_viaje) references Viaje (id_Viaje)
 );
 
 /*******DATOS********/
@@ -237,37 +229,16 @@ INSERT INTO Tipo_Service(id_service, descripcion) VALUES (1,'Revision motor');
 INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
 INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
 
-INSERT INTO Service(id_Service, id_Vehiculo, id_Usuario, id_TipoService, fecha, kilometraje, detalle, repuestos_cambiados)
-VALUES (1,1,4,1,'20210618', 850, 'Funciona ok', 'Motor');
-INSERT INTO Service VALUES (2,2,4,2,'20210601',1900,'Reparación valvulas', 'Valvula nueva');
-
-INSERT INTO Tipo_Gasto(id_Gasto, descripcion) VALUES (123,'Estimado');
-INSERT INTO Tipo_Gasto(id_Gasto,descripcion) VALUES (234, 'Real');
-
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
 
-INSERT INTO Carga (id_Carga, id_TipoCarga, refrigeracion, graduacion)
-VALUES (1,222, 1, 2);
-INSERT INTO Carga VALUES (2,333, 2,3);
-
-INSERT INTO Viaje(id_viaje, id_usuario, id_vehiculo, id_carga, origen, destino, fecha_carga, fecha_viaje, tiempo_estimadoLlegada, tiempo_estimadoDeSalida, codigo_qr)
-VALUES (1,1,1,1,'Buenos Aires', 'Parana', '20210304','20210305','20210307', '20210308','');
-INSERT INTO Viaje VALUES (2,2,2,2,'La Pampa','Rio de Janeiro', '20210501', '20210503', '20210515',  '20210518','');
-
-INSERT INTO Costo_Real(id_CostoReal, id_Viaje, id_TipoGasto, importe, cantidad, kilometraje, latitud, longitud, fecha)
-VALUES (1,2,234, 80000.0, 1000,1300,80.0,20.0,'20210307');
-
-INSERT INTO Costo_Estimado(id_CostoEstimado, id_Viaje, id_TipoGasto, importe, cantidad, kilometraje, fecha)
-VALUES (2,1,123, 9000.0, 2340,1400,'20210308');
-
-INSERT INTO Posicion_Viaje (id_Posicion, id_viaje, latitud, longitud, fecha)
-VALUES (1,1,54.0,23.0,'20210308');
-INSERT INTO Posicion_Viaje VALUES (2,2,67.0,24.0,'20210501');
 
 INSERT INTO Cliente (id_Cliente, nombre, apellido, CUIT) VALUES (1, 'Roberto', 'Gonzalez', 234567654);
 INSERT INTO Cliente VALUES (2,'Esteban', 'Longchamps', 23465436);
 
-INSERT INTO Proforma (id_factura, id_costoReal, id_cliente, numero, nombre, importe)
-VALUES (1,1,1,5,'Roberto', 9000.0);
-INSERT INTO Proforma VALUES (2,1,2,6,'Esteban', 15000.0);
+INSERT INTO Tipo_Hazard ( descripcion )
+VALUES ('Sin riesgo'),
+       ('Explosivos'),
+       ('Gases'),
+       ('Líquidos inflamables'),
+       ('Sustancias tóxicas');

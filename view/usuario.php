@@ -10,6 +10,7 @@
                     </li>
                     <li><a href="#">EMPLEADOS</a></li>
                     <li><a href="/logistica/Usuario/listar">USUARIOS</a></li>
+                    <li><a href="/logistica/proforma/">PROFORMA</a></li>
                 </ul>
             </nav>
     </div>
