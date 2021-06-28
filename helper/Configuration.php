@@ -47,7 +47,8 @@ class Configuration{
 
     public function getUsuarioController(){
         $render = $this->getRender();
-        return new UsuarioController($render);
+        $model = $this->getusuarioModel();
+        return new UsuarioController($render, $model);
     }
 
     public function getusuarioModel(){

@@ -2,7 +2,7 @@
 
 <main>
     <a href="/logistica/autorizacion/logout"><input type="submit" class="form-control" value="Cerrar sesion"></a>
-    <div>
+    <div class="text-center">
         <nav class="menu">
             <ul class="listaMenu">
                 <li><a href="#">VIAJES</a></li>
