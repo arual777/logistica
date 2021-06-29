@@ -20,13 +20,15 @@
                         <button type="submit" class="btn btn-primary btn-block mt-4">Ingresar</button>
                         <div class="dropdown-divider"></div>
                         <p class="text-danger">{{#mensajeError}}
-                        {{.}}
+                            {{.}}
                             {{/mensajeError}}</p>
                         <p class="text-success">{{#registroExitoso}}
-                            {{.}}
+                            Tu registro fue exitoso, por favor espera a que un admin te asigne un rol para poder
+                            iniciar sesión
                             {{/registroExitoso}}</p>
-                        <a href="registro">¿No estás registrado? Hacé click en:
-                            <button class="btn btn-success" type="button">Registrarse</button></a>
+                        <a href="/logistica/Registro/">¿No estás registrado? Hacé click en:
+                            <button class="btn btn-success" type="button">Registrarse</button>
+                        </a>
                     </form>
                     <!--Si mensajeError tiene elementos entra y muestra solo el primer elemento-->
 
