@@ -31,10 +31,20 @@ class UsuarioController
 
     public function mostrarUsuario(){
         $id = $_GET["id"];
-
         $data["usuario"] = $this->model->obtenerUsuario($id);
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
+
+    public function asignarRol(){
+        $id = $_GET["id"];
+        $rol = $_GET["rol"];
+        $rolAntiguo = $this->model->obtenerRol($id);
+        $this->model->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
+        $data["usuario"] = $this->model->obtenerUsuario($id);
+        echo $this->render->render( "view/infoUsuario.php", $data );
+    }
+
+
 
     public function buscarPorId($id)
     {
