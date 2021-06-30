@@ -17,26 +17,19 @@ class AutorizacionController
 
     public function login()
     {
-        if(isset($_SESSION['usuario'])){
-            header("Location:view/usuario.php");
-            exit();
-        }else if(!isset($_POST['usuario'],$_POST['contrasenia'])) {
-            header("Location:view/login.php");
-            exit();
-        }
-
         if (isset($_POST["usuario"])&& isset($_POST["contrasenia"])){
             $usuario = $_POST["usuario"];
             $contrasenia  = $_POST["contrasenia"];
-            $usuarioExistente= $this->usuarioModel->validarLogin($usuario, $contrasenia);
+            $usuario = $this->usuarioModel->validarLogin($usuario, $contrasenia);
 
-            if($usuarioExistente){
-                echo $this->render->render("view/usuario.php");
+            if(count($usuario)> 0) {
+                $_SESSION['usuario'] = $usuario[0]["id_Usuario"];
+                echo $this->home();
             }else{
-                 $data = array();
-                 $data["mensajeError"] = "Usuario no existente";
-                 echo $this->render->render("view/login.php", $data);
-             }
+                $data = array();
+                $data["mensajeError"] = "Usuario o contraseña invalidos";
+                echo $this->render->render("view/login.php", $data);
+            }
         }
         else{
             $data = array();
@@ -50,11 +43,13 @@ class AutorizacionController
         if (isset($_SESSION['usuario'])) {
             session_unset();
             session_destroy();
-            header("Location:view/login.php");
-        } else {
-            header("Location:view/login.php");
-            exit();
+            echo $this->render->render("view/login.php");
         }
+    }
+
+    public function home()
+    {
+        echo $this->render->render("view/usuario.php");
     }
 }
 

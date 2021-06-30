@@ -2,60 +2,77 @@
 class PermisoModel
 {
     private $database;
+    private $secciones;
+    private $acciones;
 
     public function __construct($database)
     {
         $this->database = $database;
+
+        //estas secciones son nestros controllers
+        $this->secciones = array(
+            "USUARIO" => 1,
+            "VIAJES" => 2,
+            "VEHICULOS" => 3,
+            "SERVICE" => 4,
+            "PROFORMA" => 5
+        );
+
+        //estas acciones son las functiones que tenemos en los controllers
+        $this->acciones = array(
+            "EXECUTE" => LECTURA,
+            "CREAR" =>  ALTA,
+            "LISTAR" => LECTURA,
+            "MOSTRARUSUARIO" => LECTURA,
+            "ASIGNARROL" => MODIFICACION,
+        );
     }
-/*
- *  Recibe por parametro el usuario (mail) que se encuentra en sesion, la seccion y la accion a realizar
- *  En el caso que no se encuentren resultados para ese usuario/seccion se retorna false
- *  En el caso que la accion enviada no sea valida se retorna false
- *  En el caso que la accion sea valida pero no se tenga permisos para esa accion se retorna false
- *  En el caso que la accion sea valida y se tenga permisos  para esa accion se retorna true
- *  El resultado de esta validacion se debera manejar en los controllers
- *  Cuando el resultado sea false se debera renderizar la pantalla sinPermisos
- *  Cuando el resultado sea true se debera seguir con la ejecucion
- * */
+
     public function validarAccesoASeccion($usuario, $seccion, $accion){
-        $usuario = strtoupper($usuario);
+
+        //con la seccion que tengo por parametro busco el valor en el array secciones
+        $idSeccion = $this->secciones[$seccion];
+
+        //con la accion que tengo por parametro busco el valor en el array de acciones
+        $idAccion = $this->acciones[$accion];
+
         $solicitud= "select RS.alta as alta, RS.baja as baja, RS.modificacion as modificacion, RS.lectura as lectura
                             from Usuario US JOIN Rol_Seccion RS on US.id_Rol= RS.id_Rol
-                            where UPPER(mail)= '$usuario' and id_Seccion= '$seccion'";
+                            where US.id_usuario = $usuario and id_Seccion= $idSeccion";
 
-         $resultado = $this->database->query($solicitud);
+        $resultado = $this->database->query($solicitud);
 
-         if(count($resultado) == 0){
-             return false;
-         }
+        if(count($resultado) == 0){
+            return false;
+        }
 
-         switch ($accion){
-             case LECTURA:
-                 if($resultado[0]["lectura"] == 1)
-                 {
-                     return true;
-                 }
-                 return false;
-             case BAJA:
-                 if($resultado[0]["baja"] == 1)
-                 {
-                     return true;
-                 }
-                 return false;
-             case MODIFICACION:
-                 if($resultado[0]["modificacion"] == 1)
-                 {
-                     return true;
-                 }
-                 return false;
-             case ALTA:
-                 if($resultado[0]["alta"] == 1)
-                 {
-                     return true;
-                 }
-                 return false;
-             default:
-                 return false;
-         }
+        switch ($idAccion){
+            case LECTURA:
+                if($resultado[0]["lectura"] == 1)
+                {
+                    return true;
+                }
+                return false;
+            case BAJA:
+                if($resultado[0]["baja"] == 1)
+                {
+                    return true;
+                }
+                return false;
+            case MODIFICACION:
+                if($resultado[0]["modificacion"] == 1)
+                {
+                    return true;
+                }
+                return false;
+            case ALTA:
+                if($resultado[0]["alta"] == 1)
+                {
+                    return true;
+                }
+                return false;
+            default:
+                return false;
+        }
     }
 }
