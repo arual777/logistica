@@ -5,22 +5,15 @@ class UsuarioController
     private $render;
     private $model;
 
-
     public function __construct($render, $model)
     {
         $this->render = $render;
         $this->model = $model;
-
     }
 
     public function execute()
     {
         echo $this->render->render("view/usuario.php");
-    }
-
-    public function activar($id)
-    {
-
     }
 
     public function listar()
@@ -42,21 +35,5 @@ class UsuarioController
         $this->model->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
         $data["usuario"] = $this->model->obtenerUsuario($id);
         echo $this->render->render( "view/infoUsuario.php", $data );
-    }
-
-
-
-    public function buscarPorId($id)
-    {
-
-    }
-
-    public function actualizar()
-    {
-
-    }
-
-    public function registrar(){
-        echo $this->render->render("view/registro.php");
     }
 }

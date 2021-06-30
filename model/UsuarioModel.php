@@ -28,11 +28,7 @@ class UsuarioModel
         $usuarioUpper = strtoupper($usuario);
         $solicitud = "select * from Usuario where UPPER(mail)='$usuarioUpper' and clave='$contraseniaEncriptada'";
         $resultado = $this->database->query($solicitud);
-        if (count($resultado) > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return $resultado;
     }
 
     public function buscarUsuarioPorEmail($email)
@@ -70,8 +66,9 @@ class UsuarioModel
 
     public function insertarUsuario($tipoLicencia, $mail, $password, $nombre, $apellido, $dni, $fecha_nac, $codigoLicencia)
     {
+        $contraseniaEncriptada = $this->seguridad->encriptar($password);
         $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
-                                values($tipoLicencia, '$mail', '$password', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
+                                values($tipoLicencia, '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
         $resultado = $this->database->execute($sql);
 
     }
