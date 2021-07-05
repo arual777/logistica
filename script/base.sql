@@ -1,6 +1,6 @@
 drop database Logistica;
-create database Logistica;
-use Logistica;
+	create database Logistica;
+	use Logistica;
 
 CREATE TABLE Tipo_Licencia( id_tipoLicencia int not null auto_increment primary key,
                             descripcion varchar (30) not null);
@@ -59,7 +59,7 @@ CREATE TABLE Vehiculo (
                           modelo varchar (50) null,
                           patente varchar(50) not null,
                           motor int null,
-                          chasis varchar (80) not null,
+                          chasis varchar (80) null,
                           anio_fabricacion date null,
                           kilometraje int null,
                           estado varchar (50) not null,
@@ -113,10 +113,11 @@ CREATE TABLE Carga(   id_Carga int not null auto_increment,
                       foreign key (id_TipoCarga) references Tipo_Carga (id_TipoCarga),
                       foreign key (id_TipoHazard) references Tipo_Hazard (id_TipoHazard)
 );
-
 CREATE TABLE Viaje(
                       id_viaje int not null auto_increment,
                       id_usuario int not null,
+                      id_vehiculo int not null,
+                      id_arrastre int not null,
                       id_carga int not null,
                       origen varchar (30) not null,
                       destino varchar (30) not null,
@@ -125,8 +126,9 @@ CREATE TABLE Viaje(
                       codigo_qr text null,
                       primary key (id_viaje),
                       foreign key (id_usuario) references Usuario(id_Usuario),
-                      foreign key (id_carga) references Carga (id_Carga));
-
+                      foreign key (id_carga) references Carga (id_Carga),
+                      foreign key (id_vehiculo) references Vehiculo(id_Vehiculo),
+                      foreign key (id_arrastre) references Vehiculo (id_Vehiculo));
 
 CREATE TABLE Viaje_Detalle(
                     id_Viaje_Detalle int not null auto_increment,
@@ -141,51 +143,24 @@ CREATE TABLE Viaje_Detalle(
                     primary key(id_Viaje_Detalle),
                     foreign key (id_viaje) references Viaje (id_viaje));
 
-
-
-CREATE TABLE Costo(         id_Costo int not null auto_increment,
-                            id_Viaje int not null,
-                            importeReal decimal null,
-                            cantidadReal int null,
-                            kilometrajeReal int null,
-                            latitud decimal null,
-                            longitud decimal null,
-                            fecha date,
-                            importeEstimado decimal not null,
-                            cantidadEstimada int null,
-                            kilometrajeEstimado int not null,
-
-                            primary key (id_Costo),
-                            foreign key (id_Viaje) references Viaje (id_Viaje));
-
-CREATE TABLE Posicion_Viaje(
-                               id_Posicion int not null auto_increment,
-                               id_viaje int not null,
-                               latitud decimal not null,
-                               longitud decimal not null,
-                               fecha date,
-                               primary key (id_Posicion),
-                               foreign key (id_viaje) references Viaje(id_Viaje));
-
-CREATE TABLE Cliente(
-                        id_Cliente int not null auto_increment,
-                        nombre varchar (40) not null,
-                        apellido varchar (40) not null,
-                        CUIT int not null,
-                        primary key(id_Cliente)
-);
-
 CREATE TABLE Proforma(
                          id_factura int not null auto_increment,
-                         id_costo int not null,
-                         id_cliente int not null,
                          id_viaje int not null,
-                         importe decimal not null,
+                         fecha date not null,
+                         denominacion_cliente varchar (80) not null,
+                         cuit int not null,
+                         telefono int not null,
+                         mail varchar (30) null,
+                         contacto int not null,
+                         kilometros_estimados decimal not null,
+                         combustible_litros_estimados decimal not null,
+                         costo_peajes decimal not null,
+                         costo_viaticos decimal not null,
+                         costo_peligroso decimal null,
+                         costo_refrigeracion decimal null,
+                         tarifa decimal not null,
                          primary key (id_factura),
-                         foreign key (id_costo) references Costo (id_Costo),
-                         foreign key (id_cliente) references Cliente (id_Cliente),
-                         foreign key (id_viaje) references Viaje (id_Viaje)
-);
+                         foreign key (id_viaje) references Viaje (id_Viaje));
 
 /*******DATOS********/
 INSERT INTO Rol (descripcion)
@@ -232,15 +207,26 @@ INSERT INTO Rol_Seccion VALUES(2,3,1,1,1,1);
 INSERT INTO Rol_Seccion VALUES(2,4,1,1,1,1);
 INSERT INTO Rol_Seccion VALUES(2,5,1,1,1,1);
 
-INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (1,'Tractor');
-INSERT INTO Tipo_Vehiculo VALUES (2, 'Camion');
+INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion)  VALUES (1, 'Arrastre');
+INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (2,'Tractor');
+INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (3, 'Camion');
 
-INSERT INTO Tipo_Semi(id_Tipo,descripcion) VALUES (1, 'Semiremolque');
-INSERT INTO Tipo_Semi VALUES (2,'Acoplado');
+INSERT INTO Tipo_Semi(id_Tipo, descripcion)  VALUES (1, 'No Aplica');
+INSERT INTO Tipo_Semi(id_Tipo, descripcion)  VALUES (2, 'Araña');
+INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (3,'Jaula');
+INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (4,'Tanque');
+INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (5,'CarCarrier');
 
-INSERT INTO Vehiculo(id_Vehiculo, id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
-VALUES (1,1,1,'Iveco','','ABC123',1,'FKE345','20190320',850,'Usado');
-INSERT INTO Vehiculo VALUES (2,2,2, 'Iveco','' ,'JKE2034', 2 , 'hjks2345', '20180913', 1800, 'Bien');
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
+VALUES (2,1,'Iveco','','ABC123',1,'FKE345','20190320',850,'Usado');
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
+VALUES (3,1, 'Iveco','' ,'JKE2034', 2 , 'hjks2345', '20180913', 1800, 'Bien');
+
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
+VALUES (1,2, 'Iveco','Araña' ,'JKE2034', null , null, '20180913', null, 'Bien');
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
+VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien');
+
 
 INSERT INTO Tipo_Service(id_service, descripcion) VALUES (1,'Revision motor');
 INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
@@ -248,11 +234,6 @@ INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
 
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
-
-
-
-INSERT INTO Cliente (id_Cliente, nombre, apellido, CUIT) VALUES (1, 'Roberto', 'Gonzalez', 234567654);
-INSERT INTO Cliente VALUES (2,'Esteban', 'Longchamps', 23465436);
 
 INSERT INTO Tipo_Hazard ( descripcion )
 VALUES ('Sin riesgo'),

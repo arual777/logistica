@@ -27,12 +27,14 @@ class PermisoModel
             "ASIGNARROL" => MODIFICACION,
             "LISTARVIAJES" => LECTURA,
             "DETALLEVIAJE" => MODIFICACION,
+            "FORMULARIOPROFORMA" => LECTURA
         );
     }
 
     public function validarAccesoASeccion($usuario, $seccion, $accion){
+        //le pasamos el Id del usuario que sacamos de la sesion, el nombre del modulo (seccion) al que quiere ingresar y el action ()
 
-        //con la seccion que tengo por parametro busco el valor en el array secciones
+        //con la seccion que tengo por parametro, busco el valor en el array secciones
         $idSeccion = $this->secciones[$seccion];
 
         //con la accion que tengo por parametro busco el valor en el array de acciones
@@ -41,6 +43,8 @@ class PermisoModel
         $solicitud= "select RS.alta as alta, RS.baja as baja, RS.modificacion as modificacion, RS.lectura as lectura
                             from Usuario US JOIN Rol_Seccion RS on US.id_Rol= RS.id_Rol
                             where US.id_usuario = $usuario and id_Seccion= $idSeccion";
+
+        //puede arrojar un solo resultado o ninguno
 
         $resultado = $this->database->query($solicitud);
 

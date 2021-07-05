@@ -2,16 +2,23 @@
 {{>headerUsuario}}
 <h1>PROFORMA</h1>
 <form action="/logistica/proforma/crear" method="post">
-    <label for="fecha">Fecha:</label>
-    <input type="date" name="fecha" id="fecha" class="form-control" placeholder="Fecha">
 
     <h3> Cliente </h3>
-    <label for="clientes">Denominación:</label>
-    <select name="clientes">
-        {{#clientes}}
-        <option value={{id_Cliente}}>{{apellido}} - {{CUIT}} </option>
-        {{/clientes}}
-    </select>
+    <label for="denominacion">Denominación:</label>
+    <input type="text" name="denominacion" id="denominacion" class="form-control"
+           placeholder="Ingrese la denominación del cliente" required>
+    <label for="cuit">Cuit:</label>
+    <input type="text" name="cuit" id="cuit" class="form-control"
+           placeholder="Ingrese el CUIT del cliente" required>
+    <label for="tele">Teléfono:</label>
+    <input type="text" name="telefono" id="telefono" class="form-control"
+           placeholder="Ingrese el teléfono del cliente" required>
+    <label for="mail">Email:</label>
+    <input type="email" name="mail" id="mail" class="form-control"
+           placeholder="Ingrese el email del cliente" required>
+    <label for="contacto">Contacto:</label>
+    <input type="text" name="contacto" id="contacto" class="form-control"
+           placeholder="Ingrese un contacto del cliente" required>
 
     <h3>Viaje </h3>
     <label for="origen">Origen:</label>
@@ -27,6 +34,24 @@
 
     <label for="llegada">Tiempo estimado de llegada:</label>
     <input type="date" name="llegada" id="llegada" class="form-control" placeholder="Fecha">
+
+
+
+    <h3> Vehículo </h3>
+    <label for="vehiculo">Denominación:</label>
+    <select name="vehiculo">
+        {{#vehiculo}}
+        <option value={{id_vehiculo}}>{{patente}} - {{marca}} - {{modelo}}</option>
+        {{/vehiculo}}
+    </select>
+
+    <h3> Vehículo De Arrastre </h3>
+    <label for="arrastre">Denominación:</label>
+    <select name="arrastre">
+        {{#arrastre}}
+        <option value={{id_vehiculo}}>{{chasis}} - {{patente}} - {{descripcion}}</option>
+        {{/arrastre}}
+    </select>
 
     <h3> Carga</h3>
 
@@ -52,17 +77,12 @@
 
     <br>
     <label for="refrigeracion">¿Requiere refrigeración?</label>
-    <input type="radio" name="refrigeracion" id="refrigeracion" value=1 class="mt-3 mb-3">SI
+    <input type="radio" name="refrigeracion" id="refrigeracion" value=1 class="mt-3 mb-3" checked>SI
     <input type="radio" name="refrigeracion" id="refrigeracion" value=0 class="mt-3 mb-3">NO<br>
 
     <p>Graduación:</p>
-    <select name="graduacion" id="graduacion" class="form-control">
-        <option value="1">-5°C</option>
-        <option value="2">-10°C</option>
-        <option value="3"> -15°C</option>
-        <option value="3">-20°C</option>
-        <option value="3"> Normal</option>
-    </select>
+    <input type="number" name="graduacion" id="graduacion" class="form-control"
+           placeholder="Ingrese la graduación requerida de la refrigeración">
 
     <h3> Costos Estimados</h3>
 
@@ -81,7 +101,7 @@
     <input type="number" name="peaje" id="peaje" class="form-control"
            placeholder="Ingrese los costos totales de peajes-pesajes">
 
-    <label for="haz">Hazard:</label>
+    <label for="haz">Peligrosidad:</label>
     <input type="number" name="costoHazard" id="costoHazard" class="form-control" placeholder="Ingrese el costo por carga peligrosa">
 
     <label for="ref">Refrigeración:</label>

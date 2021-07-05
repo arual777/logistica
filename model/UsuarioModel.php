@@ -84,7 +84,5 @@ class UsuarioModel
         }else{
             return $this->database->execute("UPDATE Usuario U Set activo=true, id_Rol='$rol' where U.id_Usuario='$id' and U.id_Rol='$rolAntiguo'");
         }
-        }
-
-
+    }
 }
