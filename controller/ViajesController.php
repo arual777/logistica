@@ -1,7 +1,7 @@
 <?php
 
 
-class ViajeController
+class ViajesController
 {
     private $render;
     private $model;
