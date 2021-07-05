@@ -6,11 +6,13 @@ include_once("helper/Seguridad.php");
 include_once("model/UsuarioModel.php");
 include_once("model/PermisoModel.php");
 include_once("model/ProformaModel.php");
+include_once("model/ViajeModel.php");
 
 include_once("controller/AutorizacionController.php");
 include_once("controller/UsuarioController.php");
 include_once("controller/RegistroController.php");
 include_once("controller/ProformaController.php");
+include_once("controller/ViajeController.php");
 
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once("Router.php");
@@ -59,6 +61,12 @@ class Configuration{
         return new ProformaController($render, $proformaModel);
     }
 
+    public function getViajeController(){
+        $render = $this->getRender();
+        $model = $this->getViajeModel();
+        return new ViajeController($render, $model);
+    }
+
     public function getusuarioModel(){
         $database = $this->getDatabase();
         $seguridad = $this->getSeguridad();
@@ -74,6 +82,11 @@ class Configuration{
         $database = $this->getDatabase();
         return new ProformaModel($database);
     }
+
+   public function getViajeModel(){
+        $database = $this->getDatabase();
+        return new ViajeModel($database);
+   }
 
     public function getRouter(){
         return new Router($this);

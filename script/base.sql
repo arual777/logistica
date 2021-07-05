@@ -127,6 +127,22 @@ CREATE TABLE Viaje(
                       foreign key (id_usuario) references Usuario(id_Usuario),
                       foreign key (id_carga) references Carga (id_Carga));
 
+
+CREATE TABLE Viaje_Detalle(
+                    id_Viaje_Detalle int not null auto_increment,
+                    id_viaje int not null,
+                    kilometraje int not null,
+                    latitud decimal not null,
+                    longitud decimal not null,
+                    fecha date not null,
+                    combustibleCargado decimal not null,
+                    peajes decimal not null,
+                    extras decimal not null,
+                    primary key(id_Viaje_Detalle),
+                    foreign key (id_viaje) references Viaje (id_viaje));
+
+
+
 CREATE TABLE Costo(         id_Costo int not null auto_increment,
                             id_Viaje int not null,
                             importeReal decimal null,
@@ -234,6 +250,7 @@ INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
 
 
+
 INSERT INTO Cliente (id_Cliente, nombre, apellido, CUIT) VALUES (1, 'Roberto', 'Gonzalez', 234567654);
 INSERT INTO Cliente VALUES (2,'Esteban', 'Longchamps', 23465436);
 
@@ -243,3 +260,12 @@ VALUES ('Sin riesgo'),
        ('Gases'),
        ('Líquidos inflamables'),
        ('Sustancias tóxicas');
+       
+INSERT INTO Carga(id_TipoCarga,id_TipoHazard,refrigeracion, graduacion ,peso)
+VALUES(222, 1, 5, 10, 8500.0);
+INSERT INTO Carga VALUES(333, 2, 1, 15, 15000.0);
+
+INSERT INTO Viaje(id_usuario,id_carga,origen,destino,fecha_carga ,tiempo_estimadoLlegada ,codigo_qr)
+VALUES(4,1,'Buenos Aires', 'Paraná', '20210520', '20210522', null);
+INSERT INTO Viaje VALUES (4,2, 'La Plata', 'Río de Janeiro', '20210607', '20210612', null);
+                     

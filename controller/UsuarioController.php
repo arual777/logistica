@@ -28,6 +28,7 @@ class UsuarioController
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
 
+
     public function asignarRol(){
         $id = $_GET["id"];
         $rol = $_GET["rol"];

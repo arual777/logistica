@@ -25,6 +25,7 @@ class PermisoModel
             "LISTAR" => LECTURA,
             "MOSTRARUSUARIO" => LECTURA,
             "ASIGNARROL" => MODIFICACION,
+            "LISTARVIAJES" => LECTURA,
         );
     }
 
