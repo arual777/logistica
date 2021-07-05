@@ -1,5 +1,5 @@
 {{> header}}
-
+{{>headerUsuario}}
 <h1>PROFORMA</h1>
 <form action="/logistica/proforma/crear" method="post">
     <label for="fecha">Fecha:</label>

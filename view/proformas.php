@@ -1,4 +1,5 @@
 {{> header}}
+{{>headerUsuario}}
 <div>
     <h2>Proformas</h2>
     <a class="btn btn-success" href="/logistica/proforma/crear" role="button">

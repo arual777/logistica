@@ -1,18 +1,26 @@
 {{> header}}
-<main>
-    <a href="/logistica/autorizacion/logout"><input type="submit" class="form-control" value="Cerrar sesion"></a>
-    <div class="text-center">
-            <nav class="menu">
-                <ul class="listaMenu" style="list-style: none;">
-                    <li><a href="#">VIAJES</a></li>
-                    <li><a href="#">SERVICES</a></li>
-                    <li><a href="#">VEHÍCULOS</a>
-                    </li>
-                    <li><a href="#">EMPLEADOS</a></li>
-                    <li><a href="/logistica/Usuario/listar">USUARIOS</a></li>
-                    <li><a href="/logistica/proforma/">PROFORMA</a></li>
-                </ul>
-            </nav>
-    </div>
-</main>
+{{> headerUsuario}}
+
+<br>
+<br>
+
+<div class="col-12 mb-5 m-0 p-0">
+    <h5 class="text-center font-italic" style="font-size: 40px;">¡Bienvenido a la plataforma de trabajo de
+        Estrella del Norte!<br>
+        Seleccione la opción del menú que desee</h5>
+</div>
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 {{> footer}}
