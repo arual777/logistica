@@ -11,7 +11,8 @@ class UrlHelper
 
         return isset($_GET["module"]) ? $_GET["module"] : $default;
     }
-     //Con action es igual
+     //Con action es igual, el accion por defecto es el execute.
+    //segun el controlador que lo llame, hace una función diferente, renderiza una determinada vista
     public function getActionFromRequestOr($default){
         return isset($_GET["action"]) ? $_GET["action"] : $default;
     }
