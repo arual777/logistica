@@ -268,4 +268,10 @@ INSERT INTO Carga VALUES(333, 2, 1, 15, 15000.0);
 INSERT INTO Viaje(id_usuario,id_carga,origen,destino,fecha_carga ,tiempo_estimadoLlegada ,codigo_qr)
 VALUES(4,1,'Buenos Aires', 'Paraná', '20210520', '20210522', null);
 INSERT INTO Viaje VALUES (4,2, 'La Plata', 'Río de Janeiro', '20210607', '20210612', null);
-                     
+INSERT INTO Viaje VALUES (4,2, 'Río Gallegos', 'Rosario', '20210704', '20210710', null);
+
+
+INSERT INTO Viaje_Detalle(id_Viaje_Detalle, id_viaje , kilometraje, latitud, longitud, fecha, combustibleCargado, peajes, extras)
+VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0);
+INSERT INTO Viaje_Detalle VALUES(2,2, 4500, 0.0, 0.0, '20210611', 30000.0, 10000.0, 5000.0);
+INSERT INTO Viaje_Detalle VALUES(3,3, 2400, 0.0, 0.0, '20210706', 7000.0, 2000.0, 100.0);

@@ -6,7 +6,7 @@ include_once("helper/Seguridad.php");
 include_once("model/UsuarioModel.php");
 include_once("model/PermisoModel.php");
 include_once("model/ProformaModel.php");
-include_once("model/ViajeModel.php");
+include_once("model/ViajesModel.php");
 
 include_once("controller/AutorizacionController.php");
 include_once("controller/UsuarioController.php");
@@ -63,7 +63,7 @@ class Configuration{
 
     public function getViajesController(){
         $render = $this->getRender();
-        $model = $this->getViajeModel();
+        $model = $this->getViajesModel();
         return new ViajesController($render, $model);
     }
 
@@ -83,9 +83,9 @@ class Configuration{
         return new ProformaModel($database);
     }
 
-   public function getViajeModel(){
+   public function getViajesModel(){
         $database = $this->getDatabase();
-        return new ViajeModel($database);
+        return new ViajesModel($database);
    }
 
     public function getRouter(){
