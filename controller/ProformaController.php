@@ -18,72 +18,58 @@ class ProformaController
         echo $this->render->render("view/proformas.php", $data);
     }
 
+    public function formularioProforma(){
+        $data = $this->obtenerDatosFormulario();
+        echo $this->render->render("view/proforma.php",$data);
+    }
+
     public function crear()
     {
-        if(!$this->parametrosEstanCompletos()){
-            $data = $this->obtenerDatosFormulario();
-            echo $this->render->render("view/proforma.php",$data);
-            exit();
-        }
-
-        $cliente = $_POST["clientes"];
+        $denominacion= $_POST["denominacion"];
+        $cuit= $_POST["cuit"];
+        $telefono= $_POST["telefono"];
+        $mail= $_POST["mail"];
+        $contacto= $_POST["contacto"];
         $chofer = $_POST["chofer"];
-        $fecha  = $_POST["fecha"];
         $origen = $_POST["origen"];
         $destino  = $_POST["destino"];
-        $fechaCarga = $_POST["fechaCarga"];
-        $llegada  = $_POST["llegada"];
+        $fechaPartida = $_POST["fechaCarga"];
+        $tiempoEstimadollegada  = $_POST["llegada"];
         $tipoCarga= $_POST["tipoCarga"];
         $peso = $_POST["peso"];
-        $tipoHazard = $_POST["tipoHazard"];
+        $peligrosidad = $_POST["tipoHazard"];
         $refrigeracion  = $_POST["refrigeracion"];
         $graduacion= $_POST["graduacion"];
-        $km  = $_POST["km"];
-        $combustible = $_POST["combustible"];
-        $viatico  = $_POST["viatico"];
+        $kmEstimados = $_POST["km"];
+        $combustibleEstimado = $_POST["combustible"];
         $costoPeaje = $_POST["peaje"];
+        $viatico  = $_POST["viatico"];
         $costoHazard  = $_POST["costoHazard"];
         $costoRefrigeracion = $_POST["costoRefrigeracion"];
         $tarifa  = $_POST["tarifa"];
 
-        $this->proformaModel->crearProforma($fecha, $origen, $destino, $tipoCarga, $refrigeracion, $graduacion,
-            $viatico, $costoPeaje, $costoHazard, $costoRefrigeracion,
-            $tarifa, $km, $peso, $tipoHazard, $fechaCarga, $llegada, $cliente, $chofer);
+        $this->proformaModel->crearProforma($denominacion, $cuit, $telefono, $mail, $contacto, $origen, $destino, $fechaPartida, $tiempoEstimadollegada,$tipoCarga, $peso,
+                                  $peligrosidad, $refrigeracion, $graduacion, $kmEstimados, $combustibleEstimado,
+                                  $costoPeaje, $viatico, $costoHazard, $costoRefrigeracion,
+                                  $tarifa, $chofer);
 
         $proformas = $this->proformaModel->obtenerProformas();
         $data = array('proformas'=>$proformas);
         echo $this->render->render("view/proformas.php", $data);
     }
 
-
-    private function parametrosEstanCompletos(){
-        if(
-            empty($_POST['origen'])||
-            empty($_POST['destino'])||
-            empty($_POST['fechaCarga'])||
-            empty($_POST['llegada']) ||
-            empty($_POST['tipoCarga'])||
-            empty($_POST['peso'])||
-            empty($_POST['tipoHazard'])||
-            empty($_POST['refrigeracion'])||
-            empty($_POST['km'])||
-            empty($_POST['combustible'])||
-            empty($_POST['viatico'])||
-            empty($_POST['peaje'])||
-            empty($_POST['costoHazard']) ||
-            empty($_POST['costoRefrigeracion']) ||
-            empty($_POST['tarifa'])){
-            return false;
-        }
-        return true;
-    }
-
     private function obtenerDatosFormulario(){
         $choferes= $this->proformaModel->obtenerChoferes();
         $tipoCarga= $this->proformaModel->obtenerTipoDeCarga();
-        $clientes= $this->proformaModel->obtenerClientes();
         $tipoHazard= $this->proformaModel->obtenerTipoHazard();
-        $data = array('choferes'=>$choferes, 'tipoCarga' => $tipoCarga, 'clientes'=>$clientes, 'tipoHazard'=> $tipoHazard);
+        $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
+        $tipoVehiculoArrastre = $this->proformaModel->obtenerVehiculosDeArrastre();
+        $data = array(
+            'choferes'=>$choferes,
+            'tipoCarga' => $tipoCarga,
+            'tipoHazard'=> $tipoHazard,
+            'vehiculo'=>$tipoVehiculo,
+            'arrastre' =>$tipoVehiculoArrastre);
         return $data;
     }
 }

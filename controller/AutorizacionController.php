@@ -23,6 +23,7 @@ class AutorizacionController
             $usuario = $this->usuarioModel->validarLogin($usuario, $contrasenia);
 
             if(count($usuario)> 0) {
+                //metemos al usuario en la sesion
                 $_SESSION['usuario'] = $usuario[0]["id_Usuario"];
                 echo $this->home();
             }else{
@@ -51,6 +52,11 @@ class AutorizacionController
     public function home()
     {
         echo $this->render->render("view/usuario.php");
+    }
+
+    public function sinPermiso(){
+
+        echo $this->render->render("view/sinPermiso.php");
     }
 }
 
