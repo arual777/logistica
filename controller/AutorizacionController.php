@@ -27,6 +27,7 @@ class AutorizacionController
                 echo $this->home();
             }else{
                 $data = array();
+
                 $data["mensajeError"] = "Usuario o contraseña invalidos";
                 echo $this->render->render("view/login.php", $data);
             }

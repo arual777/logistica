@@ -11,17 +11,6 @@ class UsuarioModel
         $this->seguridad = $seguridad;
     }
 
-
-    public function getUsuarios()
-    {
-        return $this->database->query("");
-    }
-
-    public function getUsuario($id)
-    {
-        return $this->database->query("");
-    }
-
     public function validarLogin($usuario, $contrasenia)
     {
         $contraseniaEncriptada = $this->seguridad->encriptar($contrasenia);
@@ -83,6 +72,7 @@ class UsuarioModel
         return $this->database->query("select * from Rol R join Usuario U on R.id_Rol=U.id_Rol where U.id_Usuario='$id'");
 
     }
+
 
     public function obtenerRol($id){
         return $this->database->query("select Rol.id_Rol, Rol.descripcion from Rol join Usuario on Rol.id_Rol=Usuario.id_Rol where Usuario.id_Usuario='$id'");
