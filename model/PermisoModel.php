@@ -9,7 +9,7 @@ class PermisoModel
     {
         $this->database = $database;
 
-        //estas secciones son nestros controllers
+        //estas secciones son nuestros controllers
         $this->secciones = array(
             "USUARIO" => 1,
             "VIAJES" => 2,
