@@ -1,7 +1,7 @@
 {{>header}}
-
+{{>headerUsuario}}
 <div class="w3-container w3-content w3-center w3-padding-64">
-    <a href="/logistica/autorizacion/logout"><input type="submit" class="form-control" value="Cerrar sesion"></a>
+
 
 <div>
     <h1 class="text-black font-italic display-4 text-center">
