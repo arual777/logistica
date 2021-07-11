@@ -188,10 +188,10 @@ mecanico@gmail.com/261158
 **/
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 VALUES (1,2, 1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
-INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
-INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '0fd1604be5660d917f837442fcaeca49', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
-INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', 'c06397df996adb426b5d43f33b95c2df', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
-INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', 'f2bb07ee54b82f34f3f9f301115ffdf4', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
+INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
+INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
+INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
+INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
 
 INSERT INTO Seccion VALUES(1, 'Usuarios');
 INSERT INTO Seccion VALUES(2, 'Viajes');

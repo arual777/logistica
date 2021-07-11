@@ -71,5 +71,5 @@
         </div>
     </div>
 </div>
-
+<script src="./public/js/formRegistro.js"></script>
 {{> footer}}

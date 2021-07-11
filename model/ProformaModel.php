@@ -8,35 +8,84 @@ class ProformaModel
         $this->database = $database;
     }
 
-    public function crearProforma($denominacion, $cuit, $telefono, $mail, $contacto,$origen, $destino, $fechaPartida, $tiempoEstimadollegada,$tipoCarga, $peso,
+    public function crearProforma($idProforma, $idViaje, $idCarga, $denominacion, $cuit, $telefono, $mail, $contacto,$origen, $vehiculo, $arrastre,
+                                  $destino, $fechaPartida,
+                                  $tiempoEstimadollegada,$tipoCarga, $peso,
                                   $peligrosidad, $refrigeracion, $graduacion, $kmEstimados, $combustibleEstimado,
                                   $costoPeaje, $viatico, $costoHazard, $costoRefrigeracion,
-                                  $tarifa, $idChofer)
-    {
-        $idCarga = $this->insertarCarga($tipoCarga, $peligrosidad, $refrigeracion, $graduacion, $peso);
-        $idViaje = $this->insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida, $tiempoEstimadollegada);
+                                  $tarifa, $idChofer){
 
-        $sql = "INSERT INTO Proforma (fecha, denominacion_cliente, cuit, telefono, mail, contacto,  id_viaje, kilometros_estimados,
-                      combustible_litros_estimados, costo_peajes, costo_viaticos,costo_peligroso, costo_refrigeracion, tarifa)
-                values(NOW(), '$denominacion', '$cuit', '$telefono', '$mail', '$contacto', '$idViaje','$kmEstimados', 
+
+
+         if($idProforma=="") {
+                    $idCarga = $this->insertarCarga($tipoCarga, $peligrosidad, $refrigeracion, $graduacion, $peso);
+                    $idViaje = $this->insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida,
+                                                    $tiempoEstimadollegada, $vehiculo, $arrastre);
+
+                     $sql = "INSERT INTO Proforma (fecha, denominacion_cliente, cuit, telefono, mail, contacto,  id_viaje, 
+                      kilometros_estimados, combustible_litros_estimados, costo_peajes, costo_viaticos,costo_peligroso,
+                      costo_refrigeracion, tarifa)
+                             values(NOW(), '$denominacion', '$cuit', '$telefono', '$mail', '$contacto', '$idViaje','$kmEstimados', 
                        '$combustibleEstimado', '$costoPeaje', '$viatico', '$costoHazard', '$costoRefrigeracion',
                        '$tarifa')";
-        $this->database->execute($sql);
-    }
+                        $this->database->execute($sql);
+         } else{
 
+
+             $sql = "UPDATE Carga SET id_TipoCarga = '$tipoCarga', 
+                                        id_TipoHazard = '$peligrosidad',
+                                        refrigeracion = '$refrigeracion',
+                                        graduacion = '$graduacion', 
+                                        peso = '$peso'
+                                    
+                                 WHERE id_Carga = '$idCarga'";
+             $this->database->execute($sql);
+
+             $sql = "UPDATE Viaje SET id_usuario = '$idChofer',  
+                                        id_vehiculo = '$vehiculo',
+                                        id_arrastre = '$arrastre',
+                                        id_carga = '$idCarga',
+                                        origen = '$origen', 
+                                        destino = '$destino', 
+                                        fecha_carga='$fechaPartida',
+                                        tiempo_estimadoLlegada='$tiempoEstimadollegada'
+                WHERE id_Viaje = '$idViaje'";
+
+            $this->database->execute($sql);
+
+            $sql = "UPDATE Proforma 
+                            SET 
+                                fecha = NOW(),
+                                denominacion_cliente = '$denominacion', 
+                                cuit = '$cuit',
+                                telefono = '$telefono',
+                                mail = '$mail',
+                                contacto = '$contacto',
+                                id_viaje = '$idViaje', 
+                                kilometros_estimados = '$kmEstimados', 
+                                combustible_litros_estimados = '$combustibleEstimado', 
+                                costo_peajes = '$costoPeaje', 
+                                costo_viaticos = '$viatico', 
+                                costo_peligroso = '$costoHazard',
+                                costo_refrigeracion = '$costoRefrigeracion', 
+                                tarifa = '$tarifa'                                                                                                                                                                                                       
+                WHERE id_factura = '$idProforma'";
+            $this->database->execute($sql);
+        }
+    }
     public function obtenerChoferes(){
         $sql = "SELECT ID_USUARIO,NOMBRE, APELLIDO FROM USUARIO where id_rol=".CHOFER;
         return $this->database->query($sql);
     }
 
     public function obtenerVehiculos(){
-        $sql = "select id_Vehiculo, marca, patente, modelo from Vehiculo
+        $sql = "select id_vehiculo, marca, patente, modelo from Vehiculo
                 where id_Tipo <> ".ARRASTRE;
         return $this->database->query($sql);
     }
 
     public function obtenerVehiculosDeArrastre(){
-        $sql= "select V.id_Vehiculo, V.patente, V.chasis, S.descripcion
+        $sql= "select V.id_vehiculo, V.patente, V.chasis, S.descripcion
                 from Vehiculo V JOIN Tipo_Semi S on V.id_TipoSemi=S.id_Tipo
                 where V.id_Tipo =".ARRASTRE; //
         return $this->database->query($sql);
@@ -63,8 +112,15 @@ class ProformaModel
     }
 
     public function obtenerProformas(){  
-        $sql = "select id_factura, fecha, denominacion_cliente from proforma";
+        $sql = "select id_factura, id_viaje, fecha, denominacion_cliente from Proforma";
         return $this->database->query($sql);
+    }
+
+    public function detalleProforma($id){
+        $sql = "select * from PROFORMA p
+        join viaje v on p.id_viaje = v.id_viaje
+        join carga c on v.id_carga = c.id_Carga WHERE p.id_factura = '$id'";
+       return $this->database->query($sql);
     }
 
     private function insertarCarga($tipoCarga, $peligrosidad, $refrigeracion, $graduacion, $peso){
@@ -76,12 +132,16 @@ class ProformaModel
         return $this->database->lastId();
     }
 
-    private function insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida, $tiempoEstimadoLlegada){
+    private function insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida, $tiempoEstimadoLlegada,
+                                   $vehiculo, $arrastre){
         $sql = "INSERT INTO Viaje ( id_usuario, id_carga, origen, destino, fecha_carga, tiempo_estimadoLlegada,codigo_qr,id_vehiculo, id_arrastre)   
-                values('$idChofer', $idCarga , '$origen','$destino','$fechaPartida','$tiempoEstimadoLlegada', null, '1', '2')";
+                values('$idChofer', $idCarga , '$origen','$destino','$fechaPartida','$tiempoEstimadoLlegada', null, 
+                       '$vehiculo', '$arrastre')";
 
         $this->database->execute($sql);
 
         return $this->database->lastId();
     }
+
+
 }

@@ -19,6 +19,8 @@ class PermisoModel
         );
 
         //estas acciones son las functiones que tenemos en los controllers
+        //de esta manera dos usuarios distintos pueden tener distintos permisos para una misma vista
+        //por ejemplo, un mecánico puede leer los viajes pero no modificarlos
         $this->acciones = array(
             "EXECUTE" => LECTURA,
             "CREAR" =>  ALTA,
@@ -27,7 +29,8 @@ class PermisoModel
             "ASIGNARROL" => MODIFICACION,
             "LISTARVIAJES" => LECTURA,
             "DETALLEVIAJE" => MODIFICACION,
-            "FORMULARIOPROFORMA" => LECTURA
+            "FORMULARIOPROFORMA" => LECTURA,
+            "DETALLEPROFORMA"=> LECTURA
         );
     }
 

@@ -23,6 +23,15 @@ class ProformaController
         echo $this->render->render("view/proforma.php",$data);
     }
 
+    public function detalleProforma()
+    {   $id = $_GET["id"];
+        $proforma = $this->proformaModel->detalleProforma($id);
+        $data = array('proforma' => $proforma);
+        $datosFormulario = $this->obtenerDatosFormulario();
+        $datosFormulario["proforma"] = $proforma;
+        echo $this->render->render("view/proforma.php", $datosFormulario);
+    }
+
     public function crear()
     {
         $denominacion= $_POST["denominacion"];
@@ -32,6 +41,8 @@ class ProformaController
         $contacto= $_POST["contacto"];
         $chofer = $_POST["chofer"];
         $origen = $_POST["origen"];
+        $vehiculo= $_POST ["vehiculo"];
+        $arrastre= $_POST ["arrastre"];
         $destino  = $_POST["destino"];
         $fechaPartida = $_POST["fechaCarga"];
         $tiempoEstimadollegada  = $_POST["llegada"];
@@ -47,8 +58,14 @@ class ProformaController
         $costoHazard  = $_POST["costoHazard"];
         $costoRefrigeracion = $_POST["costoRefrigeracion"];
         $tarifa  = $_POST["tarifa"];
+        $idProforma= $_POST ["factura"];
+        $idViaje= $_POST["viaje"];
+        $idCarga= $_POST["carga"];
 
-        $this->proformaModel->crearProforma($denominacion, $cuit, $telefono, $mail, $contacto, $origen, $destino, $fechaPartida, $tiempoEstimadollegada,$tipoCarga, $peso,
+
+        $this->proformaModel->crearProforma($idProforma, $idViaje, $idCarga, $denominacion, $cuit, $telefono, $mail, $contacto, $origen, $vehiculo,
+                                    $arrastre, $destino, $fechaPartida,
+                                    $tiempoEstimadollegada,$tipoCarga, $peso,
                                   $peligrosidad, $refrigeracion, $graduacion, $kmEstimados, $combustibleEstimado,
                                   $costoPeaje, $viatico, $costoHazard, $costoRefrigeracion,
                                   $tarifa, $chofer);
@@ -65,10 +82,10 @@ class ProformaController
         $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
         $tipoVehiculoArrastre = $this->proformaModel->obtenerVehiculosDeArrastre();
         $data = array(
-            'choferes'=>$choferes,
+            'choferes' =>$choferes,
             'tipoCarga' => $tipoCarga,
             'tipoHazard'=> $tipoHazard,
-            'vehiculo'=>$tipoVehiculo,
+            'vehiculo' =>$tipoVehiculo,
             'arrastre' =>$tipoVehiculoArrastre);
         return $data;
     }
