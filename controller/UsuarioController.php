@@ -25,6 +25,7 @@ class UsuarioController
     public function mostrarUsuario(){
         $id = $_GET["id"];
         $data["usuario"] = $this->model->obtenerUsuario($id);
+        $data['rolUsuario'] = $this->model->obtenerRol($id);
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
 
@@ -34,6 +35,7 @@ class UsuarioController
         $rol = $_GET["rol"];
         $rolAntiguo = $this->model->obtenerRol($id);
         $this->model->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
+        $data['rolUsuario'] = $this->model->obtenerRol($id);
         $data["usuario"] = $this->model->obtenerUsuario($id);
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
