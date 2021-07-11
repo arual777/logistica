@@ -57,11 +57,16 @@
                             <form action="/logistica/Usuario/asignarRol" method="GET">
                                 <input type = "hidden" name = "id" id="id" value = "{{id_Usuario}}"><br>
                                 <select name="rol" id="rol" class="form-control">
+                                    <optgroup label="Rol actual">
+                                        {{#rolUsuario}}<option value="{{id_Rol}}">{{descripcion}}{{/rolUsuario}}</option>
+                                    </optgroup>
+                                    <optgroup label="Roles">optgroup>
                                     <option value="1">Sin rol</option>
                                     <option value="2">Administrador</option>
                                     <option value="3">Supervisor</option>
                                     <option value="4">Chofer</option>
                                     <option value="5">Mecanico</option>
+                                    </optgroup>
                                 </select>
                         </div>
                         <div class="modal-footer">
