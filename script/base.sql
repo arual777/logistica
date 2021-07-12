@@ -131,17 +131,17 @@ CREATE TABLE Viaje(
                       foreign key (id_arrastre) references Vehiculo (id_Vehiculo));
 
 CREATE TABLE Viaje_Detalle(
-                    id_Viaje_Detalle int not null auto_increment,
-                    id_viaje int not null,
-                    kilometraje int not null,
-                    latitud decimal not null,
-                    longitud decimal not null,
-                    fecha date not null,
-                    combustibleCargado decimal not null,
-                    peajes decimal not null,
-                    extras decimal not null,
-                    primary key(id_Viaje_Detalle),
-                    foreign key (id_viaje) references Viaje (id_viaje));
+                              id_Viaje_Detalle int not null auto_increment,
+                              id_viaje int not null,
+                              kilometraje int not null,
+                              latitud decimal not null,
+                              longitud decimal not null,
+                              fecha date not null,
+                              combustibleCargado decimal not null,
+                              peajes decimal not null,
+                              extras decimal not null,
+                              primary key(id_Viaje_Detalle),
+                              foreign key (id_viaje) references Viaje (id_viaje));
 
 CREATE TABLE Proforma(
                          id_factura int not null auto_increment,
@@ -207,6 +207,22 @@ INSERT INTO Rol_Seccion VALUES(2,3,1,1,1,1);
 INSERT INTO Rol_Seccion VALUES(2,4,1,1,1,1);
 INSERT INTO Rol_Seccion VALUES(2,5,1,1,1,1);
 
+/*permisos rol supervisor*/
+INSERT INTO Rol_Seccion(id_Rol,id_Seccion,alta,baja,modificacion,lectura)
+VALUES (3,1,0,0,0,1);
+INSERT INTO Rol_Seccion VALUES(3,2,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(3,3,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(3,4,1,1,1,1);
+INSERT INTO Rol_Seccion VALUES(3,5,1,1,1,1);
+
+/*permisos rol chofer*/
+INSERT INTO Rol_Seccion(id_Rol,id_Seccion,alta,baja,modificacion,lectura)
+VALUES (4,1,0,0,0,1);
+INSERT INTO Rol_Seccion VALUES(4,2,0,0,1,1);
+INSERT INTO Rol_Seccion VALUES(4,3,0,0,1,1);
+INSERT INTO Rol_Seccion VALUES(4,4,0,0,0,1);
+INSERT INTO Rol_Seccion VALUES(4,5,0,0,0,0);
+
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion)  VALUES (1, 'Arrastre');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (2,'Tractor');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (3, 'Camion');
@@ -241,18 +257,21 @@ VALUES ('Sin riesgo'),
        ('Gases'),
        ('Líquidos inflamables'),
        ('Sustancias tóxicas');
-       
+
 INSERT INTO Carga(id_TipoCarga,id_TipoHazard,refrigeracion, graduacion ,peso)
 VALUES(222, 1, 5, 10, 8500.0)
-,(333, 2, 1, 15, 15000.0);
+     ,(333, 2, 1, 15, 15000.0);
 
 INSERT INTO Viaje(id_usuario,id_vehiculo,id_arrastre,id_carga,origen,destino,fecha_carga ,tiempo_estimadoLlegada ,codigo_qr)
 VALUES(4,1,1,1,'Buenos Aires', 'Paraná', '20210520', '20210522', null)
-,     (4,2,2,2,'La Plata', 'Río de Janeiro', '20210607', '20210612', null)
-,     (4,2,1,1,'Río Gallegos', 'Rosario', '20210704', '20210710', null);
+     ,     (4,2,2,2,'La Plata', 'Río de Janeiro', '20210607', '20210612', null)
+     ,     (4,2,1,1,'Río Gallegos', 'Rosario', '20210704', '20210710', null);
 
 
 INSERT INTO Viaje_Detalle(id_Viaje_Detalle, id_viaje , kilometraje, latitud, longitud, fecha, combustibleCargado, peajes, extras)
 VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0)
-,(2,2, 4500, 0.0, 0.0, '20210611', 30000.0, 10000.0, 5000.0)
-,(3,3, 2400, 0.0, 0.0, '20210706', 7000.0, 2000.0, 100.0);
+     ,(2,2, 4500, 0.0, 0.0, '20210611', 30000.0, 10000.0, 5000.0)
+     ,(3,3, 2400, 0.0, 0.0, '20210706', 7000.0, 2000.0, 100.0);
+
+INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
+VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');

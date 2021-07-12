@@ -4,10 +4,15 @@ class AutorizacionController
 {
     private $render;
     private $usuarioModel;
-    public function __construct($render, $usuarioModel)
+    private $proformaModel;
+    private $viajesModel;
+
+    public function __construct($render, $usuarioModel, $proformaModel, $viajesModel)
     {
         $this->render = $render;
         $this->usuarioModel = $usuarioModel;
+        $this->proformaModel = $proformaModel;
+        $this->viajesModel = $viajesModel;
     }
 
     public function execute()
@@ -25,6 +30,8 @@ class AutorizacionController
             if(count($usuario)> 0) {
                 //metemos al usuario en la sesion
                 $_SESSION['usuario'] = $usuario[0]["id_Usuario"];
+                $_SESSION['id_Rol'] = $usuario[0]["id_Rol"];
+
                 echo $this->home();
             }else{
                 $data = array();
@@ -51,12 +58,35 @@ class AutorizacionController
 
     public function home()
     {
-        echo $this->render->render("view/usuario.php");
+        $rol = $_SESSION['id_Rol'];
+        switch($rol){
+            case ADMINISTRADOR:
+            case SUPERVISOR:
+                $this->renderAdministradorSupervisorHome();
+            break;
+            case CHOFER:
+                $this->renderChoferHome();
+            break;
+            default:
+                echo $this->render->render("view/usuario.php");
+            break;
+        }
     }
 
     public function sinPermiso(){
-
         echo $this->render->render("view/sinPermiso.php");
+    }
+
+    private function renderAdministradorSupervisorHome(){
+        $proformas = $this->proformaModel->obtenerProformas();
+        $data = array('proformas'=>$proformas);
+        echo $this->render->render("view/proformas.php", $data);
+    }
+
+    private function renderChoferHome(){
+        $usuario = $_SESSION['usuario'];
+        $data["viajes"] = $this->viajesModel->obtenerViajesPorIdUsuario($usuario);
+        echo $this->render->render( "view/viajes.php", $data );
     }
 }
 
