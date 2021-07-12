@@ -18,17 +18,19 @@ if (!function_exists('str_contains')) {
 //Valido que el usuario este en sesion
 if(isset($_SESSION['usuario'])){
         //si la accion no es logout y el modulo (controllers)no contiene  a p[ublic, valido los permisos
-        //agrego el public porque en los request aparece y no sé de dónde sale
+        //agregamos el public porque en los request aparece y no sAbíamos  de dónde sale
         if( strtoupper($action)!="LOGOUT" && !str_contains(strtoupper($module),'PUBLIC'))
         {
             if((strtoupper($module)) == "AUTORIZACION" || empty($module)){
                 //si actualiza la página, y el usuario ya está logueado, lo mandamos a la home.
+                //así prevenimos que se loguee dos veces
                 $module="autorizacion";
-                $action="home";
+                $action="home"; //FUNCION DEL CONTTROLER AUTORizacion. QUE RENDERIZA A LA VISTA DE USUARIO
             }else{
                 //en ocasiones el action aparece vacio
-                //cuando esta vacio le pongo la accion por defecto
+                //cuando esta vacio le ponemos la accion por defecto
                 if($action==""){
+                    //metodo por defecto de cada controller
                     $action = "EXECUTE";
                 }
                 $permisos = $configuration->getPermisoModel(); //llama a esa funcion para crear un PermisoModel
@@ -45,7 +47,6 @@ if(isset($_SESSION['usuario'])){
     //aca entra cuando el usuario no esta en sesion
     //si el usuario intenta entrar a un modulo que no sea registro o autorizacion lo mandamos a la pantalla de error (por ejemplo, si quiere ir directamente a la proforma x url)
     //esto es porque los unicos modulos que puede usar cuando aun no se logueo es autorizacion (para loguearse) o registro (para registrarse)
-    //agrego el public porque en los request aparece y no sé de dónde sale
     if( (strtoupper($module)!="AUTORIZACION" && strtoupper($module)!="REGISTRO") && !str_contains(strtoupper($module),'PUBLIC'))
     {
         $module="autorizacion";  //lo mandamos a la pantalla de login, si no está logueado
@@ -53,5 +54,6 @@ if(isset($_SESSION['usuario'])){
 	}
 }
 
-$router = $configuration->getRouter();  //enviA LOS VALORES GUARDADOS EM LAS VARIABLES
+$router = $configuration->getRouter();
+//enviA LOS VALORES GUARDADOS EM LAS VARIABLES
 $router->executeActionFromModule($action, $module);
