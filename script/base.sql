@@ -188,10 +188,10 @@ mecanico@gmail.com/261158
 **/
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 VALUES (1,2, 1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
-INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
-INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '0fd1604be5660d917f837442fcaeca49', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
-INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', 'c06397df996adb426b5d43f33b95c2df', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
-INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', 'f2bb07ee54b82f34f3f9f301115ffdf4', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
+INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
+INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
+INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
+INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
 
 INSERT INTO Seccion VALUES(1, 'Usuarios');
 INSERT INTO Seccion VALUES(2, 'Viajes');
@@ -231,6 +231,10 @@ VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien'
 INSERT INTO Tipo_Service(id_service, descripcion) VALUES (1,'Revision motor');
 INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
 INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
+
+INSERT INTO Service (id_Service,id_Vehiculo,id_Usuario,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)
+VALUES (1,1,4,1,'20210403', 1900, 'Cambio de motor', 'Motor');
+INSERT INTO Service VALUES (4,1,1,3,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe'); 
 
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');

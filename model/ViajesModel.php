@@ -12,10 +12,13 @@ class ViajesModel
 
     public function obtenerViajesPorOrdenFecha(){
 
-        return $this->database->query("SELECT * FROM Viaje ORDER BY fecha_carga DESC");
+        return $this->database->query("select * from PROFORMA p join viaje v on p.id_viaje = v.id_viaje ORDER BY fecha_carga DESC");
     }
 
     public function obtenerDetalleViaje($id){
         return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$id'");
     }
+
+
+
 }

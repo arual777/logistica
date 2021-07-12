@@ -59,7 +59,7 @@ class RegistroController
             } else {
                 $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password, $usuario, $apellido, $dni, $fecha_nac, $codigoLicencia);
                 $data = array();
-                $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un admin te asigne un rol para poder iniciar sesión";
+                $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un administrador te asigne un rol para poder iniciar sesión";
                 echo $this->render->render("view/login.php",$data);
                 exit();
 
