@@ -55,9 +55,10 @@ class UsuarioModel
 
     public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia)
     {
+        $sinRol = SIN_ROL;
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
-        $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
-                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
+        $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia, id_rol)   
+                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia', '$sinRol')";
 
         $this->database->execute($sql);
     }
