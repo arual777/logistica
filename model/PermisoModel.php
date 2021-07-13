@@ -26,11 +26,25 @@ class PermisoModel
             "CREAR" =>  ALTA,
             "LISTAR" => LECTURA,
             "MOSTRARUSUARIO" => LECTURA,
+            "INSERTAR" => ALTA,
+            "INSERTARUSUARIO" => LECTURA,
+            "MODIFICARUSUARIO" => MODIFICACION,
+            "BORRARUSUARIO" => BAJA,
             "ASIGNARROL" => MODIFICACION,
             "LISTARVIAJES" => LECTURA,
             "DETALLEVIAJE" => MODIFICACION,
             "FORMULARIOPROFORMA" => LECTURA,
-            "DETALLEPROFORMA"=> LECTURA
+            "DETALLEPROFORMA" => LECTURA,
+            "LISTARVEHICULOS" => LECTURA,
+            "BORRARVEHICULO" => BAJA,
+            "EDITAR" => MODIFICACION,
+            "INSERTARVEHICULO" => ALTA,
+            "MODIFICARVEHICULO" => LECTURA,
+            "LISTARSERVICES" => LECTURA,
+            "BORRARSERVICE" => BAJA,
+            "MODIFICARSERVICE" => LECTURA,
+            "EDITARSERVICE" => MODIFICACION,
+            "INSERTARSERVICE" => ALTA,
         );
     }
 
