@@ -12,7 +12,6 @@ class RegistroController
         $this->usuarioModel = $usuarioModel;
     }
 
-
     public function execute()
     {
         echo $this->render->render("view/registro.php");
@@ -20,13 +19,15 @@ class RegistroController
 
     public function registrar()
     {
-        if(empty($_POST['nombre'])||empty($_POST['apellido'])||empty($_POST['dni'])||empty($_POST['fecha_nac'])||empty($_POST['email'])||empty($_POST['password'])){
+        if(empty($_POST['nombre'])||empty($_POST['apellido'])||empty($_POST['dni'])||empty($_POST['fecha_nac'])
+            ||empty($_POST['email'])||empty($_POST['password'])){
             $data = array();
             $data["mensajeError"] = "Complete este campo";
             echo $this->render->render("view/registro.php",$data);
             exit();
         }
-        if (isset($_POST['nombre'], $_POST['apellido'], $_POST['dni'], $_POST['fecha_nac'], $_POST['email'], $_POST['password'])) {
+        if (isset($_POST['nombre'], $_POST['apellido'], $_POST['dni'], $_POST['fecha_nac'], $_POST['email'],
+            $_POST['password'])) {
             $usuario = $_POST['nombre'];
             $apellido = $_POST['apellido'];
             $dni = $_POST['dni'];
@@ -57,7 +58,8 @@ class RegistroController
                 echo $this->render->render("view/registro.php", $data);
                 exit();
             } else {
-                $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password, $usuario, $apellido, $dni, $fecha_nac, $codigoLicencia);
+                $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password, $usuario, $apellido,
+                    $dni, $fecha_nac, $codigoLicencia);
                 $data = array();
                 $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un administrador te asigne un rol para poder iniciar sesión";
                 echo $this->render->render("view/login.php",$data);
