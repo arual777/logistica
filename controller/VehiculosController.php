@@ -45,15 +45,13 @@ class VehiculosController
     }
 
     public function modificarVehiculo(){
-        $data ["id"]= isset($_POST["id"]) ?  $_POST["id"] : "";
+        $data ["idVehiculo"]= isset($_POST["idVehiculo"]) ?  $_POST["idVehiculo"] : "";
         $data["marca"] = isset($_POST["marca"]) ?  $_POST["marca"] : "";
         $data["modelo"] = isset($_POST["modelo"]) ?  $_POST["modelo"] : "";
         $data["patente"] = isset($_POST["patente"]) ?  $_POST["patente"] : "";
         $data["chasis"] = isset($_POST["chasis"]) ?  $_POST["chasis"] : "";
         $data["anio_fabricacion"] = isset($_POST["anio_fabricacion"]) ? $_POST["anio_fabricacion"] : "";
         $data["kilometraje"] = isset($_POST["kilometraje"]) ? $_POST["kilometraje"] : "";
-
-        $data["vehiculo"] = $this->model->obtenerVehiculoPorId($data);
 
         $this->model->editarVehiculo($data);
         $data["vehiculos"] = $this->model->obtenerVehiculos();

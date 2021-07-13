@@ -37,7 +37,7 @@ class VehiculosModel
     }
 
     public function editarVehiculo($data){
-        $id_Vehiculo = $data['id'];
+        $id_Vehiculo = $data['idVehiculo'];
         $marca = $data['marca'];
         $modelo = $data['modelo'];
         $patente = $data['patente'];
@@ -45,17 +45,15 @@ class VehiculosModel
         $anio_fabricacion = $data['anio_fabricacion'];
         $kilometraje = $data['kilometraje'];
 
-        $sql= ("UPDATE Vehiculo SET marca = '$marca',
-                                                            modelo = '$modelo',
-                                                            patente = '$patente',
-                                                            chasis = '$chasis',
-                                                            anio_fabricacion = '$anio_fabricacion',
-                                                            kilometraje = '$kilometraje'
-                                                            WHERE id_Vehiculo = '$id_Vehiculo'");
-
+        $sql= "UPDATE Vehiculo 
+                SET marca = '$marca',
+                modelo = '$modelo',
+                patente = '$patente',
+                chasis = '$chasis',
+                anio_fabricacion = '$anio_fabricacion',
+                kilometraje = '$kilometraje'
+                WHERE id_Vehiculo = '$id_Vehiculo'";
        $this->database->execute($sql);
-
-
     }
 
     public function borrarVehiculo($id){

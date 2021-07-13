@@ -34,7 +34,7 @@
                 placeholder="Ingrese la chasis del vehículo" required>
 
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
-
+                    <input type="hidden" id="idVehiculo" name="idVehiculo" value="{{id_Vehiculo}}" />
                 </form>
                 {{/vehiculo}}
             </div>
