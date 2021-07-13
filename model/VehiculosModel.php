@@ -19,18 +19,9 @@ class VehiculosModel
         return $this->database->query("SELECT * FROM Vehiculo WHERE id_Vehiculo = '$id'");
     }
 
-    public function insertarVehiculo($data){
-        $marca = $data['marca'];
-        $modelo = $data['modelo'];
-        $patente = $data['patente'];
-        $motor = $data['motor'];
-        $chasis = $data['chasis'];
-        $anio_fabricacion = $data['anio_fabricacion'];
-        $kilometraje = $data['kilometraje'];
-        $estado = $data['estado'];
-
-        $sql =("INSERT INTO Vehiculo (marca, modelo,patente, motor, chasis, anio_fabricacion, kilometraje, estado) VALUES 
-                                ('$marca', '$modelo', '$patente', '$motor', '$chasis','$anio_fabricacion','$kilometraje', '$estado') ");
+    public function insertarVehiculo($marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado){
+        $sql ="INSERT INTO Vehiculo (marca, modelo,patente, motor, chasis, anio_fabricacion, kilometraje, estado) VALUES 
+                                ('$marca', '$modelo', '$patente', '$motor', '$chasis','$anio_fabricacion','$kilometraje', '$estado') ";
 
         $this->database->execute($sql);
 

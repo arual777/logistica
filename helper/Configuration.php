@@ -93,8 +93,8 @@ class Configuration
     public function getServiceController()
     {
         $render = $this->getRender();
-        $model = $this->getServiceModel();
-        return new ServiceController($render, $model);
+        $serviceModel = $this->getServiceModel();
+        return new ServiceController($render, $serviceModel);
     }
 
     public function getusuarioModel()

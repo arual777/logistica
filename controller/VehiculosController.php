@@ -22,19 +22,23 @@ class VehiculosController
         echo $this->render->render("view/vehiculos.php",$data);
     }
 
+    public function insertar(){
+        echo $this->render->render("view/nuevoVehiculo.php");
+    }
+
     public function insertarVehiculo(){
-        $data["marca"] = isset($_POST["marca"]) ?  $_POST["marca"] : "";
-        $data["modelo"] = isset($_POST["modelo"]) ?  $_POST["modelo"] : "";
-        $data["patente"] = isset($_POST["patente"]) ?  $_POST["patente"] : "";
-        $data["motor"] = isset($_POST["motor"]) ? ($_POST["motor"]) : "";
-        $data["chasis"] = isset($_POST["chasis"]) ?  $_POST["chasis"] : "";
-        $data["anio_fabricacion"] = isset($_POST["anio_fabricacion"]) ? $_POST["anio_fabricacion"] : "";
-        $data["kilometraje"] = isset($_POST["kilometraje"]) ? $_POST["kilometraje"] : "";
-        $data["estado"] = isset($_POST["estado"]) ? $_POST["estado"] : "";
+        $marca = $_POST["marca"];
+        $modelo = $_POST["modelo"];
+        $patente = $_POST["patente"];
+        $motor = $_POST["motor"];
+        $chasis = $_POST["chasis"];
+        $anio_fabricacion = $_POST["anio_fabricacion"];
+        $kilometraje = $_POST["kilometraje"];
+        $estado = $_POST["estado"];
 
-
-        $this->model->insertarVehiculo($data);
-        echo $this->render->render("view/nuevoVehiculo.php",$data);
+        $this->model->insertarVehiculo($marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);
+        $data['vehiculos'] = $this->model->obtenerVehiculos();
+        echo $this->render->render("view/vehiculos.php",$data);
     }
 
     public function editar(){

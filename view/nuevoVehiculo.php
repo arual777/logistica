@@ -9,7 +9,7 @@
             <div class="card-header border border-dark w-50 m-auto bg-white">
                 <h1>Nuevo Vehículo</h1>
 
-                <form action="/logistica/Vehiculos/insertarVehiculo/" method="post" enctype="multipart/form-data">
+                <form action="/logistica/Vehiculos/insertarVehiculo/" role="form" method="post" enctype="multipart/form-data">
 
                     <label for="marca">Marca:</label>
                     <input type="text" name="marca" id="marca" class="form-control"
@@ -24,7 +24,7 @@
                            placeholder="Ingrese la patente del vehiculo" required>
 
                     <label for="motor">Motor:</label>
-                    <input type="text" name="motor" id="motor" class="form-control"
+                    <input type="number" name="motor" id="motor" class="form-control"
                            placeholder="Ingrese el motor del vehiculo" required>
 
                     <label for="chasis">Chasis:</label>

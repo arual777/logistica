@@ -3,7 +3,7 @@
 
 <div class="w3-container w3-content w3-center w3-padding-64">
     <h1 class="text-center">Vehículos</h1>
-    <a href="/logistica/Vehiculos/insertarVehiculo/"><button type="submit" class="btn btn-primary btn-block mb-3 mt-3">Nuevo Vehiculo</button></a>
+    <a href="/logistica/Vehiculos/insertar/"><button type="submit" class="btn btn-primary btn-block mb-3 mt-3">Nuevo Vehiculo</button></a>
     <table class='table table-primary table-hover table-responsive-xs'>
         <tr>
             <th>Id Vehículo</th>

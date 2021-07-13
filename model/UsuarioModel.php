@@ -53,25 +53,13 @@ class UsuarioModel
         }
     }
 
-    public function insertarUsuario($data)
+    public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia)
     {
-        $tipoLicencia = $data['id_Licencia'];
-        $mail = $data['mail'];
-        $password = $data['clave'];
-        $activo = $data['activo'];
-        $nombre = $data['nombre'];
-        $apellido = $data['apellido'];
-        $dni = $data['dni'];
-        $fecha_nac = $data['fecha_nac'];
-        $codigoLicencia = $data['codigo_licencia'];
-
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
         $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
-                                values($tipoLicencia, '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
+                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
 
         $this->database->execute($sql);
-
-
     }
 
     public function editarUsuario($data){
