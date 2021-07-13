@@ -23,7 +23,9 @@ class VehiculosController
     }
 
     public function insertar(){
-        echo $this->render->render("view/nuevoVehiculo.php");
+        $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
+        $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
+        echo $this->render->render("view/nuevoVehiculo.php",$data);
     }
 
     public function insertarVehiculo(){
@@ -35,8 +37,11 @@ class VehiculosController
         $anio_fabricacion = $_POST["anio_fabricacion"];
         $kilometraje = $_POST["kilometraje"];
         $estado = $_POST["estado"];
+        $estado = $_POST["arrastre"];
+        $tipoVehiculo = $_POST["tipoVehiculo"];
+        $arrastre = $_POST["arrastre"];
 
-        $this->model->insertarVehiculo($marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);
+        $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);
         $data['vehiculos'] = $this->model->obtenerVehiculos();
         echo $this->render->render("view/vehiculos.php",$data);
     }
@@ -45,6 +50,10 @@ class VehiculosController
     $id_Vehiculo = $_GET["id"];
     $data['id']= $id_Vehiculo;
     $data["vehiculo"] = $this->model->obtenerVehiculoPorId($data);
+    $data["vehiculoTipoActual"] = $this->model->obtenerVehiculoPorIdDeVehiculo($id_Vehiculo);
+    $data["arrastreActual"] = $this->model->obtenerArrastrePorIdDeVehiculos($id_Vehiculo);
+    $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
+    $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
     echo $this->render->render("view/vehiculoModificar.php",$data);
     }
 
@@ -56,6 +65,8 @@ class VehiculosController
         $data["chasis"] = isset($_POST["chasis"]) ?  $_POST["chasis"] : "";
         $data["anio_fabricacion"] = isset($_POST["anio_fabricacion"]) ? $_POST["anio_fabricacion"] : "";
         $data["kilometraje"] = isset($_POST["kilometraje"]) ? $_POST["kilometraje"] : "";
+        $data["tipoVehiculo"] = isset($_POST["tipoVehiculo"]) ? $_POST["tipoVehiculo"] : "";
+        $data["arrastre"] = isset($_POST["arrastre"]) ? $_POST["arrastre"] : "";
 
         $this->model->editarVehiculo($data);
         $data["vehiculos"] = $this->model->obtenerVehiculos();
@@ -67,5 +78,16 @@ class VehiculosController
         $this->model->borrarVehiculo($id);
         $data["vehiculos"] = $this->model->obtenerVehiculos();
         echo $this->render->render("view/vehiculos.php",$data);
+    }
+
+
+    public function obtenerDatosVehiculos(){
+
+        $tipoVehiculos= $this->model->obtenerTiposVehiculos();
+        $tipoRemolques= $this->model->obtenerTiposRemolque();
+        $data = array(
+            'tipoVehiculos' =>$tipoVehiculos,
+            'tipoRemolques' => $tipoRemolques);
+        return $data;
     }
 }
