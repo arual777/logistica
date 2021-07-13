@@ -45,6 +45,8 @@ class PermisoModel
             "MODIFICARSERVICE" => LECTURA,
             "EDITARSERVICE" => MODIFICACION,
             "INSERTARSERVICE" => ALTA,
+            "CREARNUEVANOTIFICACION"=> MODIFICACION,
+            "VERFORMNOTIFICACION"=> LECTURA
         );
     }
 
