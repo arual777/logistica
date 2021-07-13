@@ -27,6 +27,17 @@ class ViajesModel
         return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$id'");
     }
 
+    public function obtenerIdDelViaje(){
+        $sql= "select id_Viaje from Viaje as V join ViajeDetalle VD where V.id_Viaje= VD.id_viaje";
+    }
 
+    public function crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras){
+
+            $sql = "INSERT INTO Viaje_Detalle (id_viaje, kilometraje, latitud, longitud, fecha, 
+                                                combustibleCargado, peajes, extras)   
+                values('$idViaje','$km','$latitud', '$longitud','$fecha', '$combustibleCargado', '$peajes', '$extras')";
+
+            $this->database->execute($sql);
+    }
 
 }
