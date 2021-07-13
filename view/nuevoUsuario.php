@@ -1,4 +1,4 @@
-<!--{{>header}}
+{{>header}}
 {{>headerUsuario}}
 
 <br><br>
@@ -49,5 +49,5 @@
 
 <br>
 <br>
-{{>footer}}-->
+{{>footer}}
 

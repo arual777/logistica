@@ -45,12 +45,11 @@ class ServiceController
     }
 
     public function modificarService(){
-        $data ["id"]= isset($_POST["id"]) ?  $_POST["id"] : "";
+        $data ["idService"]= isset($_POST["idService"]) ?  $_POST["idService"] : "";
         $data["fecha"] = isset($_POST["fecha"]) ?  $_POST["fecha"] : "";
         $data["kilometraje"] = isset($_POST["kilometraje"]) ?  $_POST["kilometraje"] : "";
         $data["repuestos_cambiados"] = isset($_POST["repuestos_cambiados"]) ?  $_POST["repuestos_cambiados"] : "";
 
-        $data["service"] = $this->model->obtenerServicePorId($data);
 
         $this->model->editarService($data);
         $data["services"] = $this->model->obtenerServices();

@@ -58,6 +58,7 @@ class UsuarioModel
         $tipoLicencia = $data['id_Licencia'];
         $mail = $data['mail'];
         $password = $data['clave'];
+        $activo = $data['activo'];
         $nombre = $data['nombre'];
         $apellido = $data['apellido'];
         $dni = $data['dni'];
@@ -67,12 +68,15 @@ class UsuarioModel
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
         $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
                                 values($tipoLicencia, '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
-        $resultado = $this->database->execute($sql);
+
+        $this->database->execute($sql);
+
 
     }
 
-    /*public function editarUsuario($data){
-        $id_Usuario = $data['id'];
+    public function editarUsuario($data){
+        $id_Usuario = $data['idUsuario'];
+        $id_Rol = $data['rol'];
         $mail = $data['mail'];
         $clave = $data['clave'];
         $activo = $data['activo'];
@@ -82,26 +86,28 @@ class UsuarioModel
         $fecha_nac = $data['fecha_nac'];
         $codigo_licencia = $data['codigo_licencia'];
 
-        $sql= ("UPDATE Usuario SET mail = '$mail',
+        $sql= "UPDATE Usuario SET mail = '$mail',
                                                             clave = '$clave',
                                                             activo = '$activo',
                                                             nombre = '$nombre',
                                                             apellido= '$apellido',
                                                             dni = '$dni',
                                                             fecha_nac = '$fecha_nac',
-                                                            codigo_licencia = '$codigo_licencia'
-                                                            WHERE id_Usuario = '$id_Usuario'");
+                                                            codigo_licencia = '$codigo_licencia',
+                                                            id_Rol = '$id_Rol'
+                                                            WHERE id_Usuario = '$id_Usuario'";
         $this->database->execute($sql);
 
-    }*/
+    }
 
     public function obtenerUsuarios()
     {
         return $this->database->query("SELECT * FROM Usuario");
     }
 
-    public function obtenerUsuario($id)
+    public function obtenerUsuario($data)
     {
+        $id = $data["id"];
         return $this->database->query("select * from Rol R join Usuario U on R.id_Rol=U.id_Rol where U.id_Usuario='$id'");
     }
 

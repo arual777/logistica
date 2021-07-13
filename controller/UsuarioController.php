@@ -24,16 +24,15 @@ class UsuarioController
 
     public function mostrarUsuario(){
         $id = $_GET["id"];
-<<<<<<< Updated upstream
-        $data["usuario"] = $this->model->obtenerUsuario($id);
-        $data['rolUsuario'] = $this->model->obtenerRol($id);
-=======
         $data["usuario"] = $this->usuarioModel->obtenerUsuario($id);
         $data['rolUsuario'] = $this->usuarioModel->obtenerRol($id);
->>>>>>> Stashed changes
+
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
 
+    public function insertar(){
+        echo $this->render->render("view/nuevoUsuario.php");
+    }
 
     public function insertarUsuario(){
         $data["id_Licencia"] = isset($_POST["id_Licencia"]) ?  $_POST["id_Licencia"] : "";
@@ -47,19 +46,22 @@ class UsuarioController
         $data["codigo_licencia"] = isset($_POST["codigo_licencia"]) ?  $_POST["codigo_licencia"] : "";
 
         $this->usuarioModel->insertarUsuario($data);
-        echo $this->render->render("view/nuevoUsuario.php",$data);
+
+        $data["usuarios"] = $this->usuarioModel->obtenerUsuarios();
+        echo $this->render->render("view/verUsuarios.php",$data);
     }
 
 
-    /*public function editar(){
+    public function editar(){
         $id_Usuario= $_GET["id"];
         $data['id']= $id_Usuario;
-        $data["usuario"] = $this->model->obtenerUsuario($data);
+        $data["usuario"] = $this->usuarioModel->obtenerUsuario($data);
         echo $this->render->render("view/modificarUsuario.php",$data);
     }
 
     public function modificarUsuario(){
-        $data ["id"]= isset($_POST["id"]) ?  $_POST["id"] : "";
+        $data ["idUsuario"]= isset($_POST["idUsuario"]) ?  $_POST["idUsuario"] : "";
+        $data['rol'] = isset($_POST["rol"]) ?  $_POST["rol"] : "";
         $data["mail"] = isset($_POST["mail"]) ?  $_POST["mail"] : "";
         $data["clave"] = isset($_POST["clave"]) ?  md5($_POST["clave"]) : "";
         $data["activo"] = isset($_POST["activo"]) ?  $_POST["activo"] : "";
@@ -69,12 +71,12 @@ class UsuarioController
         $data["fecha_nac"] = isset($_POST["fecha_nac"]) ?  $_POST["fecha_nac"] : "";
         $data["codigo_licencia"] = isset($_POST["codigo_licencia"]) ?  $_POST["codigo_licencia"] : "";
 
-        $data["usuario"] = $this->model->obtenerUsuario($data);
 
-        $this->model->editarUsuario($data);
-        $data["usuarios"] = $this->model->obtenerUsuarios();
+        $this->usuarioModel->editarUsuario($data);
+
+        $data["usuarios"] = $this->usuarioModel->obtenerUsuarios();
         echo $this->render->render("view/verUsuarios.php",$data);
-    }*/
+    }
 
     public function borrarUsuario(){
         $id = $_GET["id"];
@@ -86,17 +88,12 @@ class UsuarioController
     public function asignarRol(){
         $id = $_GET["id"];
         $rol = $_GET["rol"];
-<<<<<<< Updated upstream
-        $rolAntiguo = $this->model->obtenerRol($id);
-        $this->model->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
-        $data['rolUsuario'] = $this->model->obtenerRol($id);
-        $data["usuario"] = $this->model->obtenerUsuario($id);
-=======
+
         $rolAntiguo = $this->usuarioModel->obtenerRol($id);
         $this->usuarioModel->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
         $data['rolUsuario'] = $this->usuarioModel->obtenerRol($id);
         $data["usuario"] = $this->usuarioModel->obtenerUsuario($id);
->>>>>>> Stashed changes
+
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
 }

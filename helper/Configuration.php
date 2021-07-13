@@ -50,7 +50,9 @@ class Configuration
     {
         $render = $this->getRender();
         $usuarioModel = $this->getusuarioModel();
-        return new AutorizacionController($render, $usuarioModel);
+        $proformaModel = $this->getProformaModel();
+        $viajesModel = $this->getViajesModel();
+        return new AutorizacionController($render, $usuarioModel, $proformaModel, $viajesModel);
     }
 
     public function getRegistroController()

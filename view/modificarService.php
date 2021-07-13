@@ -23,6 +23,7 @@
 
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
 
+                    <input type="hidden" id="idService" name="idService" value="{{id_Service}}" />
                 </form>
                 {{/service}}
             </div>

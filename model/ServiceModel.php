@@ -37,15 +37,17 @@ class ServiceModel
     }
 
     public function editarService($data){
-        $id_Service = $data['id'];
+        $id_Service = $data['idService'];
         $fecha = $data['fecha'];
         $kilometraje = $data['kilometraje'];
         $repuestos_cambiados = $data['repuestos_cambiados'];
 
-        $this->database->query("UPDATE Service SET fecha = '$fecha',
+        $sql = "UPDATE Service SET fecha = '$fecha',
                                     kilometraje = '$kilometraje',
-                                    repuestos_cambiados = '$repuestos_cambiados',
-                                    WHERE id_Service = '$id_Service'");
+                                    repuestos_cambiados = '$repuestos_cambiados'
+                                    WHERE id_Service = '$id_Service'";
+
+        $this->database->execute($sql);
 
     }
 
