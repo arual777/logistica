@@ -23,8 +23,9 @@ class UsuarioController
     }
 
     public function mostrarUsuario(){
-        $id = $_GET["id"];
-        $data["usuario"] = $this->usuarioModel->obtenerUsuario($id);
+        $id =$_GET["id"];
+        $data['id'] = $_GET["id"];
+        $data["usuario"] = $this->usuarioModel->obtenerUsuario($data);
         $data['rolUsuario'] = $this->usuarioModel->obtenerRol($id);
         echo $this->render->render( "view/infoUsuario.php", $data );
     }
@@ -55,6 +56,8 @@ class UsuarioController
         $id_Usuario= $_GET["id"];
         $data['id']= $id_Usuario;
         $data["usuario"] = $this->usuarioModel->obtenerUsuario($data);
+        $data['rolActual'] = $this->usuarioModel->obtenerRol($id_Usuario);
+        $data['licencia'] = $this->usuarioModel->obtenerLicencia($id_Usuario);
         echo $this->render->render("view/modificarUsuario.php",$data);
     }
 
@@ -69,9 +72,12 @@ class UsuarioController
         $data["dni"] = isset($_POST["dni"]) ? $_POST["dni"] : "";
         $data["fecha_nac"] = isset($_POST["fecha_nac"]) ?  $_POST["fecha_nac"] : "";
         $data["codigo_licencia"] = isset($_POST["codigo_licencia"]) ?  $_POST["codigo_licencia"] : "";
+        $data["tipoLicencia"] = isset($_POST["tipoLicencia"]) ?  $_POST["tipoLicencia"] : "";
+        $data["nuevoRol"] = isset($_POST["rol"]) ?  $_POST["rol"] : "";
 
 
         $this->usuarioModel->editarUsuario($data);
+        $this->usuarioModel->asignarRol($data['idUsuario'],$data['rol']);
 
         $data["usuarios"] = $this->usuarioModel->obtenerUsuarios();
         echo $this->render->render("view/verUsuarios.php",$data);
@@ -84,18 +90,4 @@ class UsuarioController
         echo $this->render->render("view/verUsuarios.php",$data);
     }
 
-    public function asignarRol(){
-		$id = $_GET["id"];
-    $rol = $_GET["rol"];
-      
-        $rolAntiguo = $this->usuarioModel->obtenerRol($id);
-        $this->usuarioModel->asignarRol($id,$rolAntiguo[0]['id_Rol'],$rol);
-        $data['rolUsuario'] = $this->usuarioModel->obtenerRol($id);
-        $data["usuario"] = $this->usuarioModel->obtenerUsuario($id);
-
-        $this->usuarioModel->asignarRol($id,$rol);
-        $data['rolUsuario'] = $this->usuarioModel->obtenerRol($id);
-        $data["usuario"] = $this->usuarioModel->obtenerUsuario($id);
-        echo $this->render->render( "view/infoUsuario.php", $data );
-    }
 }

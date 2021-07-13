@@ -8,9 +8,9 @@
             <div class="card-header border border-dark w-50 m-auto bg-white">
                 <h1>Modificar Usuario</h1>
                 {{#usuario}}
-                <form action="/logistica/Service/modificarUsuario/" method="post" enctype="multipart/form-data">
+                <form action="/logistica/Usuario/modificarUsuario/" method="post" enctype="multipart/form-data">
                     <label for="email">E-mail:</label>
-                    <input type="email" name="email" value="{{mail}}" id="email" class="form-control"
+                    <input type="email" name="mail" value="{{mail}}" id="mail" class="form-control"
                            placeholder="Ingrese el mail del usuario" required>
 
                     <label for="clave">Clave:</label>
@@ -37,14 +37,40 @@
                     <input type="date" name="fecha_nac" value="{{fecha_nac}}" id="fecha_nac" class="form-control"
                            placeholder="Ingrese la fecha de nacimiento del usuario" required>
 
-                    <label for="codigo_licencia">Codigo licencia:</label>
-                    <input type="text" name="codigo_licencia" value="{{codigo_licencia}}" id="codigo_licencia" class="form-control"
-                           placeholder="Ingrese el codigo de licencia del usuario" required>
+                    <p>Tipo de licencia:</p>
+                    <select name="tipoLicencia" id="tipoLicencia" class="form-control licencia">
+                       <optgroup label="Licencia actual">
+                           {{#licencia}}<option value="{{id_Licencia}}">{{descripcion}}{{/licencia}}</option>
+                       </optgroup>
+                        <optgroup label="Licencias">
+                        <option value="1">Sin licencia</option>
+                        <option value="2">A</option>
+                        <option value="3">B</option>
+                        <option value="4">C</option>
+                        <option value="5">D</option>
+                        <option value="6">E</option>
+                        <option value="7">F</option>
+                        </optgroup>
+                    </select>
+                    <label for="codigo_licencia">Codigo de licencia</label>
+                    <input type="text" name="codigo_licencia" id="codigo_licencia" class="form-control" value="{{codigo_licencia}}">
 
+                    <label for="rol">Rol:</label>
+                    <select name="rol" id="rol" class="form-control">
+                        <optgroup label="Rol actual">
+                            {{#rolActual}}<option value="{{id_Rol}}">{{descripcion}}{{/rolActual}}</option>
+                        </optgroup>
+                        <optgroup label="Roles">optgroup>
+                            <option value="1">Sin rol</option>
+                            <option value="2">Administrador</option>
+                            <option value="3">Supervisor</option>
+                            <option value="4">Chofer</option>
+                            <option value="5">Mecanico</option>
+                        </optgroup>
+                    </select>
 
-                    <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
                     <input type="hidden" id="idUsuario" name="idUsuario" value="{{id_Usuario}}" />
-
+                    <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
 
                 </form>
                  {{/usuario}}
@@ -52,8 +78,4 @@
         </div>
     </div>
 </div>
-
-
-<br>
-<br>
 {{>footer}}
