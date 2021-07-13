@@ -19,20 +19,12 @@ class ServiceModel
         return $this->database->query("SELECT * FROM Service WHERE id_Service= '$id'");
     }
 
-    public function insertarService($data){
-        $id_Service = $data['id_Service'];
-        $id_Vehiculo = $data['id_Vehiculo'];
-        $id_Usuario = $data['id_Usuario'];
-        $id_TipoService = $data['id_TipoService'];
-        $fecha = $data['fecha'];
-        $kilometraje = $data['kilometraje'];
-        $detalle = $data['detalle'];
-        $repuestos_cambiados = $data['repuestos_cambiados'];
+    public function insertarService($fecha,$kilometraje,$detalle,$repuestos_cambiados){
 
-        $sql =("INSERT INTO Service (id_Service, id_Vehiculo, id_Usuario, id_TipoService, fecha, kilometraje, detalle, repuestos_cambiados) VALUES 
-                                ('$id_Service', '$id_Vehiculo', '$id_Usuario', '$id_TipoService', '$fecha','$kilometraje','$detalle', '$repuestos_cambiados') ");
+        $sql ="INSERT INTO Service (fecha, kilometraje, detalle, repuestos_cambiados) VALUES 
+                                ('$fecha','$kilometraje','$detalle', '$repuestos_cambiados') ";
 
-      return $this->database->execute($sql);
+      $this->database->execute($sql);
 
     }
 
@@ -40,7 +32,7 @@ class ServiceModel
         $id_Service = $data['idService'];
         $fecha = $data['fecha'];
         $kilometraje = $data['kilometraje'];
-        $repuestos_cambiados = $data['repuestos_cambiados'];
+        $repuestos_cambiados = $data['repuestos'];
 
         $sql = "UPDATE Service SET fecha = '$fecha',
                                     kilometraje = '$kilometraje',

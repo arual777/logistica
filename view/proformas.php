@@ -10,6 +10,8 @@
             <th scope="col">Proforma Numero</th>
             <th scope="col">Fecha</th>
             <th scope="col">Cliente</th>
+            <th scope="col">Acciones</th>
+            <th scope="col"></th>
         </tr>
         {{#proformas}}
         <tr>

@@ -34,20 +34,21 @@ class UsuarioController
     }
 
     public function insertarUsuario(){
-        $data["id_Licencia"] = isset($_POST["id_Licencia"]) ?  $_POST["id_Licencia"] : "";
-        $data["mail"] = isset($_POST["mail"]) ? $_POST["mail"] : "";
-        $data["clave"] = isset($_POST["clave"]) ? md5 ($_POST["clave"]) : "";
-        $data["activo"] = isset($_POST["activo"]) ? $_POST["activo"] : "";
-        $data["nombre"] = isset($_POST["nombre"]) ?  $_POST["nombre"] : "";
-        $data["apellido"] = isset($_POST["apellido"]) ? $_POST["apellido"] : "";
-        $data["dni"] = isset($_POST["dni"]) ?  $_POST["dni"] : "";
-        $data["fecha_nac"] = isset($_POST["fecha_nac"]) ? $_POST["fecha_nac"] : "";
-        $data["codigo_licencia"] = isset($_POST["codigo_licencia"]) ?  $_POST["codigo_licencia"] : "";
+            $usuario = $_POST['nombre'];
+            $apellido = $_POST['apellido'];
+            $dni = $_POST['dni'];
+            $fecha_nac = $_POST['fecha_nac'];
+            $mail = $_POST['email'];
+            $password = $_POST['clave'];
+            $codigoLicencia = $_POST['codigo_licencia'];
+            $tipoLicencia = 1;
 
-        $this->usuarioModel->insertarUsuario($data);
+            $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password,$usuario, $apellido,
+                    $dni, $fecha_nac, $codigoLicencia);
+            $data['usuarios'] = $this->usuarioModel->obtenerUsuarios();
+            echo $this->render->render("view/verUsuarios.php",$data);
 
-        $data["usuarios"] = $this->usuarioModel->obtenerUsuarios();
-        echo $this->render->render("view/verUsuarios.php",$data);
+
     }
 
 

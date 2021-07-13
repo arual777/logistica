@@ -14,6 +14,9 @@
         <th>DNI</th>
         <th>Fecha nacimiento</th>
         <th>Codigo licencia</th>
+        <th>Acciones</th>
+        <th></th>
+        <th></th>
     </tr>
 
     {{#usuarios}}

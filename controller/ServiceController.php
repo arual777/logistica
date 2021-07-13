@@ -3,44 +3,43 @@
 class ServiceController
 {
     private $render;
-    private $model;
+    private $serviceModel;
 
-    public function __construct($render, $model)
+    public function __construct($render, $serviceModel)
     {
         $this->render = $render;
-        $this->model = $model;
+        $this->serviceModel = $serviceModel;
     }
 
     public function execute(){
-        $data['services'] = $this->model->obtenerServices();
-        echo $this->model->render("view/services.php",$data);
+        $data['services'] = $this->serviceModel->obtenerServices();
+        echo $this->serviceModel->render("view/services.php",$data);
     }
 
     public function listarServices(){
-        $data['services'] = $this->model->obtenerServices();
+        $data['services'] = $this->serviceModel->obtenerServices();
         echo $this->render->render("view/services.php",$data);
     }
 
+    public function insertar(){
+        echo $this->render->render("view/nuevoService.php");
+    }
 
     public function insertarService(){
-        $data["id_Service"] = isset($_POST["id_Service"]) ?  $_POST["id_Service"] : "";
-        $data["id_Vehiculo"] = isset($_POST["id_Vehiculo"]) ?  $_POST["id_Vehiculo"] : "";
-        $data["id_Usuario"] = isset($_POST["id_Usuario"]) ?  $_POST["id_Usuario"] : "";
-        $data["id_TipoService"] = isset($_POST["id_TipoService"]) ? ($_POST["id_TipoService"]) : "";
-        $data["fecha"] = isset($_POST["fecha"]) ?  $_POST["fecha"] : "";
-        $data["kilometraje"] = isset($_POST["kilometraje"]) ? $_POST["kilometraje"] : "";
-        $data["detalle"] = isset($_POST["detalle"]) ? $_POST["detalle"] : "";
-        $data["repuestos_cambiados"] = isset($_POST["repuestos_cambiados"]) ? $_POST["repuestos_cambiados"] : "";
+        $fecha = $_POST["fecha"];
+        $kilometraje =$_POST["kilometraje"];
+        $detalle = $_POST["detalle"];
+        $repuestos_cambiados = $_POST["repuestos"];
 
-
-        $this->model->insertarService($data);
-        echo $this->render->render("view/nuevoService.php",$data);
+        $this->serviceModel->insertarService($fecha,$kilometraje,$detalle,$repuestos_cambiados);
+        $data['services'] = $this->serviceModel->obtenerServices();
+        echo $this->render->render("view/services.php",$data);
     }
 
     public function editarService(){
         $id_Service = $_GET["id"];
         $data['id']= $id_Service;
-        $data["service"] = $this->model->obtenerServicePorId($data);
+        $data["service"] = $this->serviceModel->obtenerServicePorId($data);
         echo $this->render->render("view/modificarService.php",$data);
     }
 
@@ -48,18 +47,18 @@ class ServiceController
         $data ["idService"]= isset($_POST["idService"]) ?  $_POST["idService"] : "";
         $data["fecha"] = isset($_POST["fecha"]) ?  $_POST["fecha"] : "";
         $data["kilometraje"] = isset($_POST["kilometraje"]) ?  $_POST["kilometraje"] : "";
-        $data["repuestos_cambiados"] = isset($_POST["repuestos_cambiados"]) ?  $_POST["repuestos_cambiados"] : "";
+        $data["repuestos"] = isset($_POST["repuestos"]) ?  $_POST["repuestos"] : "";
 
 
-        $this->model->editarService($data);
-        $data["services"] = $this->model->obtenerServices();
+        $this->serviceModel->editarService($data);
+        $data["services"] = $this->serviceModel->obtenerServices();
         echo $this->render->render("view/services.php",$data);
     }
 
     public function borrarService(){
         $id = $_GET["id"];
-        $this->model->borrarService($id);
-        $data["services"] = $this->model->obtenerServices();
+        $this->serviceModel->borrarService($id);
+        $data["services"] = $this->serviceModel->obtenerServices();
         echo $this->render->render("view/services.php",$data);
     }
 }

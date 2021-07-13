@@ -9,7 +9,7 @@
             <div class="card-header border border-dark w-50 m-auto bg-white">
                 <h1>Nuevo Service</h1>
 
-                <form action="/logistica/Service/insertarService/" method="post" enctype="multipart/form-data">
+                <form action="/logistica/Service/insertarService/" role="form" method="post" enctype="multipart/form-data">
 
                 <label for="fecha">Fecha:</label>
                 <input type="date" name="fecha" id="fecha" class="form-control"
