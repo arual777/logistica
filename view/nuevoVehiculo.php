@@ -43,6 +43,24 @@
                     <input type="text" name="estado" id="estado" class="form-control"
                            placeholder="Ingrese el estado del vehiculo" required>
 
+                    <h3>Tipo de vehiculo</h3>
+                    <select name="tipoVehiculo" id="tipoVehiculo" class="form-control d-inline">
+                        <optgroup label="Tipos de vehiculos">
+                            {{#tipoVehiculo}}
+                            <option value="{{id_TipoVehiculo}}">{{descripcion}}</option>
+                            {{/tipoVehiculo}}
+                        </optgroup>
+                    </select>
+                    <br>
+                    <h3>Tipo de arrastre</h3>
+                    <select name="arrastre" id="arrastre" class="form-control d-inline">
+                        <optgroup label="Arrastres">
+                            {{#tipoArrastre}}
+                            <option value="{{id_Tipo}}" class="form-control d-inline">{{descripcion}}</option>
+                            {{/tipoArrastre}}
+                        </optgroup>
+
+                    </select>
                     <input type="submit" value="Agregar" class="btn btn-primary btn-block mb-3 mt-3">
 
                 </form>

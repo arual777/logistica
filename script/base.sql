@@ -226,6 +226,7 @@ INSERT INTO Rol_Seccion VALUES(4,5,0,0,0,0);
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion)  VALUES (1, 'Arrastre');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (2,'Tractor');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (3, 'Camion');
+INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (4, 'Nada');
 
 INSERT INTO Tipo_Semi(id_Tipo, descripcion)  VALUES (1, 'No Aplica');
 INSERT INTO Tipo_Semi(id_Tipo, descripcion)  VALUES (2, 'Araña');
