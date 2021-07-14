@@ -55,9 +55,13 @@ class VehiculosModel
         $chasis = $data['chasis'];
         $anio_fabricacion = $data['anio_fabricacion'];
         $kilometraje = $data['kilometraje'];
+        $tipoVehiculo = $data["tipoVehiculo"];
+        $tipoArrastre = $data["arrastre"];
 
         $sql = "UPDATE Vehiculo 
                 SET marca = '$marca',
+                id_Tipo= '$tipoVehiculo',
+                id_TipoSemi = '$tipoArrastre',    
                 modelo = '$modelo',
                 patente = '$patente',
                 chasis = '$chasis',

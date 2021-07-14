@@ -40,10 +40,9 @@ class VehiculosController
         $estado = $_POST["arrastre"];
         $tipoVehiculo = $_POST["tipoVehiculo"];
         $arrastre = $_POST["arrastre"];
-
         $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);
         $data['vehiculos'] = $this->model->obtenerVehiculos();
-        echo $this->render->render("view/vehiculos.php",$data);
+        header("Location: /logistica/Vehiculos/listarVehiculos/");
     }
 
     public function editar(){
@@ -70,7 +69,16 @@ class VehiculosController
 
         $this->model->editarVehiculo($data);
         $data["vehiculos"] = $this->model->obtenerVehiculos();
-        echo $this->render->render("view/vehiculos.php",$data);
+        echo $data["idVehiculo"] . "<br>" .
+             $data["marca"] . "<br>" .
+             $data["modelo"] . "<br>" .
+             $data["patente"] . "<br>" .
+             $data["chasis"] . "<br>" .
+             $data["anio_fabricacion"] . "<br>" .
+             $data["kilometraje"] . "<br>" .
+             $data["tipoVehiculo"] . "<br>" .
+             $data["arrastre"] . "<br>" ;
+        header("Location: /logistica/Vehiculos/listarVehiculos/");
     }
 
     public function borrarVehiculo(){

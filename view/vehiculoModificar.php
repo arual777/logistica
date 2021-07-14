@@ -58,7 +58,7 @@
                         {{/arrastreActual}}
                         <optgroup label="Arrastres">
                             {{#tipoArrastre}}
-                            <option value="id_TipoVehiculo" class="form-control d-inline">{{descripcion}}</option>
+                            <option value="{{id_Tipo}}" class="form-control d-inline">{{descripcion}}</option>
                             {{/tipoArrastre}}
                             value=""></option>
                         </optgroup>
