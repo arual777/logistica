@@ -23,19 +23,21 @@ class ServiceController
 
     public function insertar(){
         $data['vehiculo'] = $this->serviceModel->obtenerVehiculos();
-        $data['tipoService'] = $this->serviceModel->obtenerTiposService();
         $data['usuario'] = $this->serviceModel->obtenerUsuarios();
+        $data['tipoService'] = $this->serviceModel->obtenerTiposService();
         echo $this->render->render("view/nuevoService.php",$data);
     }
 
     public function insertarService(){
-        $id_Vehiculo = $_POST["vehiculo"];
-        $id_Usuario = $_POST["usuario"];
-        $id_TipoService = $_POST["tipoService"];
+
         $fecha = $_POST["fecha"];
         $kilometraje = $_POST["kilometraje"];
         $detalle = $_POST["detalle"];
         $repuestos_cambiados = $_POST["repuestos"];
+        $id_Vehiculo = $_POST["vehiculo"];
+        $id_Usuario = $_POST["usuario"];
+        $id_TipoService = $_POST["tipoService"];
+
         $this->serviceModel->insertarService($id_Vehiculo,$id_Usuario,$id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados);
         $data['services'] = $this->serviceModel->obtenerServices();
         echo $this->render->render("view/services.php",$data);
@@ -66,15 +68,7 @@ class ServiceController
         $this->serviceModel->editarService($data);
         $data["services"] = $this->serviceModel->obtenerServices();
 
-        echo $data["idService"] . "<br>" .
-            $data["fecha"] . "<br>" .
-            $data["kilometraje"] . "<br>" .
-            $data["repuestos"] . "<br>" .
-            $data["tipoService"] . "<br>" .
-            $data["usuario"] . "<br>" .
-            $data["vehiculo"] . "<br>" .
-
-        header("Location: /logistica/Service/listarServices/");
+        echo $this->render->render("view/services.php",$data);
 
     }
 

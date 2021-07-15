@@ -67,7 +67,7 @@
                         <optgroup label="Rol actual">
                             {{#rolActual}}<option value="{{id_Rol}}">{{descripcion}}{{/rolActual}}</option>
                         </optgroup>
-                        <optgroup label="Roles">optgroup>
+                        <optgroup label="Roles">
                             <option value="1">Sin rol</option>
                             <option value="2">Administrador</option>
                             <option value="3">Supervisor</option>
@@ -75,7 +75,6 @@
                             <option value="5">Mecanico</option>
                         </optgroup>
                     </select>
-
 
                     <input type="hidden" id="idUsuario" name="idUsuario" value="{{id_Usuario}}" />
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
