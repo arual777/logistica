@@ -17,7 +17,7 @@ CREATE TABLE Usuario(   id_Usuario int not null auto_increment,
                         activo bool,
                         nombre varchar (80) not null,
                         apellido varchar (80) not null,
-                        dni int not null,
+                        dni varchar(45) not null,
                         fecha_nac date,
                         codigo_licencia varchar (20) null,
                         primary key (id_Usuario),
@@ -281,3 +281,6 @@ VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0)
 
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', false, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
+
+INSERT INTO Usuario (id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
+values(1,1,'algoPrueba@gmail.com','3f9406b114126f9f05c3fdf78012ae79',true,'Joel','Escobar','44107580','2001-07-02','xxxx');

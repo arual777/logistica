@@ -53,11 +53,17 @@ class UsuarioModel
         }
     }
 
-    public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia,$id_Rol)
+    public function insertarUsuario($tipoLicencia,$mail,$password,$activarUsuario,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia,$id_Rol)
     {
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
-        $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia,id_rol)   
-                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia', '$id_Rol')";
+        if($tipoLicencia==1){
+            $codigoLicencia= "";
+        }
+        if($id_Rol==1){
+            $activarUsuario = 0;
+        }
+        $sql = "INSERT INTO Usuario (id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)   
+                                values('$id_Rol','$tipoLicencia', '$mail', '$contraseniaEncriptada','$activarUsuario', '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
       
         $this->database->execute($sql);
     }
@@ -92,7 +98,7 @@ class UsuarioModel
 
     public function obtenerUsuarios()
     {
-        return $this->database->query("SELECT * FROM Usuario");
+        return $this->database->query("SELECT * FROM Usuario join Rol on Usuario.id_Rol=Rol.id_Rol order by Usuario.id_Usuario");
     }
 
     public function obtenerUsuario($data)
@@ -114,16 +120,25 @@ class UsuarioModel
         return $this->database->query("select Rol.id_Rol, Rol.descripcion from Rol join Usuario on Rol.id_Rol=Usuario.id_Rol where Usuario.id_Usuario='$id'");
     }
 
+    public function obtenerRoles(){
+        return $this->database->query("select Rol.id_Rol, Rol.descripcion from Rol");
+    }
+
     public function asignarRol($id,$rol){
         if($rol==SIN_ROL) {
             return $this->database->execute("UPDATE Usuario U Set activo=false, id_Rol='$rol' where U.id_Usuario='$id'");
         }else{
-            return $this->database->execute("UPDATE Usuario U Set activo=true, id_Rol='$rol' where U.id_Usuario='$id'");
+            return $this->database->execute("UPDATE Usuario U Set id_Rol='$rol' where U.id_Usuario='$id'");
         }
     }
 
     public function obtenerLicencia($id){
         $sql = "select Tipo_Licencia.id_tipoLicencia,Tipo_Licencia.descripcion from Tipo_Licencia left join Usuario on Tipo_Licencia.id_tipoLicencia=Usuario.id_Licencia where Usuario.id_Usuario='$id'";
+        return $this->database->query($sql);
+    }
+
+    public function obtenerLicencias(){
+        $sql = "select Tipo_Licencia.id_tipoLicencia,Tipo_Licencia.descripcion from Tipo_Licencia ";
         return $this->database->query($sql);
     }
 }

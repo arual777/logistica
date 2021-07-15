@@ -27,7 +27,7 @@ class PermisoModel
             "LISTAR" => LECTURA,
             "MOSTRARUSUARIO" => LECTURA,
             "INSERTAR" => ALTA,
-            "INSERTARUSUARIO" => LECTURA,
+            "AGREGARUSUARIO" => LECTURA,
             "MODIFICARUSUARIO" => MODIFICACION,
             "BORRARUSUARIO" => BAJA,
             "ASIGNARROL" => MODIFICACION,

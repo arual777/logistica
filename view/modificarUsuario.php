@@ -20,11 +20,11 @@
                     <label for="activo">Activo:</label>
                     <select name="activo" id="activo" class="form-control">
                         <optgroup label="Estado actual">
-                            {{#estadoActual}}<option value="{{id_Usuario}}">{{activo}}{{/estadoActual}}</option>
+                            {{#estadoActual}}<option value="{{activo}}">{{/estadoActual}}{{#estado}} {{actual}} {{/estado}}</option>
                         </optgroup>
                         <optgroup label="Estado">
-                            <option value="true" >Si</option>
-                            <option value="false">No</option>
+                            <option value="1" >Si</option>
+                            <option value="0">No</option>
                         </optgroup>
                     </select>
 
