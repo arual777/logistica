@@ -53,11 +53,16 @@ class UsuarioModel
         }
     }
 
-    public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia)
+    public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia,$id_Rol)
     {
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
+<<<<<<< Updated upstream
         $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
                                 values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
+=======
+        $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia,id_rol)   
+                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia', '$id_Rol')";
+>>>>>>> Stashed changes
 
         $this->database->execute($sql);
     }
@@ -103,6 +108,10 @@ class UsuarioModel
         return $this->database->execute("DELETE FROM Usuario WHERE id_Usuario = '$id'");
     }
 
+
+    public function obtenerActividad($id){
+        return $this->database->query("SELECT activo from Usuario WHERE id_Usuario = '$id'");
+    }
 
     public function obtenerRol($id){
         return $this->database->query("select Rol.id_Rol, Rol.descripcion from Rol join Usuario on Rol.id_Rol=Usuario.id_Rol where Usuario.id_Usuario='$id'");

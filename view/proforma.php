@@ -172,7 +172,7 @@
                             <label for="chofer" class="d-inline h4">Chofer:</label>
                         </div>
                         <div class="col-12 col-md-10">
-                            <select name="chofer" class="form-control">
+                            <select name="chofer" id="chofer"  class="form-control">
                                 {{#choferes}}
                                 <option value="{{ID_USUARIO}}">{{NOMBRE}} {{APELLIDO}}</option>
                                 {{/choferes}}
@@ -183,7 +183,6 @@
                         </div>
                     </div>
 
-
                     <input type="hidden" id="vehiculoH" value="{{#proforma}}{{id_vehiculo}}{{/proforma}}"/>
                     <input type="hidden" id="arrastreH" value="{{#proforma}}{{id_arrastre}}{{/proforma}}"/>
                     <input type="hidden" id="cargaH" value="{{#proforma}}{{id_TipoCarga}}{{/proforma}}"/>
@@ -191,7 +190,15 @@
                     <input type="hidden" id="factura" name="factura" value="{{#proforma}}{{id_factura}}{{/proforma}}"/>
                     <input type="hidden" id="viaje" name="viaje" value="{{#proforma}}{{id_viaje}}{{/proforma}}"/>
                     <input type="hidden" id="carga" name="carga" value="{{#proforma}}{{id_carga}}{{/proforma}}"/>
+                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
+                    <br>
                 </form>
+
+                <a target="_blank" href="/logistica/Proforma/printPdf/id={{id_factura}}">
+                    <button class="btn btn-primary">Imprimir</button>
+                </a>
+
+
             </div>
         </div>
     </div>
@@ -215,6 +222,11 @@
     const cargaPeligrosaId = document.getElementById("cargaPeligrosaH").value;
     if (cargaPeligrosaId != 0) {
         document.getElementById("tipoHazard").value = cargaPeligrosaId;
+    }
+
+    const choferId = document.getElementById("choferH").value;
+    if (choferId != 0) {
+        document.getElementById("chofer").value = choferId;
     }
 
 

@@ -21,6 +21,48 @@
                     <input type="text" name="repuestos" value="{{repuestos_cambiados}}" id="repuestos" class="form-control"
                     placeholder="Ingrese los repuestos cambiados al vehículo durante el service" required>
 
+                    <h3>Vehículo</h3>
+                    <select name="vehiculo" id="vehiculo" class="form-control d-inline">
+                        {{#vehiculoActual}}
+                        <optgroup label="Vehículo actual">
+                            <option value="{{id_Vehiculo}}" class="form-control d-inline">{{marca}} - {{patente}}</option>
+                        </optgroup>
+                        {{/vehiculoActual}}
+                        <optgroup label="Vehiculos">
+                            {{#vehiculo}}
+                            <option value="{{id_Vehiculo}}">{{marca}} - {{patente}}</option>
+                            {{/vehiculo}}
+                        </optgroup>
+                    </select>
+                    <br>
+                    <h3>Usuario</h3>
+                    <select name="usuario" id="usuario" class="form-control d-inline">
+                        {{#usuarioActual}}
+                        <optgroup label="Usuario actual">
+                            <option value="{{id_Usuario}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
+                        </optgroup>
+                        {{/usuarioActual}}
+                        <optgroup label="Usuarios">
+                            {{#usuario}}
+                            <option value="{{id_Usuario}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
+                            {{/usuario}}
+                        </optgroup>
+                    </select>
+                        <h3>Tipo service</h3>
+                        <select name="tipoService" id="tipoService" class="form-control d-inline">
+                            {{#tipoServiceActual}}
+                            <optgroup label="Tipo service actual">
+                                <option value="{{id_TipoService}}" class="form-control d-inline">{{descripcion}}</option>
+                            </optgroup>
+                            {{/tipoServiceActual}}
+                            <optgroup label="Tipo service actual">
+                                {{#tipoService}}
+                                <option value="{{id_TipoService}}" class="form-control d-inline">{{descripcion}}</option>
+                                {{/tipoService}}
+                            </optgroup>
+                        </select>
+
+
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
 
                     <input type="hidden" id="idService" name="idService" value="{{id_Service}}" />

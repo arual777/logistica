@@ -18,8 +18,15 @@
                            placeholder="Ingrese la clave del usuario" required>
 
                     <label for="activo">Activo:</label>
-                    <input type="number" name="activo" value="{{activo}}" id="activo" class="form-control"
-                           placeholder="Ingrese la actividad del usuario" required>
+                    <select name="activo" id="activo" class="form-control">
+                        <optgroup label="Estado actual">
+                            {{#estadoActual}}<option value="{{id_Usuario}}">{{activo}}{{/estadoActual}}</option>
+                        </optgroup>
+                        <optgroup label="Estado">
+                            <option value="true" >Si</option>
+                            <option value="false">No</option>
+                        </optgroup>
+                    </select>
 
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" value="{{nombre}}" id="nombre" class="form-control"
@@ -41,6 +48,22 @@
                     <input type="text" name="codigo_licencia" value="{{codigo_licencia}}" id="codigo_licencia" class="form-control"
                            placeholder="Ingrese el codigo de licencia del usuario" required>
 
+<<<<<<< Updated upstream
+=======
+                    <label for="rol">Rol:</label>
+                    <select name="rol" id="rol" class="form-control">
+                        <optgroup label="Rol actual">
+                            {{#rolActual}}<option value="{{id_Rol}}">{{descripcion}}{{/rolActual}}</option>
+                        </optgroup>
+                        <optgroup label="Roles">
+                            <option value="1">Sin rol</option>
+                            <option value="2">Administrador</option>
+                            <option value="3">Supervisor</option>
+                            <option value="4">Chofer</option>
+                            <option value="5">Mecanico</option>
+                        </optgroup>
+                    </select>
+>>>>>>> Stashed changes
 
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
                     <input type="hidden" id="idUsuario" name="idUsuario" value="{{id_Usuario}}" />

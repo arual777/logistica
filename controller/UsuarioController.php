@@ -34,6 +34,8 @@ class UsuarioController
     }
 
     public function insertarUsuario(){
+            $id_Rol = $_POST['rol'];
+            $id_Usuario = $_POST['idUsuario'];
             $usuario = $_POST['nombre'];
             $apellido = $_POST['apellido'];
             $dni = $_POST['dni'];
@@ -44,11 +46,10 @@ class UsuarioController
             $tipoLicencia = 1;
 
             $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password,$usuario, $apellido,
-                    $dni, $fecha_nac, $codigoLicencia);
+                    $dni, $fecha_nac, $codigoLicencia,$id_Rol);
+             $this->usuarioModel->asignarRol($id_Usuario, $id_Rol);
             $data['usuarios'] = $this->usuarioModel->obtenerUsuarios();
             echo $this->render->render("view/verUsuarios.php",$data);
-
-
     }
 
 
@@ -56,6 +57,12 @@ class UsuarioController
         $id_Usuario= $_GET["id"];
         $data['id']= $id_Usuario;
         $data["usuario"] = $this->usuarioModel->obtenerUsuario($data);
+<<<<<<< Updated upstream
+=======
+        $data['estadoActual'] = $this->usuarioModel->obtenerActividad($id_Usuario);
+        $data['rolActual'] = $this->usuarioModel->obtenerRol($id_Usuario);
+        $data['licencia'] = $this->usuarioModel->obtenerLicencia($id_Usuario);
+>>>>>>> Stashed changes
         echo $this->render->render("view/modificarUsuario.php",$data);
     }
 
