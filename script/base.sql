@@ -68,9 +68,9 @@ CREATE TABLE Vehiculo (
                           foreign key (id_TipoSemi) references Tipo_Semi (id_Tipo));
 
 CREATE TABLE Tipo_Service(
-                             id_service int not null auto_increment,
+                             id_TipoService int not null auto_increment,
                              descripcion varchar (30) not null,
-                             primary key (id_service));
+                             primary key (id_TipoService));
 
 CREATE TABLE Service(
                         id_Service int not null auto_increment,
@@ -84,7 +84,7 @@ CREATE TABLE Service(
                         primary key (id_Service),
                         foreign key (id_Vehiculo) references Vehiculo(id_Vehiculo),
                         foreign key (id_Usuario) references Usuario (id_Usuario),
-                        foreign key (id_TipoService) references Tipo_Service (id_Service));
+                        foreign key (id_TipoService) references Tipo_Service (id_TipoService));
 
 CREATE table Tipo_Gasto (
                             id_Gasto int not null,
@@ -245,7 +245,7 @@ INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis
 VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien');
 
 
-INSERT INTO Tipo_Service(id_service, descripcion) VALUES (1,'Revision motor');
+INSERT INTO Tipo_Service(id_TipoService, descripcion) VALUES (1,'Revision motor');
 INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
 INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
 

@@ -34,9 +34,9 @@ class ServiceModel
     }
 
     public function obtenerTipoServicePorIdService($id){
-        return $this->database->query("SELECT Tipo_Service.id_service, Tipo_Service.descripcion
+        return $this->database->query("SELECT Tipo_Service.id_TipoService, Tipo_Service.descripcion
                                         FROM Tipo_Service 
-                                        JOIN Service ON Tipo_Service.id_service = Service.id_TipoService
+                                        JOIN Service ON Tipo_Service.id_TipoService = Service.id_TipoService
                                         WHERE Service.id_Service = '$id'");
     }
 
@@ -57,11 +57,7 @@ class ServiceModel
         $sql ="INSERT INTO Service (id_Vehiculo, id_Usuario, id_TipoService,fecha, kilometraje, detalle, repuestos_cambiados) VALUES 
                                 ('$id_Vehiculo','$id_Usuario','$id_TipoService','$fecha','$kilometraje','$detalle', '$repuestos_cambiados') ";
 
-
         $this->database->execute($sql);
-        if (!$sql) {
-            printf("Errormessage: %s\n", $this->database->error);
-        }
     }
 
     public function editarService($data){
