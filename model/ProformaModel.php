@@ -22,8 +22,10 @@ class ProformaModel
                     $idViaje = $this->insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida,
                                                     $tiempoEstimadollegada, $vehiculo, $arrastre);
 
-                     $sql = "INSERT INTO Proforma (fecha, denominacion_cliente, cuit, telefono, mail, contacto,  id_viaje, 
-                      kilometros_estimados, combustible_litros_estimados, costo_peajes, costo_viaticos,costo_peligroso,
+                     $sql = "INSERT INTO Proforma (fecha, denominacion_cliente, cuit, telefono, mail, contacto,  
+                      id_viaje, 
+                      kilometros_estimados, combustible_litros_estimados, costo_peajes, costo_viaticos,
+                      costo_peligroso,
                       costo_refrigeracion, tarifa)
                              values(NOW(), '$denominacion', '$cuit', '$telefono', '$mail', '$contacto', '$idViaje','$kmEstimados', 
                        '$combustibleEstimado', '$costoPeaje', '$viatico', '$costoHazard', '$costoRefrigeracion',

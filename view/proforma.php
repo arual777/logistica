@@ -190,8 +190,8 @@
                     <input type="hidden" id="factura" name="factura" value="{{#proforma}}{{id_factura}}{{/proforma}}"/>
                     <input type="hidden" id="viaje" name="viaje" value="{{#proforma}}{{id_viaje}}{{/proforma}}"/>
                     <input type="hidden" id="carga" name="carga" value="{{#proforma}}{{id_carga}}{{/proforma}}"/>
-                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
-                    <br>
+                    <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
+
                 </form>
 
                 <a target="_blank" href="/logistica/Proforma/printPdf/id={{id_factura}}">

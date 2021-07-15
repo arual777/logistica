@@ -33,7 +33,28 @@ class ViajesController
 
     public function detalleViaje(){
         $id = $_GET["id"];
-        $data["viaje"] = $this->viajesModel->obtenerDetalleViaje($id);
+        $viaje = $this->viajesModel->obtenerDetalleViaje($id);
+        $data = array("viaje" => $viaje, "id" =>$id);
         echo $this->render->render( "view/infoViaje.php", $data );
+    }
+    public function verFormNotificacion(){
+        $id = $_GET["id_viaje"];
+        $data["viajes"] = $this->viajesModel->obtenerDetalleViaje($id);
+        echo $this->render->render("view/notificacion.php", $data);
+    }
+
+    public function crear(){
+        $idViaje= $_POST["idViaje"];
+        $km= $_POST["km"];
+        $latitud= $_POST["latitud"];
+        $longitud= $_POST["longitud"];
+        $fecha= $_POST["fecha"];
+        $combustibleCargado= $_POST["combustible"];
+        $peajes= $_POST["peajes"];
+        $extras=$_POST["extras"];
+        $this-> $model->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+        $notificaciones = $this->$model->obtenerDetalleViaje($idViaje);
+        $data = array('viajes'=>$notificaciones);
+        echo $this->render->render("view/notificacion.php", $data);
     }
 }

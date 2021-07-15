@@ -56,19 +56,15 @@ class UsuarioModel
     public function insertarUsuario($tipoLicencia,$mail,$password,$nombre,$apellido,$dni,$fecha_nac,$codigoLicencia,$id_Rol)
     {
         $contraseniaEncriptada = $this->seguridad->encriptar($password);
-<<<<<<< Updated upstream
-        $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia)   
-                                values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia')";
-=======
         $sql = "INSERT INTO Usuario (id_Licencia, mail,clave,activo,nombre,apellido, dni,fecha_nac,codigo_licencia,id_rol)   
                                 values('$tipoLicencia', '$mail', '$contraseniaEncriptada', false, '$nombre', '$apellido','$dni','$fecha_nac','$codigoLicencia', '$id_Rol')";
->>>>>>> Stashed changes
-
+      
         $this->database->execute($sql);
     }
 
     public function editarUsuario($data){
         $id_Usuario = $data['idUsuario'];
+        $idLicencia = $data['tipoLicencia'];
         $id_Rol = $data['rol'];
         $mail = $data['mail'];
         $clave = $data['clave'];
@@ -86,6 +82,7 @@ class UsuarioModel
                                                             apellido= '$apellido',
                                                             dni = '$dni',
                                                             fecha_nac = '$fecha_nac',
+                                                            id_Licencia = '$idLicencia',                   
                                                             codigo_licencia = '$codigo_licencia',
                                                             id_Rol = '$id_Rol'
                                                             WHERE id_Usuario = '$id_Usuario'";
@@ -123,5 +120,10 @@ class UsuarioModel
         }else{
             return $this->database->execute("UPDATE Usuario U Set activo=true, id_Rol='$rol' where U.id_Usuario='$id'");
         }
+    }
+
+    public function obtenerLicencia($id){
+        $sql = "select Tipo_Licencia.id_tipoLicencia,Tipo_Licencia.descripcion from Tipo_Licencia left join Usuario on Tipo_Licencia.id_tipoLicencia=Usuario.id_Licencia where Usuario.id_Usuario='$id'";
+        return $this->database->query($sql);
     }
 }

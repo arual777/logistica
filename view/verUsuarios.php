@@ -30,10 +30,8 @@
         <td>{{dni}}</td>
         <td>{{fecha_nac}}</td>
         <td>{{codigo_licencia}}</td>
-<<<<<<< Updated upstream
-=======
+
         <!--<td><a href="/logistica/Usuario/mostrarUsuario/id={{id_Usuario}}"><button type="submit" class="btn btn-info ">Info</button></a></td>!-->
->>>>>>> Stashed changes
         <td><a href="/logistica/Usuario/editar/id={{id_Usuario}}"><button type="submit" class="btn btn-warning ">Modificar</button></a></td>
         <td><a href="/logistica/Usuario/borrarUsuario/id={{id_Usuario}}"><button type="submit" class="btn btn-danger ">Borrar</button></a></td>
     </tr>

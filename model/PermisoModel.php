@@ -45,12 +45,9 @@ class PermisoModel
             "MODIFICARSERVICE" => LECTURA,
             "EDITARSERVICE" => MODIFICACION,
             "INSERTARSERVICE" => ALTA,
-<<<<<<< Updated upstream
-=======
             "CREARNUEVANOTIFICACION"=> MODIFICACION,
             "VERFORMNOTIFICACION"=> LECTURA,
             "PRINTPDF" => LECTURA,
->>>>>>> Stashed changes
         );
     }
 
