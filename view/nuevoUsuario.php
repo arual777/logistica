@@ -11,19 +11,6 @@
 
                 <form action="/logistica/Usuario/insertarUsuario/" method="post" role="form" enctype="multipart/form-data">
 
-                    Licencia:
-                    <select name="tipoLicencia" id="tipoLicencia" class="form-control licencia">
-                        <optgroup label="Licencias">
-                            <option value="1">Sin licencia</option>
-                            <option value="2">A</option>
-                            <option value="3">B</option>
-                            <option value="4">C</option>
-                            <option value="5">D</option>
-                            <option value="6">E</option>
-                            <option value="7">F</option>
-                        </optgroup>
-                    </select>
-
                     <label for="email">E-mail:</label>
                     <input type="email" name="email" id="email" class="form-control"
                            placeholder="Ingrese el email del usuario" required>
@@ -48,22 +35,35 @@
                     <input type="date" name="fecha_nac" id="fecha_nac" class="form-control"
                            placeholder="Ingrese la fecha de nacimiento del usuario" required>
 
+                    <label for="tipoLicencia">Licencia:</label>
+                    <select name="tipoLicencia" id="tipoLicencia" class="form-control licencia">
+                             <optgroup label="Licencias">optgroup>
+                                 {{#licencia}}
+                                <option value="{{id_tipoLicencia}}">{{descripcion}}</option>
+                                 {{/licencia}}
+                            </optgroup>
+
+                    </select>
+
+
                     <label for="codigo_licencia">Codigo licencia:</label>
                     <input type="text" name="codigo_licencia" id="codigo_licencia" class="form-control"
-                           placeholder="Ingrese el codigo de licencia del usuario" required>
+                           placeholder="Ingrese el codigo de licencia del usuario">
 
                     <label for="rol">Rol:</label>
                     <select name="rol" id="rol" class="form-control">
                         <optgroup label="Roles">optgroup>
-                            <option value="1">Sin rol</option>
-                            <option value="2">Administrador</option>
-                            <option value="3">Supervisor</option>
-                            <option value="4">Chofer</option>
-                            <option value="5">Mecanico</option>
+                            {{#roles}}
+                            <option value="{{id_Rol}}">{{descripcion}}</option>
+                            {{/roles}}
                         </optgroup>
                     </select>
 
-
+                    <label for="activo">¿Desea activar el usuario?:</label>
+                    <select name="activo" id="activo" class="form-control">
+                        <option value="1">Si</option>
+                        <option value="0">NO</option>
+                    </select>
                     <input type="submit" value="Agregar" class="btn btn-primary btn-block mb-3 mt-3">
 
                 </form>
@@ -74,5 +74,8 @@
 
 <br>
 <br>
+
+
+
 {{>footer}}
 
