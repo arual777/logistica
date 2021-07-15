@@ -89,4 +89,24 @@ class ProformaController
             'arrastre' =>$tipoVehiculoArrastre);
         return $data;
     }
+
+
+    public function printPdf(){
+        include_once('helper/DomPdf.php');
+
+        $html = file_get_contents_curl("http://localhost/logistica/Proforma/detalleProforma/id=".$_GET['id']);
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landingpage');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream("document.pdf" , ['Attachment' => 0]);
+
+
+    }
+
 }

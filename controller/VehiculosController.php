@@ -37,7 +37,6 @@ class VehiculosController
         $anio_fabricacion = $_POST["anio_fabricacion"];
         $kilometraje = $_POST["kilometraje"];
         $estado = $_POST["estado"];
-        $estado = $_POST["arrastre"];
         $tipoVehiculo = $_POST["tipoVehiculo"];
         $arrastre = $_POST["arrastre"];
         $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);

@@ -18,8 +18,15 @@
                            placeholder="Ingrese la clave del usuario" required>
 
                     <label for="activo">Activo:</label>
-                    <input type="number" name="activo" value="{{activo}}" id="activo" class="form-control"
-                           placeholder="Ingrese la actividad del usuario" required>
+                    <select name="activo" id="activo" class="form-control">
+                        <optgroup label="Estado actual">
+                            {{#estadoActual}}<option value="{{id_Usuario}}">{{activo}}{{/estadoActual}}</option>
+                        </optgroup>
+                        <optgroup label="Estado">
+                            <option value="true" >Si</option>
+                            <option value="false">No</option>
+                        </optgroup>
+                    </select>
 
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" value="{{nombre}}" id="nombre" class="form-control"
@@ -68,6 +75,7 @@
                             <option value="5">Mecanico</option>
                         </optgroup>
                     </select>
+
 
                     <input type="hidden" id="idUsuario" name="idUsuario" value="{{id_Usuario}}" />
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">

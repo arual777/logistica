@@ -32,10 +32,6 @@
                     <input type="text" name="clave" id="clave" class="form-control"
                            placeholder="Ingrese la clave del usuario" required>
 
-                    <label for="activo">Activo:</label>
-                    <input type="number" name="activo" id="activo" class="form-control"
-                           placeholder="Ingrese si el usuario está activo" required>
-
                     <label for="nombre">Nombre:</label>
                     <input type="text" name="nombre" id="nombre" class="form-control"
                            placeholder="Ingrese el nombre del usuario" required>
@@ -55,6 +51,18 @@
                     <label for="codigo_licencia">Codigo licencia:</label>
                     <input type="text" name="codigo_licencia" id="codigo_licencia" class="form-control"
                            placeholder="Ingrese el codigo de licencia del usuario" required>
+
+                    <label for="rol">Rol:</label>
+                    <select name="rol" id="rol" class="form-control">
+                        <optgroup label="Roles">optgroup>
+                            <option value="1">Sin rol</option>
+                            <option value="2">Administrador</option>
+                            <option value="3">Supervisor</option>
+                            <option value="4">Chofer</option>
+                            <option value="5">Mecanico</option>
+                        </optgroup>
+                    </select>
+
 
                     <input type="submit" value="Agregar" class="btn btn-primary btn-block mb-3 mt-3">
 

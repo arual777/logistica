@@ -187,11 +187,11 @@ chofer@gmail.com/344654
 mecanico@gmail.com/261158
 **/
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
-VALUES (1,2, 1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
-INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
-INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
-INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
-INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
+VALUES (1,2,1, 'test@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'jorge', 'perez', 34343434, '1980-05-05', 'cde333');
+INSERT INTO Usuario VALUES (3,3 ,1,'super@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Antonio', 'Gonzalez', 34563234, '1990-07-01', 'hjs123');
+INSERT INTO Usuario VALUES (2,2 ,1,'admin@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Jose', 'fernandez', 35663234, '1990-07-01', 'pes123');
+INSERT INTO Usuario VALUES (4,4 ,1,'chofer@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Martin', 'Robertoz', 35568234, '1978-07-02', 'fif153');
+INSERT INTO Usuario VALUES (5,5 ,1,'mecanico@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Pablo', 'Lopez', 45673234, '1997-10-03', 'pjh783');
 
 INSERT INTO Seccion VALUES(1, 'Usuarios');
 INSERT INTO Seccion VALUES(2, 'Viajes');
@@ -280,4 +280,4 @@ VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0)
      ,(3,3, 2400, 0.0, 0.0, '20210706', 7000.0, 2000.0, 100.0);
 
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
-VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', 1, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
+VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', false, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
