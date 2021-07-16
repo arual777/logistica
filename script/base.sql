@@ -1,6 +1,6 @@
 drop database Logistica;
-	create database Logistica;
-	use Logistica;
+create database Logistica;
+use Logistica;
 
 CREATE TABLE Tipo_Licencia( id_tipoLicencia int not null auto_increment primary key,
                             descripcion varchar (30) not null);
@@ -217,11 +217,21 @@ INSERT INTO Rol_Seccion VALUES(3,5,1,1,1,1);
 
 /*permisos rol chofer*/
 INSERT INTO Rol_Seccion(id_Rol,id_Seccion,alta,baja,modificacion,lectura)
-VALUES (4,1,0,0,0,1);
-INSERT INTO Rol_Seccion VALUES(4,2,0,0,1,1);
+VALUES (4,1,0,0,0,0);
+INSERT INTO Rol_Seccion VALUES(4,2,1,1,1,1);
 INSERT INTO Rol_Seccion VALUES(4,3,0,0,1,1);
 INSERT INTO Rol_Seccion VALUES(4,4,0,0,0,1);
 INSERT INTO Rol_Seccion VALUES(4,5,0,0,0,0);
+
+/*permisos rol mecanico*/
+INSERT INTO Rol_Seccion(id_Rol, id_Seccion,alta,baja,modificacion,lectura)
+VALUES(5,1,0,0,0,0),
+(5,2,0,0,0,1),
+(5,3,0,0,0,1),
+(5,4,1,1,1,1),
+(5,5,0,0,0,1);
+
+
 
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion)  VALUES (1, 'Arrastre');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (2,'Tractor');
@@ -248,6 +258,7 @@ VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien'
 INSERT INTO Tipo_Service(id_TipoService, descripcion) VALUES (1,'Revision motor');
 INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
 INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
+INSERT INTO Tipo_Service VALUES (4, 'Otros');
 
 
 INSERT INTO Service (id_Service,id_Vehiculo,id_Usuario,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)

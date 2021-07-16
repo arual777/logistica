@@ -52,7 +52,8 @@ class Configuration
         $usuarioModel = $this->getusuarioModel();
         $proformaModel = $this->getProformaModel();
         $viajesModel = $this->getViajesModel();
-        return new AutorizacionController($render, $usuarioModel, $proformaModel, $viajesModel);
+        $serviceModel = $this->getServiceModel();
+        return new AutorizacionController($render, $usuarioModel, $proformaModel, $viajesModel, $serviceModel);
     }
 
     public function getRegistroController()
