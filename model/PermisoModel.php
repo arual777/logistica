@@ -47,7 +47,7 @@ class PermisoModel
             "INSERTARSERVICE" => ALTA,
             "CREARNUEVANOTIFICACION"=> MODIFICACION,
             "VERFORMNOTIFICACION"=> LECTURA,
-            "PRINTPDF" => LECTURA,
+            "PRINTPDF" => LECTURA
         );
     }
 

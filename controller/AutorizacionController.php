@@ -6,13 +6,15 @@ class AutorizacionController
     private $usuarioModel;
     private $proformaModel;
     private $viajesModel;
+    private $serviceModel;
 
-    public function __construct($render, $usuarioModel, $proformaModel, $viajesModel)
+    public function __construct($render, $usuarioModel, $proformaModel, $viajesModel, $serviceModel)
     {
         $this->render = $render;
         $this->usuarioModel = $usuarioModel;
         $this->proformaModel = $proformaModel;
         $this->viajesModel = $viajesModel;
+        $this->serviceModel = $serviceModel;
     }
 
     public function execute()
@@ -67,6 +69,9 @@ class AutorizacionController
             case CHOFER:
                 $this->renderChoferHome();
             break;
+            case MECANICO:
+                $this->renderMecanicoHome();
+            break;
             default:
                 echo $this->render->render("view/usuario.php");
             break;
@@ -87,6 +92,12 @@ class AutorizacionController
         $usuario = $_SESSION['usuario'];
         $data["viajes"] = $this->viajesModel->obtenerViajesPorIdUsuario($usuario);
         echo $this->render->render( "view/viajes.php", $data );
+    }
+
+    private function renderMecanicoHome(){
+        $usuario = $_SESSION['usuario'];
+        $data["services"] = $this->serviceModel->obtenerServices();
+        echo $this->render->render( "view/services.php", $data );
     }
 }
 

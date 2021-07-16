@@ -40,7 +40,8 @@ class ServiceController
 
         $this->serviceModel->insertarService($id_Vehiculo,$id_Usuario,$id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados);
         $data['services'] = $this->serviceModel->obtenerServices();
-        echo $this->render->render("view/services.php",$data);
+        header("Location: /logistica/Service/listarServices");
+        exit();
     }
 
     public function editarService(){
@@ -67,16 +68,16 @@ class ServiceController
 
         $this->serviceModel->editarService($data);
         $data["services"] = $this->serviceModel->obtenerServices();
-
-        echo $this->render->render("view/services.php",$data);
-
+        header("Location: /logistica/Service/listarServices");
+        exit();
     }
 
     public function borrarService(){
         $id = $_GET["id"];
         $this->serviceModel->borrarService($id);
         $data["services"] = $this->serviceModel->obtenerServices();
-        echo $this->render->render("view/services.php",$data);
+        header("Location: /logistica/Service/listarServices");
+        exit();
     }
 
     public function obtenerDatosServices(){
