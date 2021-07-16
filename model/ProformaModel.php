@@ -121,7 +121,7 @@ class ProformaModel
     public function detalleProforma($id){
         $sql = "select * from PROFORMA p
         join viaje v on p.id_viaje = v.id_viaje
-        join carga c on v.id_carga = c.id_Carga WHERE p.id_factura = '$id'";
+        join carga c on v.id_carga = c.id_Carga  WHERE p.id_factura = '$id'";
        return $this->database->query($sql);
     }
 

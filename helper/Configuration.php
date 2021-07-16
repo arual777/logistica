@@ -74,7 +74,9 @@ class Configuration
     {
         $render = $this->getRender();
         $proformaModel = $this->getProformaModel();
-        return new ProformaController($render, $proformaModel);
+        $viajesModel = $this->getViajesModel();
+        $vehiculoModel= $this->getVehiculosModel();
+        return new ProformaController($render, $proformaModel,$viajesModel,$vehiculoModel);
     }
 
     public function getViajesController()

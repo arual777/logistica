@@ -194,7 +194,7 @@
 
                 </form>
 
-                <a target="_blank" href="/logistica/Proforma/printPdf/id={{id_factura}}">
+                <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
                     <button class="btn btn-primary">Imprimir</button>
                 </a>
 
