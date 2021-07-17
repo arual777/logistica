@@ -25,9 +25,9 @@ class ViajesModel
         return $this->database->query($consulta);
     }
 
-    public function obtenerDetalleViaje($id)
+    public function obtenerDetalleViaje($idViaje)
     {
-        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$id'");
+        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$idViaje'");
     }
 
     public function obtenerIdDelViaje()
@@ -45,12 +45,12 @@ class ViajesModel
       return $this->database->query("select refrigeracion,graduacion,peso from Carga c where c.id_Carga='$id'");
     }
 
-    public function crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras)
-    {
-
-        $sql = "INSERT INTO Viaje_Detalle (id_viaje, kilometraje, latitud, longitud, fecha, 
+    public function crearNuevaNotificacion($id, $km, $latitud, $longitud, $fecha, $combustibleCargado,
+                                           $peajes, $extras)
+    {$sql = "INSERT INTO Viaje_Detalle (id_viaje, kilometraje, latitud, longitud, fecha, 
                                                 combustibleCargado, peajes, extras)   
-                values('$idViaje','$km','$latitud', '$longitud','$fecha', '$combustibleCargado', '$peajes', '$extras')";
+                values('$id','$km','$latitud', '$longitud','$fecha', '$combustibleCargado', '$peajes', 
+                       '$extras')";
 
         $this->database->execute($sql);
     }
