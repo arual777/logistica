@@ -33,8 +33,6 @@ class ProformaController
         $data = array('proforma' => $proforma);
         $datosFormulario = $this->obtenerDatosFormulario();
         $datosFormulario["proforma"] = $proforma;
-        echo $data['proforma'] . "<br>";
-        echo var_dump($data['proforma'][0]['id_factura']) . "<br>" . $data['proforma'][0]['refrigeracion'];
         echo $this->render->render("view/proforma.php", $datosFormulario);
     }
 
@@ -56,7 +54,7 @@ class ProformaController
         $peso = $_POST["peso"];
         $peligrosidad = $_POST["tipoHazard"];
         $refrigeracion = $_POST["refrigeracion"];
-        $graduacion = $_POST["graduacion"];
+        $graduacion = isset($_POST["graduacion"]) ? : "0";
         $kmEstimados = $_POST["km"];
         $combustibleEstimado = $_POST["combustible"];
         $costoPeaje = $_POST["peaje"];
@@ -113,7 +111,6 @@ class ProformaController
         } else {
             $data['refrigeracion'][0]['refrigeracion'] = "No";
             $data['refrigeracion'][0]['graduacion'] = 0;
-            $data['refrigeracion'][0]['refrigeracion'] = 0;
         }
 
         $id_Proforma = $data['proforma'][0]['id_factura'];
@@ -125,81 +122,100 @@ class ProformaController
                                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                                 <title>Proforma: ' . $id_Proforma . '</title>
-                                
+                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+                             integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
                            </head>
                          
                            <body>
                                 <h1>Proforma N°: ' . $id_Proforma . '</h1>
-                                <table class="table table-dark table-hover table-responsive-xs">
-                                         
-                                         <tr>
-                                            <td>Cliente: ' . $data['proforma'][0]['denominacion_cliente'] . ' </td>
-                                         </tr>                                       
-                                         <tr>
-                                            <td>Cuit: ' . $data['proforma'][0]['cuit'] . '</td>
-                                         </tr>   
-                                         <tr>
-                                            <td>Telefono: ' . $data['proforma'][0]['telefono'] . '</td>
-                                         </tr>
-                                         <tr>
-                                            <td>Contacto: ' . $data['proforma'][0]['contacto'] . '</td>
-                                         </tr>
-                                         <tr>
-                                            <td>Email: ' . $data['proforma'][0]['mail'] . ' :</td>
-                                         </tr>                           
-                                         <tr>
-                                            <td>Fecha de carga: ' . $data['proforma'][0]['fecha_carga'] . ' </td>
-                                         </tr>
-                                         <tr>
-                                            <td>Fecha estimada de llegada: ' . $data['proforma'][0]['tiempo_estimadoLlegada'] . ' </td>
-                                         </tr>                                          
-                                          <tr>
-                                            <td>Origen del viaje: ' . $data['proforma'][0]['origen'] . ' :</td>
-                                         </tr>                      
-                                          <tr>
-                                            <td>Destino del viaje: ' . $data['proforma'][0]['destino'] . '  </td>
-                                         </tr>                                                      
-                                          <tr>
-                                            <td>Denominación : ' . $data['vehiculoAusar'][0]['descripcion'] . '</td>
-                                         </tr>                      
-                                          <tr>
-                                            <td>Vehiculo de arrastre : ' . $data['arrastreAusar'][0]['descripcion'] . '</td>
-                                         </tr>                      
-                                          <tr>
-                                            <td>Carga peligrosa : ' . $data['tipoDeCarga'][0]['descripcion'] . '</td>
-                                         </tr>                      
-                                          <tr>
-                                            <td>Requiere refrigeracion :' . $data['refrigeracion'][0]['refrigeracion'] . '</td>
-                                         </tr>                      
-                                          <tr>
-                                            <td>Temperatura:' . $data['refrigeracion'][0]['graduacion'] . '</td>
-                                         </tr>
-                                         <tr>
-                                            <td>Kilometros estimados: ' . $data['proforma'][0]['kilometros_estimados'] . ' </td>
-                                         </tr>                                       
-                                         <tr>
-                                            <td>Combustible: ' . $data['proforma'][0]['combustible_litros_estimados'] . '</td>
-                                         </tr>                                              
-                                         <tr>
-                                            <td>Viaticos: ' . $data['proforma'][0]['costo_viaticos'] . ' </td>
-                                         </tr>
+                                                    <h2>Datos del cliente</h2>
+                                                          <table class="">           
+                                                               <tr>
+                                                                  <td>Nombre: ' . $data['proforma'][0]['denominacion_cliente'] . ' </td>
+                                                               </tr>                                       
+                                                                <tr>
+                                                                   <td>Cuit: ' . $data['proforma'][0]['cuit'] . '</td>
+                                                                </tr>   
+                                                                <tr>
+                                                                   <td>Telefono: ' . $data['proforma'][0]['telefono'] . '</td>
+                                                                </tr>
+                                                                <tr>
+                                                                   <td>Contacto: ' . $data['proforma'][0]['contacto'] . '</td>
+                                                                </tr>
+                                                                <tr>
+                                                                   <td>Email: ' . $data['proforma'][0]['mail'] . ' :</td>
+                                                                </tr>   
+                                                          </table>
+                                                    <h2>Datos del viaje</h2>
+                                                          <table>                        
+                                                                <tr>
+                                                                    <td>Fecha de carga: ' . $data['proforma'][0]['fecha_carga'] . ' </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Fecha estimada de llegada: ' . $data['proforma'][0]['tiempo_estimadoLlegada'] . ' </td>
+                                                                </tr>                                          
+                                                                <tr>
+                                                                    <td>Origen del viaje: ' . $data['proforma'][0]['origen'] . ' :</td>
+                                                                </tr>                      
+                                                                <tr>
+                                                                    <td>Destino del viaje: ' . $data['proforma'][0]['destino'] . '  </td>
+                                                          </table>
+                                                    <h2>Datos del vehiculo</h2>   
+                                                          <table>         
+                                                                  </tr>                                                      
+                                                                  <tr>
+                                                                      <td>Denominación : ' . $data['vehiculoAusar'][0]['descripcion'] . '</td>
+                                                                  </tr>                      
+                                                                  <tr>
+                                                                      <td>Vehiculo de arrastre : ' . $data['arrastreAusar'][0]['descripcion'] . '</td>
+                                                                  </tr>  
+                                                          </table>
+                                                    <h2>Datos de la carga</h2>
+                                                          <table>                             
+                                                                  <tr>
+                                                                      <td>Carga peligrosa : ' . $data['tipoDeCarga'][0]['descripcion'] . '</td>
+                                                                  </tr>  
+                                                                  <tr>
+                                                                      <td>Peso : ' . $data['refrigeracion'][0]['peso'] . '</td>
+                                                                  </tr>                     
+                                                                  <tr>
+                                                                      <td>Requiere refrigeracion :' . $data['refrigeracion'][0]['refrigeracion'] . '</td>
+                                                                  </tr>    
+                                                                  <tr>
+                                                                      <td>Temperatura:' . $data['refrigeracion'][0]['graduacion'] . '°C</td>
+                                                                  </tr>  
+                                                          </table>
+                                                    <h2>Costos estimados</h2>
+                                                          <table>                
+                                                                  <tr>
+                                                                      <td>Kilometros estimados: ' . $data['proforma'][0]['kilometros_estimados'] . ' </td>
+                                                                  </tr>                                       
+                                                                  <tr>
+                                                                      <td>Combustible: ' . $data['proforma'][0]['combustible_litros_estimados'] . '</td>
+                                                                  </tr>                                              
+                                                                  <tr>
+                                                                      <td>Viaticos: ' . $data['proforma'][0]['costo_viaticos'] . ' </td>
+                                                                  </tr>
                                                                           
-                                         <tr>
-                                            <td>Peajes y pasajes : ' . $data['proforma'][0]['costo_peajes'] . ' </td>
-                                         </tr>                            
-                                          <tr>
-                                            <td>Peligrosidad : ' . $data['proforma'][0]['costo_peligroso'] . '</td>
-                                         </tr>                            
-                                          <tr>
-                                            <td>Refrigeracion : ' . $data['proforma'][0]['costo_refrigeracion'] . '</td>
-                                         </tr>                            
-                                          <tr>
-                                            <td>Tarifa:  ' . $data['proforma'][0]['tarifa'] . '</td>
-                                         </tr>  
-                                         <tr>
-                                            <td>Chofer asignado:  ' . $data['chofeAsignado'][0]['nombre']. ' ' . $data['chofeAsignado'][0]['apellido'] . '</td>
-                                         </tr>                         
-                                </table>
+                                                                  <tr>
+                                                                      <td>Peajes y pasajes : ' . $data['proforma'][0]['costo_peajes'] . ' </td>
+                                                                  </tr>                            
+                                                                  <tr>
+                                                                      <td>Peligrosidad : ' . $data['proforma'][0]['costo_peligroso'] . '</td>
+                                                                  </tr>                            
+                                                                  <tr>
+                                                                      <td>Refrigeracion : ' . $data['proforma'][0]['costo_refrigeracion'] . '</td>
+                                                                  </tr>                            
+                                                                  <tr>
+                                                                      <td>Tarifa:  ' . $data['proforma'][0]['tarifa'] . '</td>
+                                                                  </tr>  
+                                                          </table>
+                                                    <h2>Personal asignado</h2>
+                                                          <table>         
+                                                                  <tr>
+                                                                      <td>Chofer asignado:  ' . $data['chofeAsignado'][0]['nombre'] . ' ' . $data['chofeAsignado'][0]['apellido'] . '</td>
+                                                                  </tr>                         
+                                                          </table>
                            </body>
                            </html>'
 

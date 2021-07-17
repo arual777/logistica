@@ -42,7 +42,7 @@ class ViajesModel
     }
 
     public function obtenerRefrigeracion($id){
-      return $this->database->query("select refrigeracion,graduacion from Carga c where c.id_Carga='$id'");
+      return $this->database->query("select refrigeracion,graduacion,peso from Carga c where c.id_Carga='$id'");
     }
 
     public function crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras)
