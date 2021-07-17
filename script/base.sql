@@ -75,7 +75,8 @@ CREATE TABLE Tipo_Service(
 CREATE TABLE Service(
                         id_Service int not null auto_increment,
                         id_Vehiculo int not null,
-                        id_Usuario int not null,
+                        id_Chofer int not null,
+                        id_Mecanico int not null,
                         id_TipoService int not null,
                         fecha date not null,
                         kilometraje int not null,
@@ -83,7 +84,8 @@ CREATE TABLE Service(
                         repuestos_cambiados varchar (1000) not null,
                         primary key (id_Service),
                         foreign key (id_Vehiculo) references Vehiculo(id_Vehiculo),
-                        foreign key (id_Usuario) references Usuario (id_Usuario),
+                        foreign key (id_Chofer) references Usuario (id_Usuario),
+                        foreign key (id_Mecanico) references Usuario (id_Usuario),
                         foreign key (id_TipoService) references Tipo_Service (id_TipoService));
 
 CREATE table Tipo_Gasto (
@@ -261,9 +263,9 @@ INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
 INSERT INTO Tipo_Service VALUES (4, 'Otros');
 
 
-INSERT INTO Service (id_Service,id_Vehiculo,id_Usuario,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)
-VALUES (1,1,4,1,'20210403', 1900, 'Cambio de motor', 'Motor');
-INSERT INTO Service VALUES (4,1,1,3,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe'); 
+INSERT INTO Service (id_Service,id_Vehiculo,id_Chofer,id_Mecanico,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)
+VALUES (1,1,4,5,1,'20210403', 1900, 'Cambio de motor', 'Motor');
+INSERT INTO Service VALUES (4,1,4,5,3,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe'); 
 
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
@@ -291,7 +293,10 @@ VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0)
      ,(3,3, 2400, 0.0, 0.0, '20210706', 7000.0, 2000.0, 100.0);
 
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
-VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', false, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
+VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
 
 INSERT INTO Usuario (id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 values(1,1,'algoPrueba@gmail.com','3f9406b114126f9f05c3fdf78012ae79',true,'Joel','Escobar','44107580','2001-07-02','xxxx');
+
+INSERT INTO Usuario(id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
+VALUES(5,1,'mecanico2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Franco', 'Perez', 40345654, '1998-05-01', 'abc987');

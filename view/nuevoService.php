@@ -36,12 +36,22 @@
                     </select>
                     <br>
 
-                    <h3>Usuario</h3>
-                    <select name="usuario" id="usuario" class="form-control d-inline">
-                        <optgroup label="Usuario">
-                            {{#usuario}}
+                    <h3>Chofer</h3>
+                    <select name="chofer" id="chofer" class="form-control d-inline">
+                        <optgroup label="Chofer">
+                            {{#chofer}}
                             <option value="{{id_Usuario}}">{{nombre}} - {{apellido}}</option>
-                            {{/usuario}}
+                            {{/chofer}}
+                        </optgroup>
+                    </select>
+                    <br>
+
+                    <h3>Mecánico asignado</h3>
+                    <select name="mecanico" id="mecanico" class="form-control d-inline">
+                        <optgroup label="Mecánico">
+                            {{#mecanico}}
+                            <option value="{{id_Usuario}}">{{nombre}} - {{apellido}}</option>
+                            {{/mecanico}}
                         </optgroup>
                     </select>
                     <br>

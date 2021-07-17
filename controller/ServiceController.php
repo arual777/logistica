@@ -23,7 +23,8 @@ class ServiceController
 
     public function insertar(){
         $data['vehiculo'] = $this->serviceModel->obtenerVehiculos();
-        $data['usuario'] = $this->serviceModel->obtenerUsuarios();
+        $data['chofer'] = $this->serviceModel->obtenerChoferes();
+        $data['mecanico'] = $this->serviceModel->obtenerMecanicos();
         $data['tipoService'] = $this->serviceModel->obtenerTiposService();
         echo $this->render->render("view/nuevoService.php",$data);
     }
@@ -35,10 +36,11 @@ class ServiceController
         $detalle = $_POST["detalle"];
         $repuestos_cambiados = $_POST["repuestos"];
         $id_Vehiculo = $_POST["vehiculo"];
-        $id_Usuario = $_POST["usuario"];
+        $id_Chofer = $_POST["chofer"];
+        $id_Mecanico = $_POST["mecanico"];
         $id_TipoService = $_POST["tipoService"];
 
-        $this->serviceModel->insertarService($id_Vehiculo,$id_Usuario,$id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados);
+        $this->serviceModel->insertarService($id_Vehiculo,$id_Chofer, $id_Mecanico,$id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados);
         $data['services'] = $this->serviceModel->obtenerServices();
         header("Location: /logistica/Service/listarServices");
         exit();
@@ -49,11 +51,13 @@ class ServiceController
         $data['id']= $id_Service;
         $data["service"] = $this->serviceModel->obtenerServicePorId($data);
         $data["vehiculoActual"] = $this->serviceModel->obtenerVehiculoPorIdService($id_Service);
-        $data["usuarioActual"] = $this->serviceModel->obtenerUsuarioPorIdService($id_Service);
+        $data["choferActual"] = $this->serviceModel->obtenerChoferPorIdService($id_Service);
+        $data["mecanicoActual"] = $this->serviceModel->obtenerMecanicoPorIdService($id_Service);
         $data["tipoServiceActual"] = $this->serviceModel->obtenerTipoServicePorIdService($id_Service);
         $data['vehiculo'] = $this->serviceModel->obtenerVehiculos();
         $data['tipoService'] = $this->serviceModel->obtenerTiposService();
-        $data['usuario'] = $this->serviceModel->obtenerUsuarios();
+        $data['chofer'] = $this->serviceModel->obtenerChoferes();
+        $data['mecanico'] = $this->serviceModel->obtenerMecanicos();
         echo $this->render->render("view/modificarService.php",$data);
     }
 
@@ -63,7 +67,8 @@ class ServiceController
         $data["kilometraje"] = isset($_POST["kilometraje"]) ?  $_POST["kilometraje"] : "";
         $data["repuestos"] = isset($_POST["repuestos"]) ?  $_POST["repuestos"] : "";
         $data["tipoService"] = isset($_POST["tipoService"]) ? $_POST["tipoService"] : "";
-        $data["usuario"] = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
+        $data["chofer"] = isset($_POST["chofer"]) ? $_POST["chofer"] : "";
+        $data["mecanico"] = isset($_POST["mecanico"]) ? $_POST["mecanico"] : "";
         $data["vehiculo"] = isset($_POST["vehiculo"]) ? $_POST["vehiculo"] : "";
 
         $this->serviceModel->editarService($data);
