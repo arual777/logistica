@@ -34,12 +34,19 @@ class ViajesController
     public function detalleViaje(){
         $id = $_GET["id"];
         $viaje = $this->viajesModel->obtenerDetalleViaje($id);
-        $data = array("viaje" => $viaje, "id" =>$id);
+        $data = array("viajes" => $viaje, "id" =>$id);
         echo $this->render->render( "view/infoViaje.php", $data );
     }
     public function verFormNotificacion(){
         $id = $_GET["id_viaje"];
-        $data["viajes"] = $this->viajesModel->obtenerDetalleViaje($id);
+        $data = array("id" =>$id);
+        echo $this->render->render("view/notificacion.php", $data);
+    }
+
+    public function editarNotificacion(){
+        $id = $_GET["id_viaje"];
+        $viaje = $this->viajesModel->obtenerDetalleViaje($id);
+        $data = array("viajes" => $viaje, "id" =>$id);
         echo $this->render->render("view/notificacion.php", $data);
     }
 
@@ -52,9 +59,10 @@ class ViajesController
         $combustibleCargado= $_POST["combustible"];
         $peajes= $_POST["peajes"];
         $extras=$_POST["extras"];
-        $this-> $model->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
-        $notificaciones = $this->$model->obtenerDetalleViaje($idViaje);
-        $data = array('viajes'=>$notificaciones);
-        echo $this->render->render("view/notificacion.php", $data);
+        $this-> viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+
+        $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
+        $data = array('viajes' => $notificaciones);
+        echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
     }
 }
