@@ -35,19 +35,34 @@
                         </optgroup>
                     </select>
                     <br>
-                    <h3>Usuario</h3>
-                    <select name="usuario" id="usuario" class="form-control d-inline">
-                        {{#usuarioActual}}
-                        <optgroup label="Usuario actual">
-                            <option value="{{id_Usuario}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
+                    <h3>Chofer</h3>
+                    <select name="chofer" id="chofer" class="form-control d-inline">
+                        {{#choferActual}}
+                        <optgroup label="Chofer actual">
+                            <option value="{{id_Chofer}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
                         </optgroup>
-                        {{/usuarioActual}}
-                        <optgroup label="Usuarios">
-                            {{#usuario}}
-                            <option value="{{id_Usuario}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
-                            {{/usuario}}
+                        {{/choferActual}}
+                        <optgroup label="Choferes">
+                            {{#chofer}}
+                            <option value="{{id_Chofer}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
+                            {{/chofer}}
                         </optgroup>
                     </select>
+
+                    <h3>Mecánico asignado</h3>
+                    <select name="mecanico" id="mecanico" class="form-control d-inline">
+                        {{#mecanicoActual}}
+                        <optgroup label="Mecánico actual">
+                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
+                        </optgroup>
+                        {{/mecanicoActual}}
+                        <optgroup label="Mecánicos">
+                            {{#mecanico}}
+                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{id_Mecanico}}{{nombre}} - {{apellido}}</option>
+                            {{/mecanico}}
+                        </optgroup>
+                    </select>
+
                         <h3>Tipo service</h3>
                         <select name="tipoService" id="tipoService" class="form-control d-inline">
                             {{#tipoServiceActual}}

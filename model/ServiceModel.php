@@ -26,6 +26,20 @@ class ServiceModel
                                         WHERE Service.id_Service = '$id'");
     }
 
+    public function obtenerChoferPorIdService($id){
+        return $this->database->query("SELECT Usuario.id_Rol,Usuario.id_Usuario, Usuario.nombre, Usuario.apellido
+                                        FROM Usuario
+                                        JOIN Service ON  Usuario.id_Usuario = Service.id_Chofer
+                                        WHERE Service.id_Service = '$id' and Usuario.id_Rol = 4");
+    }
+
+    public function obtenerMecanicoPorIdService($id){
+        return $this->database->query("SELECT Usuario.id_Usuario, Usuario.nombre, Usuario.apellido
+                                        FROM Usuario
+                                        JOIN Service ON Usuario.id_Usuario = Service.id_Mecanico
+                                        WHERE Service.id_Service = '$id' and Usuario.id_Rol = 5");
+    }
+
     public function obtenerVehiculoPorIdService($id){
         return $this->database->query("SELECT Vehiculo.id_Vehiculo, Vehiculo.marca, Vehiculo.patente
                                         FROM Vehiculo 
@@ -44,33 +58,43 @@ class ServiceModel
         return $this->database->query("SELECT * FROM Tipo_Service");
     }
 
-    public function obtenerUsuarios(){
+    /*public function obtenerUsuarios(){
         return $this->database->query("SELECT * FROM Usuario");
+    }*/
+
+    public function obtenerChoferes(){
+        $rol_Chofer = 4;
+        return $this->database->query("SELECT * FROM Usuario WHERE id_Rol = '$rol_Chofer'");
+    }
+
+    public function obtenerMecanicos(){
+        $rol_Mecanico = 5;
+        return $this->database->query("SELECT * FROM Usuario WHERE id_Rol = '$rol_Mecanico'");
     }
 
     public function obtenerVehiculos(){
         return $this->database->query("SELECT * FROM Vehiculo");
     }
 
-    public function insertarService($id_Vehiculo, $id_Usuario, $id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados){
-
-        $sql ="INSERT INTO Service (id_Vehiculo, id_Usuario, id_TipoService,fecha, kilometraje, detalle, repuestos_cambiados) VALUES 
-                                ('$id_Vehiculo','$id_Usuario','$id_TipoService','$fecha','$kilometraje','$detalle', '$repuestos_cambiados') ";
-
+    public function insertarService($id_Vehiculo, $id_Chofer, $id_Mecanico, $id_TipoService,$fecha,$kilometraje,$detalle,$repuestos_cambiados){
+        $sql ="INSERT INTO Service (id_Vehiculo, id_Chofer, id_Mecanico, id_TipoService,fecha, kilometraje, detalle, repuestos_cambiados) VALUES 
+                                ('$id_Vehiculo','$id_Chofer', '$id_Mecanico' ,'$id_TipoService','$fecha','$kilometraje','$detalle', '$repuestos_cambiados') ";
         $this->database->execute($sql);
     }
 
     public function editarService($data){
         $id_Service = $data['idService'];
         $id_Vehiculo = $data['vehiculo'];
-        $id_Usuario = $data['usuario'];
+        $id_Chofer = $data['chofer'];
+        $id_Mecanico = $data['mecanico'];
         $id_TipoService = $data['tipoService'];
         $fecha = $data['fecha'];
         $kilometraje = $data['kilometraje'];
         $repuestos_cambiados = $data['repuestos'];
 
         $sql = "UPDATE Service SET  id_Vehiculo = '$id_Vehiculo',
-                                    id_Usuario = '$id_Usuario',
+                                    id_Chofer = '$id_Chofer',
+                                    id_Mecanico = '$id_Mecanico',
                                     id_TipoService = '$id_TipoService',
                                     fecha = '$fecha',
                                     kilometraje = '$kilometraje',
