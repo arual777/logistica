@@ -38,6 +38,8 @@ class RegistroController
             $dniExistente = $this->usuarioModel->buscarUsuarioPorDNI($dni);
             $codigoLicencia = "0";
             $tipoLicencia = 1;
+            $id_Rol = 1;
+            $activacionDelUsuario= 0;
             if (isset($_POST['codigoLicencia'], $_POST['tipoLicencia'])) {
                 $codigoLicencia = $_POST['codigoLicencia'];
                 $tipoLicencia = $_POST['tipoLicencia'];
@@ -58,11 +60,12 @@ class RegistroController
                 echo $this->render->render("view/registro.php", $data);
                 exit();
             } else {
-                $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password, $usuario, $apellido,
-                    $dni, $fecha_nac, $codigoLicencia);
+                $this->usuarioModel->insertarUsuario($tipoLicencia, $mail, $password,$activacionDelUsuario,$usuario, $apellido,
+                    $dni, $fecha_nac, $codigoLicencia,$id_Rol);
                 $data = array();
                 $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un administrador te asigne un rol para poder iniciar sesión";
-                echo $this->render->render("view/login.php",$data);
+                $this->render->render("view/login.php",$data);
+                header("Location:/logistica/Autorizacion/?registro=true");
                 exit();
 
             }
