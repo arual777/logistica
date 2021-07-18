@@ -48,7 +48,8 @@ class PermisoModel
             "CREARNUEVANOTIFICACION"=> MODIFICACION,
             "VERFORMNOTIFICACION"=> LECTURA,
             "PRINTPDF" => LECTURA,
-            "EDITARNOTIFICACION"=> MODIFICACION
+            "EDITARNOTIFICACION"=> MODIFICACION,
+            "FINALIZARVIAJE"=> MODIFICACION
         );
     }
 

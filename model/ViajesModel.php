@@ -76,4 +76,13 @@ class ViajesModel
                                                             WHERE id_Viaje_Detalle = '$idDetalleViaje'";
         $this->database->execute($sql);
     }
+
+    public function cambiarEstadoViaje($idViaje, $estadoViaje){
+
+        $sql = "UPDATE Viaje
+                            SET 
+                                id_estado  = '$estadoViaje'                                                                                                                                                                                                
+                WHERE id_viaje = '$idViaje'";
+        $this->database->execute($sql);
+    }
 }
