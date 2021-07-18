@@ -13,7 +13,7 @@ class UsuarioController
 
     public function execute()
     {
-        echo $this->render->render("view/usuario.php");
+        echo $this->render->render("view/verUsuarios.php");
     }
 
     public function listar()

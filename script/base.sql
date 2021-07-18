@@ -264,15 +264,15 @@ INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis
 VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien');
 
 
-INSERT INTO Tipo_Service(id_TipoService, descripcion) VALUES (1,'Revision motor');
-INSERT INTO Tipo_Service VALUES (2, 'Revision interna');
-INSERT INTO Tipo_Service VALUES (3, 'Revision paragolpe');
-INSERT INTO Tipo_Service VALUES (4, 'Otros');
+INSERT INTO Tipo_Service(id_TipoService, descripcion) VALUES (1,'Interno');
+INSERT INTO Tipo_Service VALUES (2, 'Externo');
+
 
 
 INSERT INTO Service (id_Service,id_Vehiculo,id_Chofer,id_Mecanico,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)
 VALUES (1,1,4,5,1,'20210403', 1900, 'Cambio de motor', 'Motor');
-INSERT INTO Service VALUES (4,1,4,5,3,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe');
+INSERT INTO Service VALUES (4,1,4,5,2,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe');
+
 
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');

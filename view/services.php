@@ -8,7 +8,8 @@
         <tr>
             <th>Id service</th>
             <th>Id vehículo</th>
-            <th>Id usuario</th>
+            <th>Id Chofer</th>
+            <th>Id Mecánico</th>
             <th>Id tipo service</th>
             <th>Fecha</th>
             <th>Kilometraje</th>
@@ -19,7 +20,8 @@
         <tr>
             <td>{{id_Service}}</td>
             <td>{{id_Vehiculo}}</td>
-            <td>{{id_Usuario}}</td>
+            <td>{{id_Chofer}}</td>
+            <td>{{id_Mecanico}}</td>
             <td>{{id_TipoService}}</td>
             <td>{{fecha}}</td>
             <td>{{kilometraje}}</td>
