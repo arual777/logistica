@@ -19,7 +19,7 @@ class ProformaModel
 
          if($idProforma=="") {
                     $idCarga = $this->insertarCarga($tipoCarga, $peligrosidad, $refrigeracion, $graduacion, $peso);
-                    $idViaje = $this->insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida,
+                    $idViaje = $this->insertarViaje($idChofer, $idCarga,  $origen, $destino, $fechaPartida,
                                                     $tiempoEstimadollegada, $vehiculo, $arrastre);
 
                      $sql = "INSERT INTO Proforma (fecha, denominacion_cliente, cuit, telefono, mail, contacto,  
@@ -136,14 +136,17 @@ class ProformaModel
 
     private function insertarViaje($idChofer, $idCarga, $origen, $destino, $fechaPartida, $tiempoEstimadoLlegada,
                                    $vehiculo, $arrastre){
-        $sql = "INSERT INTO Viaje ( id_usuario, id_carga, origen, destino, fecha_carga, tiempo_estimadoLlegada,codigo_qr,id_vehiculo, id_arrastre)   
-                values('$idChofer', $idCarga , '$origen','$destino','$fechaPartida','$tiempoEstimadoLlegada', null, 
+        $estadoViaje= PENDIENTE;
+
+        $sql = "INSERT INTO Viaje ( id_usuario, id_carga, id_estado, origen, destino, fecha_carga, tiempo_estimadoLlegada,codigo_qr,id_vehiculo, id_arrastre)   
+                values('$idChofer', '$idCarga', '$estadoViaje', '$origen','$destino','$fechaPartida','$tiempoEstimadoLlegada', null, 
                        '$vehiculo', '$arrastre')";
 
         $this->database->execute($sql);
 
         return $this->database->lastId();
     }
+
 
 
 }

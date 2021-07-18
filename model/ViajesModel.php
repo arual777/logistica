@@ -12,7 +12,6 @@ class ViajesModel
 
     public function obtenerViajesPorOrdenFecha()
     {
-
         return $this->database->query("select * from PROFORMA p join viaje v on p.id_viaje = v.id_viaje ORDER BY fecha_carga DESC");
     }
 
@@ -25,9 +24,14 @@ class ViajesModel
         return $this->database->query($consulta);
     }
 
-    public function obtenerDetalleViaje($id)
+    public function obtenerDetalleViaje($idViaje)
     {
-        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$id'");
+        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$idViaje'");
+    }
+
+    public function obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle)
+    {
+        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_Viaje_Detalle = '$idViajeDetalle'");
     }
 
     public function obtenerIdDelViaje()
@@ -45,12 +49,12 @@ class ViajesModel
       return $this->database->query("select refrigeracion,graduacion,peso from Carga c where c.id_Carga='$id'");
     }
 
-    public function crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras)
-    {
-
-        $sql = "INSERT INTO Viaje_Detalle (id_viaje, kilometraje, latitud, longitud, fecha, 
+    public function crearNuevaNotificacion($id, $km, $latitud, $longitud, $fecha, $combustibleCargado,
+                                           $peajes, $extras)
+    {$sql = "INSERT INTO Viaje_Detalle (id_viaje, kilometraje, latitud, longitud, fecha, 
                                                 combustibleCargado, peajes, extras)   
-                values('$idViaje','$km','$latitud', '$longitud','$fecha', '$combustibleCargado', '$peajes', '$extras')";
+                values('$id','$km','$latitud', '$longitud','$fecha', '$combustibleCargado', '$peajes', 
+                       '$extras')";
 
         $this->database->execute($sql);
     }
@@ -59,4 +63,26 @@ class ViajesModel
         return $this->database->query("select u.nombre,u.apellido from Usuario u join viaje v on u.id_usuario=v.id_usuario where v.id_viaje='$id_viaje'");
     }
 
+    public function editar($idDetalleViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes){
+
+        $sql = "UPDATE Viaje_Detalle SET kilometraje = '$km',
+                                                            latitud = '$latitud',
+                                                            longitud = '$longitud',
+                                                            fecha = '$fecha',
+                                                            combustibleCargado= '$combustibleCargado',
+                                                            peajes = '$peajes',
+                                                            extras = '$extras'
+                                                            
+                                                            WHERE id_Viaje_Detalle = '$idDetalleViaje'";
+        $this->database->execute($sql);
+    }
+
+    public function cambiarEstadoViaje($idViaje, $estadoViaje){
+
+        $sql = "UPDATE Viaje
+                            SET 
+                                id_estado  = '$estadoViaje'                                                                                                                                                                                                
+                WHERE id_viaje = '$idViaje'";
+        $this->database->execute($sql);
+    }
 }

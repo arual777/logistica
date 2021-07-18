@@ -115,12 +115,18 @@ CREATE TABLE Carga(   id_Carga int not null auto_increment,
                       foreign key (id_TipoCarga) references Tipo_Carga (id_TipoCarga),
                       foreign key (id_TipoHazard) references Tipo_Hazard (id_TipoHazard)
 );
+
+CREATE TABLE Estado_Viaje(id_Estado int not null auto_increment,
+                          descripcion varchar (30) not null,
+                          primary key(id_Estado));
+
 CREATE TABLE Viaje(
                       id_viaje int not null auto_increment,
                       id_usuario int not null,
                       id_vehiculo int not null,
                       id_arrastre int not null,
                       id_carga int not null,
+                      id_estado int not null,
                       origen varchar (30) not null,
                       destino varchar (30) not null,
                       fecha_carga date,
@@ -130,14 +136,15 @@ CREATE TABLE Viaje(
                       foreign key (id_usuario) references Usuario(id_Usuario),
                       foreign key (id_carga) references Carga (id_Carga),
                       foreign key (id_vehiculo) references Vehiculo(id_Vehiculo),
+                      foreign key (id_estado) references Estado_Viaje(id_Estado),
                       foreign key (id_arrastre) references Vehiculo (id_Vehiculo));
 
 CREATE TABLE Viaje_Detalle(
                               id_Viaje_Detalle int not null auto_increment,
                               id_viaje int not null,
                               kilometraje int not null,
-                              latitud decimal not null,
-                              longitud decimal not null,
+                              latitud varchar (80) not null,
+                              longitud varchar (80) not null,
                               fecha date not null,
                               combustibleCargado decimal not null,
                               peajes decimal not null,
@@ -228,10 +235,10 @@ INSERT INTO Rol_Seccion VALUES(4,5,0,0,0,0);
 /*permisos rol mecanico*/
 INSERT INTO Rol_Seccion(id_Rol, id_Seccion,alta,baja,modificacion,lectura)
 VALUES(5,1,0,0,0,0),
-(5,2,0,0,0,1),
-(5,3,0,0,0,1),
-(5,4,1,1,1,1),
-(5,5,0,0,0,1);
+      (5,2,0,0,0,1),
+      (5,3,0,0,0,1),
+      (5,4,1,1,1,1),
+      (5,5,0,0,0,1);
 
 
 
@@ -264,11 +271,8 @@ INSERT INTO Tipo_Service VALUES (2, 'Externo');
 
 INSERT INTO Service (id_Service,id_Vehiculo,id_Chofer,id_Mecanico,id_TipoService,fecha, kilometraje,detalle,repuestos_cambiados)
 VALUES (1,1,4,5,1,'20210403', 1900, 'Cambio de motor', 'Motor');
-<<<<<<< Updated upstream
-INSERT INTO Service VALUES (4,1,4,5,3,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe'); 
-=======
 INSERT INTO Service VALUES (4,1,4,5,2,'20210402', 0, 'Verificación paragolpe', 'Daño Paragolpe');
->>>>>>> Stashed changes
+
 
 INSERT INTO Tipo_Carga(id_TipoCarga, descripcion) VALUES (222, 'Granel');
 INSERT INTO Tipo_Carga VALUES (333, 'Refrigerado');
@@ -284,10 +288,15 @@ INSERT INTO Carga(id_TipoCarga,id_TipoHazard,refrigeracion, graduacion ,peso)
 VALUES(222, 1, 5, 10, 8500.0)
      ,(333, 2, 1, 15, 15000.0);
 
-INSERT INTO Viaje(id_usuario,id_vehiculo,id_arrastre,id_carga,origen,destino,fecha_carga ,tiempo_estimadoLlegada ,codigo_qr)
-VALUES(4,1,1,1,'Buenos Aires', 'Paraná', '20210520', '20210522', null)
-     ,     (4,2,2,2,'La Plata', 'Río de Janeiro', '20210607', '20210612', null)
-     ,     (4,2,1,1,'Río Gallegos', 'Rosario', '20210704', '20210710', null);
+INSERT INTO Estado_Viaje(id_Estado, descripcion)
+values (1, 'pendiente'),
+       (2, 'en curso'),
+       (3, 'finalizado');
+
+INSERT INTO Viaje(id_usuario,id_vehiculo,id_arrastre,id_carga, id_estado, origen,destino,fecha_carga ,tiempo_estimadoLlegada ,codigo_qr)
+VALUES(4,1,1,1,1,'Buenos Aires', 'Paraná', '20210520', '20210522', null)
+     ,     (4,2,2,2,1,'La Plata', 'Río de Janeiro', '20210607', '20210612', null)
+     ,     (4,2,1,1,1,'Río Gallegos', 'Rosario', '20210704', '20210710', null);
 
 
 INSERT INTO Viaje_Detalle(id_Viaje_Detalle, id_viaje , kilometraje, latitud, longitud, fecha, combustibleCargado, peajes, extras)
@@ -297,6 +306,8 @@ VALUES (1,1, 1500, 0.0 , 0.0 ,'20210522', 1800.0, 3500.0, 1000.0)
 
 INSERT INTO Usuario (id_Usuario,id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 VALUES (6,4,1,'chofer2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Pedro', 'Juarez', 30405050, '1980-07-02', 'gol153');
+
+
 
 INSERT INTO Usuario (id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 values(1,1,'algoPrueba@gmail.com','3f9406b114126f9f05c3fdf78012ae79',true,'Joel','Escobar','44107580','2001-07-02','xxxx');
