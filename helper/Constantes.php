@@ -21,3 +21,8 @@ define("TANQUE",4);
 //tipoVehiculo
 define("ARRASTRE", 1);
 define("TRACTOR", 2);
+
+//estadoViaje
+define("PENDIENTE", 1);
+define("ENCURSO", 2);
+define("FINALIZADO", 3);

@@ -63,17 +63,35 @@ class ViajesController
         $peajes= $_POST["peajes"];
         $extras=$_POST["extras"];
 
-            if($idViajeDetalle != "")
+        if($idViajeDetalle != "")
         {
             $this->viajesModel->editar($idViajeDetalle, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes);
         }
         else
         {
             $this-> viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+            $this->cambiaEstadoViaje($idViaje, ENCURSO);
         }
 
         $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
         $data = array('viajes' => $notificaciones);
         echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
     }
+
+    public function finalizarViaje(){
+        $idViaje= $_POST["idViaje"];
+        $this->cambiaEstadoViaje($idViaje, FINALIZADO);
+
+        $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
+        $data = array('viajes' => $notificaciones);
+        echo $this->render->render("view/infoViaje.php", $data);
+    }
+
+    //
+    // Recibe Id del viaje y un estado
+    // Realiza una actualizacion del estado del viaje en la Db
+    private function cambiaEstadoViaje($idViaje, $estado){
+        $this-> viajesModel->cambiarEstadoViaje($idViaje, $estado);
+    }
+
 }
