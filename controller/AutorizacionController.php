@@ -73,7 +73,7 @@ class AutorizacionController
                 $this->renderMecanicoHome();
             break;
             default:
-                echo $this->render->render("view/usuario.php");
+                echo $this->sinPermiso();
             break;
         }
     }
