@@ -113,6 +113,76 @@ class ProformaModel
         }
     }
 
+    public function calcularCostosCombustibleCargado($idViaje){
+
+        $combustibleCargadoConsulta = "select sum(combustibleCargado) as combustibleCargado
+                                from Viaje_Detalle 
+                                where id_viaje = '$idViaje'";
+
+        $resultadoCombustibleConsulta = $this->database->query($combustibleCargadoConsulta);
+
+        $combustibleCargado= $resultadoCombustibleConsulta[0]["combustibleCargado"];
+
+        $precioActualConsulta = "select precio_litro from Combustible";
+        $resultadoPrecioConsulta = $this->database->query($precioActualConsulta);
+        $precioActualizado= $resultadoPrecioConsulta [0] ["precio_litro"];
+
+        $costoTotalCombustible = ($combustibleCargado * $precioActualizado);
+
+        return $costoTotalCombustible;
+    }
+
+
+    public function calcularFacturacion($idViaje)
+    {
+        $estadoViaje = "SELECT id_estado FROM Viaje where id_viaje = '$idViaje'";
+        $resultado = $this->database->query($estadoViaje);
+
+        if ($resultado[0]["id_estado"] == FINALIZADO) {
+
+            $costoPeligrosoConsulta = "select costo_peligroso from Proforma where id_viaje = '$idViaje'";
+            $resultadoCostoPeligroso = $this->database->query($costoPeligrosoConsulta);
+            $costoPeligroso = $resultadoCostoPeligroso[0]["costo_peligroso"];
+
+            $costoRefrigeracionConsulta = "select costo_refrigeracion 
+                            from Proforma where id_viaje = '$idViaje'";
+            $resultadoRefrigeracionConsulta = $this->database->query($costoRefrigeracionConsulta);
+
+            $costoRefrigeracion= $resultadoRefrigeracionConsulta[0]["costo_refrigeracion"];
+
+            $costoTarifa = "select tarifa from Proforma where id_viaje = '$idViaje'";
+            $resultadoTarifaConsulta = $this->database->query($costoTarifa);
+            $costoTarifa= $resultadoTarifaConsulta[0]["tarifa"];
+
+            $costoCombusitble = $this->calcularCostosCombustibleCargado($idViaje);
+
+            $costoPeajesConsulta = "select sum(peajes) as peajes  from Viaje_Detalle where id_viaje = '$idViaje'";
+            $resultadoPeajesConsulta = $this->database->query($costoPeajesConsulta);
+            $costoPeajes= $resultadoPeajesConsulta[0]["peajes"];
+
+            $costoExtrasConsulta = "select sum(extras) as extras 
+                                            from Viaje_Detalle 
+                                        where id_viaje = '$idViaje'";
+
+            $resultadoExtrasConsulta = $this->database->query($costoExtrasConsulta);
+
+            $costoExtras= $resultadoExtrasConsulta[0]["extras"];
+
+            $importeFinal = $costoPeligroso + $costoRefrigeracion + $costoTarifa + $costoCombusitble +
+                $costoPeajes + $costoExtras;
+
+            $facturacionFinal = array("importeFinal" => $importeFinal,
+                        "costoExtras" => $costoExtras,
+                         "costoPeajes" => $costoPeajes,
+                            "costoCombustible" => $costoCombusitble,
+                            "costoTarifa" => $costoTarifa,
+                            "costoRefrigeracion" => $costoRefrigeracion,
+                            "costoPeligroso" => $costoPeligroso);
+
+            return $facturacionFinal;
+        }
+    }
+
     public function obtenerProformas(){  
         $sql = "select id_factura, id_viaje, fecha, denominacion_cliente from Proforma";
         return $this->database->query($sql);

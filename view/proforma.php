@@ -192,12 +192,43 @@
                     <input type="hidden" id="carga" name="carga" value="{{#proforma}}{{id_carga}}{{/proforma}}"/>
                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
 
-                </form>
 
                 <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
                     <button class="btn btn-primary">Imprimir</button>
                 </a>
 
+
+                {{#costos}}
+                <H2> COSTOS REALES</H2>
+                <label for="combustible">Combustible:</label>
+                <input type="number" name="costoCombustibleFinal" id="costoCombustibleFinal" class="form-control"
+                       value="{{costoCombustible}}">
+
+                <label for="viatico">Viáticos:</label>
+                <input type="number" name="viatico" id="costoViaticoFinal" class="form-control"
+                       value="{{costoExtras}}">
+
+                <label for="peaje">Peajes:</label>
+                <input type="number" name="peaje" id="peaje" class="form-control"
+                       value="{{costoPeajes}}">
+
+                <label for="haz">Peligrosidad:</label>
+                <input type="number" name="costoHazard" id="costoHazard" class="form-control"
+                       value="{{costoPeligroso}}">
+
+                <label for="ref">Refrigeración:</label>
+                <input type="number" name="costoRefrigeracion" id="costoRefrigeracion" class="form-control"
+                       value="{{costoRefrigeracion}}">
+
+                <label for="tarifa">Tarifa:</label>
+                <input type="number" name="tarifa" id="tarifa" class="form-control"
+                       value="{{costoTarifa}}">
+
+                <label for="tarifa">Gastos reales:</label>
+                <input type="number" name="gastosReales" id="gastosReales" class="form-control"
+                       value="{{importeFinal}}">
+                {{/costos}}
+            </form>
 
             </div>
         </div>
