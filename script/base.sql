@@ -314,3 +314,11 @@ values(1,1,'algoPrueba@gmail.com','3f9406b114126f9f05c3fdf78012ae79',true,'Joel'
 
 INSERT INTO Usuario(id_Rol, id_Licencia, mail, clave, activo, nombre, apellido, dni, fecha_nac, codigo_licencia)
 VALUES(5,1,'mecanico2@gmail.com', '3f9406b114126f9f05c3fdf78012ae79', true, 'Franco', 'Perez', 40345654, '1998-05-01', 'abc987');
+
+create table Combustible(id_Combustible int not null auto_increment,
+                         descripcion varchar (40) not null,
+                         precio_litro decimal not null,
+                         primary key (id_Combustible));
+
+insert into Combustible ( descripcion, precio_litro)
+values('gasoil', 2455);

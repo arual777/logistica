@@ -18,8 +18,11 @@
             <td>{{id_factura}}</td>
             <td>{{fecha}}</td>
             <td>{{denominacion_cliente}}</td>
-            <td><a href="/logistica/Proforma/detalleProforma/id={{id_factura}}" ><button type="submit" class="btn btn-primary">Detalle proforma</button></a></td>
+            <td><a href="/logistica/Proforma/detalleProforma/id={{id_factura}}&id_viaje={{id_viaje}}" ><button type="submit" class="btn btn-primary">Detalle proforma</button></a></td>
             <td><a href="/logistica/Viajes/detalleViaje/id={{id_viaje}}" ><button type="submit" class="btn btn-primary">Detalle viaje</button></a></td>
+
+
+
         </tr>
         {{/proformas}}
     </table>

@@ -49,7 +49,9 @@ class PermisoModel
             "VERFORMNOTIFICACION"=> LECTURA,
             "PRINTPDF" => LECTURA,
             "EDITARNOTIFICACION"=> MODIFICACION,
-            "FINALIZARVIAJE"=> MODIFICACION
+            "FINALIZARVIAJE"=> MODIFICACION,
+            "VERFACTURACION" => LECTURA,
+            "CALCULARFACTURACION" => LECTURA
         );
     }
 

@@ -29,10 +29,16 @@ class ProformaController
     public function detalleProforma()
     {
         $id = $_GET["id"];
+        $idViaje = $_GET["id_viaje"];
+
         $proforma = $this->proformaModel->detalleProforma($id);
         $data = array('proforma' => $proforma);
         $datosFormulario = $this->obtenerDatosFormulario();
         $datosFormulario["proforma"] = $proforma;
+
+        $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
+        $datosFormulario["costos"] = $costosReales;
+
         echo $this->render->render("view/proforma.php", $datosFormulario);
     }
 
@@ -95,6 +101,17 @@ class ProformaController
         return $data;
     }
 
+    public function verFacturacion()
+    {
+        $idProforma = $_GET["id"];
+        $idViaje = $_GET["id_viaje"];
+        $proforma = $this->proformaModel->detalleProforma($idProforma);
+        $datosFormulario = $this->obtenerDatosFormulario();
+        $datosFormulario["proforma"] = $proforma;
+        $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
+        $datosFormulario["costos"] = $costosReales;
+        echo $this->render->render("view/proforma.php", $datosFormulario);
+    }
 
     public function printPdf()
     {
