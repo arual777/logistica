@@ -21,6 +21,7 @@ include_once("controller/ServiceController.php");
 include_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once("Router.php");
 include_once("Constantes.php");
+include_once("helper/GeneradorQr.php");
 
 class Configuration
 {
@@ -116,7 +117,8 @@ class Configuration
     public function getProformaModel()
     {
         $database = $this->getDatabase();
-        return new ProformaModel($database);
+        $generadorQr = $this->getGeneradorQr();
+        return new ProformaModel($database, $generadorQr);
     }
 
     public function getViajesModel()
@@ -146,5 +148,9 @@ class Configuration
 
     public function getSeguridad(){
         return new Seguridad();
+    }
+
+    private function getGeneradorQr(){
+        return new GeneradorQr();
     }
 }
