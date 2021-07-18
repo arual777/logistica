@@ -12,7 +12,6 @@ class ViajesModel
 
     public function obtenerViajesPorOrdenFecha()
     {
-
         return $this->database->query("select * from PROFORMA p join viaje v on p.id_viaje = v.id_viaje ORDER BY fecha_carga DESC");
     }
 
@@ -28,6 +27,11 @@ class ViajesModel
     public function obtenerDetalleViaje($idViaje)
     {
         return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_viaje = '$idViaje'");
+    }
+
+    public function obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle)
+    {
+        return $this->database->query("SELECT * FROM Viaje_Detalle WHERE id_Viaje_Detalle = '$idViajeDetalle'");
     }
 
     public function obtenerIdDelViaje()
@@ -59,4 +63,17 @@ class ViajesModel
         return $this->database->query("select u.nombre,u.apellido from Usuario u join viaje v on u.id_usuario=v.id_usuario where v.id_viaje='$id_viaje'");
     }
 
+    public function editar($idDetalleViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes){
+
+        $sql = "UPDATE Viaje_Detalle SET kilometraje = '$km',
+                                                            latitud = '$latitud',
+                                                            longitud = '$longitud',
+                                                            fecha = '$fecha',
+                                                            combustibleCargado= '$combustibleCargado',
+                                                            peajes = '$peajes',
+                                                            extras = '$extras'
+                                                            
+                                                            WHERE id_Viaje_Detalle = '$idDetalleViaje'";
+        $this->database->execute($sql);
+    }
 }

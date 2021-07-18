@@ -38,6 +38,9 @@
                 <td>{{peajes}}</td>
                 <td>{{extras}}</td>
 
+                <td><a href="/logistica/Viajes/editarNotificacion/id_Viaje_Detalle={{id_Viaje_Detalle}}&id_viaje={{#id}}{{id}}{{/id}}"><button type="submit" class="btn btn-warning ">Editar</button></a></td>
+
+
             </tr>
             {{/viajes}}
         </table>
