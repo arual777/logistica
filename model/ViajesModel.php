@@ -85,4 +85,8 @@ class ViajesModel
                 WHERE id_viaje = '$idViaje'";
         $this->database->execute($sql);
     }
+
+    public function consultarEstadoViaje($idViaje){
+        return $this->database->query("select id_estado from Viaje where id_viaje='$idViaje'");
+    }
 }

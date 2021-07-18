@@ -45,11 +45,22 @@ class ViajesController
     }
 
     public function editarNotificacion(){
-        $idViajeDetalle = $_GET["id_Viaje_Detalle"];
         $id = $_GET["id_viaje"];
-        $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
-        $data = array("viajes" => $viaje, "idViajeDetalle" =>$idViajeDetalle, "id" =>$id);
-        echo $this->render->render("view/notificacion.php", $data);
+        $estadoActual = $this-> viajesModel->consultarEstadoViaje($id);
+
+        if($estadoActual== ENCURSO) {
+
+            $idViajeDetalle = $_GET["id_Viaje_Detalle"];
+            $id = $_GET["id_viaje"];
+            $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
+            $data = array("viajes" => $viaje, "idViajeDetalle" => $idViajeDetalle, "id" => $id);
+            echo $this->render->render("view/notificacion.php", $data);
+        }
+        else {
+            $data = array();
+            $data["mensajeError"] = "No es posible editar un viaje finalizado";
+            echo $this->render->render("view/infoViaje.php", $data);
+        }
     }
 
     public function crear(){
