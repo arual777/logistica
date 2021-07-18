@@ -76,7 +76,9 @@
     <label for="extras">Extras:</label>
     <input type="text" name="extras" id="extras" class="form-control"
            placeholder="Ingrese los costos extras" value="{{#viajes}}{{extras}}{{/viajes}}">
+
     <input type="hidden" id="idViaje" name="idViaje" value="{{#id}}{{id}}{{/id}}"/>
+    <input type="hidden" id="idViajeDetalle" name="idViajeDetalle" value="{{#idViajeDetalle}}{{idViajeDetalle}}{{/idViajeDetalle}}"/>
 
 
         <button class="btn btn-success" type="submit">Guardar</button>

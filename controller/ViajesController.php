@@ -37,6 +37,7 @@ class ViajesController
         $data = array("viajes" => $viaje, "id" =>$id);
         echo $this->render->render( "view/infoViaje.php", $data );
     }
+
     public function verFormNotificacion(){
         $id = $_GET["id_viaje"];
         $data = array("id" =>$id);
@@ -44,14 +45,16 @@ class ViajesController
     }
 
     public function editarNotificacion(){
+        $idViajeDetalle = $_GET["id_Viaje_Detalle"];
         $id = $_GET["id_viaje"];
-        $viaje = $this->viajesModel->obtenerDetalleViaje($id);
-        $data = array("viajes" => $viaje, "id" =>$id);
+        $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
+        $data = array("viajes" => $viaje, "idViajeDetalle" =>$idViajeDetalle, "id" =>$id);
         echo $this->render->render("view/notificacion.php", $data);
     }
 
     public function crear(){
         $idViaje= $_POST["idViaje"];
+        $idViajeDetalle = $_POST["idViajeDetalle"];
         $km= $_POST["km"];
         $latitud= $_POST["latitud"];
         $longitud= $_POST["longitud"];
@@ -59,7 +62,15 @@ class ViajesController
         $combustibleCargado= $_POST["combustible"];
         $peajes= $_POST["peajes"];
         $extras=$_POST["extras"];
-        $this-> viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+
+            if($idViajeDetalle != "")
+        {
+            $this->viajesModel->editar($idViajeDetalle, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes);
+        }
+        else
+        {
+            $this-> viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+        }
 
         $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
         $data = array('viajes' => $notificaciones);
