@@ -192,7 +192,7 @@
                     <input type="hidden" id="carga" name="carga" value="{{#proforma}}{{id_carga}}{{/proforma}}"/>
                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
 
-
+                    <img src=".{{#proforma}}{{codigo_qr}}{{/proforma}}">
                 <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
                     <button class="btn btn-primary">Imprimir</button>
                 </a>

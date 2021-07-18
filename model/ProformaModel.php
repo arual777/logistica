@@ -2,10 +2,12 @@
 class ProformaModel
 {
     private $database;
+    private $generadorQr;
 
-    public function __construct($database)
+    public function __construct($database, $generadorQr)
     {
         $this->database = $database;
+        $this->generadorQr = $generadorQr;
     }
 
     public function crearProforma($idProforma, $idViaje, $idCarga, $denominacion, $cuit, $telefono, $mail, $contacto,$origen, $vehiculo, $arrastre,
@@ -31,6 +33,7 @@ class ProformaModel
                        '$combustibleEstimado', '$costoPeaje', '$viatico', '$costoHazard', '$costoRefrigeracion',
                        '$tarifa')";
                         $this->database->execute($sql);
+                        $this->generarQr($idViaje);
          } else{
 
 
@@ -217,6 +220,11 @@ class ProformaModel
         return $this->database->lastId();
     }
 
-
+    private function generarQr($idViaje){
+        $directorioQrGenerado = $this->generadorQr->generarQr($idViaje);
+        $sql = "UPDATE Viaje set codigo_qr = '$directorioQrGenerado'
+                WHERE id_viaje = '$idViaje'";
+        $this->database->execute($sql);
+    }
 
 }
