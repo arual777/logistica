@@ -39,14 +39,21 @@ class ViajesController
     }
 
     public function verFormNotificacion(){
+        $idViaje = $_GET["id_viaje"];
+        $estadoActual = $this-> viajesModel->consultarEstadoViaje($idViaje);
 
-        if($_SESSION['id_Rol'] == CHOFER) {
-            $id = $_GET["id_viaje"];
-            $data = array("id" => $id);
+
+        if($_SESSION['id_Rol'] == CHOFER && $estadoActual != FINALIZADO) {
+            $idViaje = $_GET["id_viaje"];
+            $data = array("id" => $idViaje);
             echo $this->render->render("view/notificacion.php", $data);
+        } else if ($_SESSION['id_Rol'] == CHOFER && $estadoActual == FINALIZADO){
+            $data = array();
+            $data["mensajeErrorPorFinalizacion"] = "Usted no puede crear ni editar viajes finalizados";
+            echo $this->render->render("view/viajes.php", $data);
         } else{
             $data = array();
-            $data["mensajeError"] = "Su rol no le permite crear ni editar notificaciones de los viajes en curso";
+            $data["mensajeErrorPorRol"] = "Su rol actual le impide crear y editar notificaciones de los viajes";
             echo $this->render->render("view/viajes.php", $data);
         }
     }
@@ -55,54 +62,62 @@ class ViajesController
         $id = $_GET["id_viaje"];
         $estadoActual = $this-> viajesModel->consultarEstadoViaje($id);
 
-        if($_SESSION['id_Rol'] == CHOFER) {
-            if ($estadoActual == ENCURSO) {
+        if($_SESSION['id_Rol'] == CHOFER && $estadoActual == ENCURSO) {
 
                 $idViajeDetalle = $_GET["id_Viaje_Detalle"];
                 $id = $_GET["id_viaje"];
                 $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
                 $data = array("viajes" => $viaje, "idViajeDetalle" => $idViajeDetalle, "id" => $id);
                 echo $this->render->render("view/notificacion.php", $data);
-            } else {
+
+            } else if ($_SESSION['id_Rol'] == CHOFER && $estadoActual == FINALIZADO){
                 $data = array();
                 $data["mensajeError"] = "No es posible editar un viaje finalizado";
-                echo $this->render->render("view/infoViaje.php", $data);
-            }
-        }
-        else{
+                echo $this->render->render("view/viajes.php", $data);
+            } else{
             $data = array();
-            $data["mensajeErrorRol"] = "Usted no tiene permiso para editar un viaje";
-            echo $this->render->render("view/infoViaje.php", $data);
+            $data["mensajeErrorPorRol"] = "Usted no tiene permiso para editar un viaje";
+            echo $this->render->render("view/viajes.php", $data);
         }
     }
 
     public function crear(){
-        $idViaje= $_POST["idViaje"];
-        $idViajeDetalle = $_POST["idViajeDetalle"];
-        $km= $_POST["km"];
-        $latitud= $_POST["latitud"];
-        $longitud= $_POST["longitud"];
-        $fecha= $_POST["fecha"];
-        $combustibleCargado= $_POST["combustible"];
-        $peajes= $_POST["peajes"];
-        $extras=$_POST["extras"];
+        $idViaje = $_GET["id_viaje"];
 
-        if($idViajeDetalle != "")
-        {
-            $this->viajesModel->editar($idViajeDetalle, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes);
-        }
-        else
-        {
-            $this-> viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
-            $this->cambiaEstadoViaje($idViaje, ENCURSO);
-        }
+        $estadoActual = $this-> viajesModel->consultarEstadoViaje($idViaje);
 
-        $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
-        $data = array('viajes' => $notificaciones, 'id'=>$idViaje);
-        echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
+        if($_SESSION['id_Rol'] == CHOFER && $estadoActual != FINALIZADO) {
+
+            $idViaje = $_POST["idViaje"];
+            $idViajeDetalle = $_POST["idViajeDetalle"];
+            $km = $_POST["km"];
+            $latitud = $_POST["latitud"];
+            $longitud = $_POST["longitud"];
+            $fecha = $_POST["fecha"];
+            $combustibleCargado = $_POST["combustible"];
+            $peajes = $_POST["peajes"];
+            $extras = $_POST["extras"];
+
+            if ($idViajeDetalle != "") {
+                $this->viajesModel->editar($idViajeDetalle, $km, $latitud, $longitud, $fecha, $combustibleCargado, $extras, $peajes);
+            } else {
+                $this->viajesModel->crearNuevaNotificacion($idViaje, $km, $latitud, $longitud, $fecha, $combustibleCargado, $peajes, $extras);
+                $this->cambiaEstadoViaje($idViaje, ENCURSO);
+            }
+
+            $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
+            $data = array('viajes' => $notificaciones, 'id' => $idViaje);
+            echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
+
+        }else{
+            $data = array();
+            $data["mensajeErrorViajeFinalizado"] = "Usted no puede editar un viaje finalizado";
+            echo $this->render->render("view/infoViaje.php", $data);
+        }
     }
 
     public function finalizarViaje(){
+
 
         if($_SESSION['id_Rol'] == CHOFER) {
 
@@ -110,13 +125,13 @@ class ViajesController
             $this->cambiaEstadoViaje($idViaje, FINALIZADO);
 
             $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
-            $data = array('viajes' => $notificaciones);
+            $data = array('viajes' => $notificaciones, 'id' => $idViaje);
             echo $this->render->render("view/infoViaje.php", $data);
 
         }else{
             $data = array();
-            $data["mensajeErrorPorFinalizacion"] = "Usted no tiene permiso para finalizar un viaje en curso";
-            echo $this->render->render("view/infoViaje.php", $data);
+            $data["mensajeErrorPorFinalizacion"] = "Usted no tiene permiso para finalizar un viaje";
+            echo $this->render->render("view/viajes.php", $data);
         }
     }
 

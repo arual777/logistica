@@ -47,9 +47,10 @@
     </div>
 
     <div class="container">
-        {{#mensajeError}} {{.}} {{/mensajeError}}
-        {{#mensajeErrorPorFinalizacion}} {{.}} {{/mensajeErrorPorFinalizacion}}
-        {{#mensajeErrorRol}} {{.}} {{/mensajeErrorRol}}
+
+
+        {{#mensajeErrorViajeFinalizado}} {{.}} {{/mensajeErrorViajeFinalizado}}
+
         <div class="row align-items-start">
             <div class="col">
                 <a href="/logistica/Viajes/listarViajes"><button type="submit" class="btn btn-primary ">Volver</button></a>
