@@ -2,6 +2,8 @@
 {{>headerUsuario}}
 
 <div class="w3-container w3-content w3-center w3-padding-64">
+   <h3> {{#mensajeError}} {{.}} {{/mensajeError}} </h3>
+
     <h1 class="text-center">Viajes</h1>
 
     <table class='table table-primary table-hover table-responsive-xs'>
