@@ -193,11 +193,6 @@
                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
 
                     {{#tieneQr}}<img src=".{{#proforma}}{{codigo_qr}}{{/proforma}}">{{/tieneQr}}
-                <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
-                    <button class="btn btn-primary">Imprimir</button>
-                </a>
-
-
                 {{#costos}}
                 <H2> COSTOS REALES</H2>
 
@@ -234,7 +229,9 @@
                        value="{{importeFinal}}">
                 {{/costos}}
             </form>
-
+                <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
+                    <button class="btn btn-primary">Imprimir</button>
+                </a>
             </div>
         </div>
     </div>

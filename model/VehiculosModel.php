@@ -67,7 +67,7 @@ class VehiculosModel
         $tipoArrastre = $data["arrastre"];
         $disponibilidad = $data["disponibilidad"];
 
-        echo "TIPO_VEHICULO :" . $tipoVehiculo . "<br>". "Tipo_arrastre " . $tipoArrastre;
+
 
         $sql = "UPDATE Vehiculo 
                 SET marca = '$marca',  
