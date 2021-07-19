@@ -58,7 +58,7 @@
                         {{/mecanicoActual}}
                         <optgroup label="Mecánicos">
                             {{#mecanico}}
-                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{id_Mecanico}}{{nombre}} - {{apellido}}</option>
+                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
                             {{/mecanico}}
                         </optgroup>
                     </select>
