@@ -47,7 +47,7 @@
 
 
 <h1>NOTIFICACIONES DEL VIAJE </h1>
-<form action="/logistica/viajes/crear" method="post">
+<form action="/logistica/viajes/crear/id_viaje={{#id}}{{id}}{{/id}}" method="post">
     <label for="km">Kilometraje:</label>
     <input type="text" name="km" id="km" class="form-control"
            placeholder="Ingrese el kilometraje actual" value="{{#viajes}}{{kilometraje}}{{/viajes}}" required>
