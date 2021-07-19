@@ -22,7 +22,7 @@ class VehiculosController
         echo $this->render->render("view/vehiculos.php",$data);
     }
 
-    public function insertar(){
+    public function insertar(){      //CAMBIAR NOMBRE A MOSTRAR VEHICULOS
         $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
         $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
         echo $this->render->render("view/nuevoVehiculo.php",$data);
@@ -39,7 +39,7 @@ class VehiculosController
         $estado = $_POST["estado"];
         $tipoVehiculo = $_POST["tipoVehiculo"];
         $arrastre = $_POST["arrastre"];
-        $disponibilidad = 3;
+        $disponibilidad = DISPONIBLE;
         $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado,$disponibilidad);
         $data['vehiculos'] = $this->model->obtenerVehiculos();
         header("Location: /logistica/Vehiculos/listarVehiculos/");

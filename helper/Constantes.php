@@ -26,3 +26,9 @@ define("TRACTOR", 2);
 define("PENDIENTE", 1);
 define("ENCURSO", 2);
 define("FINALIZADO", 3);
+
+//estadosDeVehiculos
+define("REPARANDO", 1);
+define("DANIADO", 2);
+define("DISPONIBLE", 3);
+define("NO_DISPONIBLE", 4);
