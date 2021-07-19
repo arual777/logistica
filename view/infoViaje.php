@@ -48,8 +48,8 @@
 
     <div class="container">
 
-
-        {{#mensajeErrorViajeFinalizado}} {{.}} {{/mensajeErrorViajeFinalizado}}
+       <h3> {{#mensajeViajeFinalizadoExiosamente}} {{.}} {{/mensajeViajeFinalizadoExiosamente}} </h3>
+        <h3>  {{#mensajeErrorViajeFinalizado}} {{.}} {{/mensajeErrorViajeFinalizado}}</h3>
 
         <div class="row align-items-start">
             <div class="col">

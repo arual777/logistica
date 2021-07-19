@@ -1,4 +1,4 @@
--- drop database Logistica;
+drop database Logistica;
 create database Logistica;
 use Logistica;
 
