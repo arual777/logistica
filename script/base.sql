@@ -1,4 +1,4 @@
-drop database Logistica;
+-- drop database Logistica;
 create database Logistica;
 use Logistica;
 
@@ -41,6 +41,13 @@ CREATE TABLE Rol_Seccion(
                             foreign key (id_Seccion) references Seccion (id_Seccion)
 );
 
+CREATE TABLE Estado_Vehiculo(
+
+	id_estado int not null auto_increment,
+    descripcion varchar(45),
+    primary key(id_estado)
+);
+
 CREATE TABLE Tipo_Vehiculo(
                               id_TipoVehiculo int not null auto_increment,
                               descripcion varchar (30) not null,
@@ -51,10 +58,12 @@ CREATE TABLE Tipo_Semi(
                           descripcion varchar (30) not null,
                           primary key(id_Tipo));
 
+
 CREATE TABLE Vehiculo (
                           id_Vehiculo int not null auto_increment,
                           id_Tipo int not null,
                           id_TipoSemi int null,
+                          id_disponible int not null,
                           marca varchar (40) null,
                           modelo varchar (50) null,
                           patente varchar(50) not null,
@@ -65,7 +74,8 @@ CREATE TABLE Vehiculo (
                           estado varchar (50) not null,
                           primary key (id_Vehiculo),
                           foreign key (id_Tipo) references Tipo_Vehiculo (id_TipoVehiculo),
-                          foreign key (id_TipoSemi) references Tipo_Semi (id_Tipo));
+                          foreign key (id_TipoSemi) references Tipo_Semi (id_Tipo),
+                          foreign key(id_disponible) references Estado_Vehiculo(id_estado));
 
 CREATE TABLE Tipo_Service(
                              id_TipoService int not null auto_increment,
@@ -240,7 +250,11 @@ VALUES(5,1,0,0,0,0),
       (5,4,1,1,1,1),
       (5,5,0,0,0,1);
 
-
+INSERT INTO Estado_Vehiculo(descripcion)
+values('REPARANDO'),
+	  ('DAÑADO'),
+      ('DISPONIBLE'),
+      ('NO DISPONIBLE'); 
 
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion)  VALUES (1, 'Arrastre');
 INSERT INTO Tipo_Vehiculo(id_TipoVehiculo,descripcion) VALUES (2,'Tractor');
@@ -253,15 +267,15 @@ INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (3,'Jaula');
 INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (4,'Tanque');
 INSERT INTO Tipo_Semi (id_Tipo, descripcion) VALUES (5,'CarCarrier');
 
-INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
-VALUES (2,1,'Iveco','','ABC123',1,'FKE345','20190320',850,'Usado');
-INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
-VALUES (3,1, 'Iveco','' ,'JKE2034', 2 , 'hjks2345', '20180913', 1800, 'Bien');
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (2,1,'Iveco','','ABC123',1,'FKE345','20190320',850,'Usado',3);
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (3,1, 'Iveco','' ,'JKE2034', 2 , 'hjks2345', '20180913', 1800, 'Bien',3);
 
-INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
-VALUES (1,2, 'Iveco','Araña' ,'JKE2034', null , null, '20180913', null, 'Bien');
-INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado)
-VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien');
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (1,2, 'Iveco','Araña' ,'JKE2034', null , null, '20180913', null, 'Bien',3);
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (1,2, 'Scania','Spider' ,'JKE7777', null , null, '20180914', null, 'Bien',3);
 
 
 INSERT INTO Tipo_Service(id_TipoService, descripcion) VALUES (1,'Interno');

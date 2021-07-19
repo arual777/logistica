@@ -62,8 +62,17 @@
                             {{/tipoArrastre}}
                             value=""></option>
                         </optgroup>
-
                     </select>
+                    <h3>Disponibilidad del vehiculo</h3>
+                    <select name="disponibilidad" id="disponibilidad" class="form-control d-inline">
+                        <optgroup label="Estado actual">
+                            <option value="{{id_disponible}}">{{disponibleActual}}</option>
+                        </optgroup>
+                        <optgroup label="Estado a cambiar">
+                            {{#disponibilidad}}
+                            <option value="{{id_estado}}">{{posicion}}</option>
+                            {{/disponibilidad}}
+                        </optgroup>
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
                     <input type="hidden" id="idVehiculo" name="idVehiculo" value="{{id_Vehiculo}}"/>
                 </form>
