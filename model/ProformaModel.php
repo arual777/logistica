@@ -32,10 +32,15 @@ class ProformaModel
                              values(NOW(), '$denominacion', '$cuit', '$telefono', '$mail', '$contacto', '$idViaje','$kmEstimados', 
                        '$combustibleEstimado', '$costoPeaje', '$viatico', '$costoHazard', '$costoRefrigeracion',
                        '$tarifa')";
+                        $this->cambiarDisponibilidadDeUnVehiculoANoDisponible($vehiculo);
                         $this->database->execute($sql);
                         $this->generarQr($idViaje);
          } else{
-
+             $ocupacionAnterior['ocupacion'] = $this->obtenerVehiculoDeUnViaje($idViaje);
+             if(isset($ocupacionAnterior['ocupacion'][0]['id_Vehiculo'])){
+                 $this->cambiarDisponibilidadDeUnVehiculoADisponible($ocupacionAnterior['ocupacion'][0]['id_Vehiculo']);
+             }
+             $this->cambiarDisponibilidadDeUnVehiculoANoDisponible($vehiculo);
 
              $sql = "UPDATE Carga SET id_TipoCarga = '$tipoCarga', 
                                         id_TipoHazard = '$peligrosidad',
@@ -93,6 +98,12 @@ class ProformaModel
         $sql= "select V.id_vehiculo, V.patente, V.chasis, S.descripcion
                 from Vehiculo V JOIN Tipo_Semi S on V.id_TipoSemi=S.id_Tipo
                 where V.id_Tipo =".ARRASTRE; //
+        return $this->database->query($sql);
+    }
+
+    public function obtenerVehiculosDisponibles(){
+        $sql = "select id_vehiculo, marca, patente, modelo from Vehiculo
+                where id_disponible=3 and id_Tipo <> ".ARRASTRE;
         return $this->database->query($sql);
     }
 
@@ -243,6 +254,19 @@ class ProformaModel
         $sql = "UPDATE Viaje set codigo_qr = '$directorioQrGenerado'
                 WHERE id_viaje = '$idViaje'";
         $this->database->execute($sql);
+    }
+
+    public function obtenerVehiculoDeUnViaje($id_viaje){
+        return $this->database->query("select ve.id_Vehiculo from Viaje v join Vehiculo ve on ve.id_Vehiculo=v.id_vehiculo where v.id_viaje='$id_viaje'");
+    }
+
+    public function cambiarDisponibilidadDeUnVehiculoANoDisponible($id_vehiculo){
+        return $this->database->execute("UPDATE Vehiculo set id_disponible=4 where id_vehiculo='$id_vehiculo'");
+    }
+
+    public function cambiarDisponibilidadDeUnVehiculoADisponible($id_vehiculo){
+        return $this->database->execute("UPDATE Vehiculo set id_disponible=3 where id_vehiculo='$id_vehiculo'");
+
     }
 
 }

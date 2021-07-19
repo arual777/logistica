@@ -22,18 +22,19 @@ class ProformaController
 
     public function formularioProforma()
     {
-        $data = $this->obtenerDatosFormulario();
+        $id = 0;
+        $data = $this->obtenerDatosFormulario($id);
         echo $this->render->render("view/proforma.php", $data);
     }
 
     public function detalleProforma()
     {
-        $id = $_GET["id"];
+        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";
         $idViaje = $_GET["id_viaje"];
 
         $proforma = $this->proformaModel->detalleProforma($id);
         $data = array('proforma' => $proforma);
-        $datosFormulario = $this->obtenerDatosFormulario();
+        $datosFormulario = $this->obtenerDatosFormulario($id);
         $datosFormulario["proforma"] = $proforma;
 
         $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
@@ -85,12 +86,16 @@ class ProformaController
         echo $this->render->render("view/proformas.php", $data);
     }
 
-    private function obtenerDatosFormulario()
+    private function obtenerDatosFormulario($id)
     {
         $choferes = $this->proformaModel->obtenerChoferes();
         $tipoCarga = $this->proformaModel->obtenerTipoDeCarga();
         $tipoHazard = $this->proformaModel->obtenerTipoHazard();
-        $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
+        if($id==0){
+            $tipoVehiculo = $this->proformaModel->obtenerVehiculosDisponibles();
+        }else{
+            $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
+        }
         $tipoVehiculoArrastre = $this->proformaModel->obtenerVehiculosDeArrastre();
         $data = array(
             'choferes' => $choferes,

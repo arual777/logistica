@@ -13,6 +13,8 @@
             <th>Año fabricación</th>
             <th>Kilometraje</th>
             <th>Chasis</th>
+            <th>Estado</th>
+            <th>Tipo vehiculo</th>
         </tr>
 
         {{#vehiculos}}
@@ -24,6 +26,8 @@
             <td>{{anio_fabricacion}}</td>
             <td>{{kilometraje}}</td>
             <td>{{chasis}}</td>
+            <td>{{descripcionEstado}}</td>
+            <td>{{descripcionTipo}}</td>
             <td><a href="/logistica/Vehiculos/editar/id={{id_Vehiculo}}"><button type="submit" class="btn btn-warning ">Modificar</button></a></td>
             <td><a href="/logistica/Vehiculos/borrarVehiculo/id={{id_Vehiculo}}"><button type="submit" class="btn btn-danger ">Borrar</button></a></td>
         </tr>

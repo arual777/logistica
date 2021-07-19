@@ -18,7 +18,7 @@ class VehiculosController
     }
 
     public function listarVehiculos(){
-        $data['vehiculos'] = $this->model->obtenerVehiculos();
+        $data['vehiculos'] = $this->model->obtenerVehiculosConEstadoYtipo();
         echo $this->render->render("view/vehiculos.php",$data);
     }
 
@@ -39,20 +39,23 @@ class VehiculosController
         $estado = $_POST["estado"];
         $tipoVehiculo = $_POST["tipoVehiculo"];
         $arrastre = $_POST["arrastre"];
-        $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado);
+        $disponibilidad = 3;
+        $this->model->insertarVehiculo($tipoVehiculo,$arrastre,$marca,$modelo,$patente,$motor,$chasis,$anio_fabricacion,$kilometraje,$estado,$disponibilidad);
         $data['vehiculos'] = $this->model->obtenerVehiculos();
         header("Location: /logistica/Vehiculos/listarVehiculos/");
     }
 
     public function editar(){
-    $id_Vehiculo = $_GET["id"];
-    $data['id']= $id_Vehiculo;
-    $data["vehiculo"] = $this->model->obtenerVehiculoPorId($data);
-    $data["vehiculoTipoActual"] = $this->model->obtenerVehiculoPorIdDeVehiculo($id_Vehiculo);
-    $data["arrastreActual"] = $this->model->obtenerArrastrePorIdDeVehiculos($id_Vehiculo);
-    $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
-    $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
-    echo $this->render->render("view/vehiculoModificar.php",$data);
+        $id_Vehiculo = $_GET["id"];
+        $data['id']= $id_Vehiculo;
+        $data["vehiculo"] = $this->model->obtenerVehiculoPorId($data);
+        $data["vehiculoTipoActual"] = $this->model->obtenerVehiculoPorIdDeVehiculo($id_Vehiculo);
+        $data["arrastreActual"] = $this->model->obtenerArrastrePorIdDeVehiculos($id_Vehiculo);
+        $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
+        $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
+        $data['disponibilidad'] = $this->model->obtenerEstadosDeDisponibilidad();
+
+        echo $this->render->render("view/vehiculoModificar.php",$data);
     }
 
     public function modificarVehiculo(){
@@ -64,19 +67,9 @@ class VehiculosController
         $data["anio_fabricacion"] = isset($_POST["anio_fabricacion"]) ? $_POST["anio_fabricacion"] : "";
         $data["kilometraje"] = isset($_POST["kilometraje"]) ? $_POST["kilometraje"] : "";
         $data["tipoVehiculo"] = isset($_POST["tipoVehiculo"]) ? $_POST["tipoVehiculo"] : "";
-        $data["arrastre"] = isset($_POST["arrastre"]) ? $_POST["arrastre"] : "";
-
+        $data["arrastre"] = isset($_POST["arrastre"]) ? $_POST["arrastre"] : "1";
+        $data["disponibilidad"] = isset($_POST["disponibilidad"]) ? $_POST["disponibilidad"] : "4";
         $this->model->editarVehiculo($data);
-        $data["vehiculos"] = $this->model->obtenerVehiculos();
-        echo $data["idVehiculo"] . "<br>" .
-             $data["marca"] . "<br>" .
-             $data["modelo"] . "<br>" .
-             $data["patente"] . "<br>" .
-             $data["chasis"] . "<br>" .
-             $data["anio_fabricacion"] . "<br>" .
-             $data["kilometraje"] . "<br>" .
-             $data["tipoVehiculo"] . "<br>" .
-             $data["arrastre"] . "<br>" ;
         header("Location: /logistica/Vehiculos/listarVehiculos/");
     }
 
