@@ -260,6 +260,10 @@ class ProformaModel
         return $this->database->query("select ve.id_Vehiculo from Viaje v join Vehiculo ve on ve.id_Vehiculo=v.id_vehiculo where v.id_viaje='$id_viaje'");
     }
 
+    public function obtenerCodigoQrPorIdDeProforma($id_proforma){
+        return $this->database->query("select v.codigo_qr from Proforma p join Viaje v on v.id_viaje=p.id_viaje where p.id_factura='$id_proforma'");
+    }
+
     public function cambiarDisponibilidadDeUnVehiculoANoDisponible($id_vehiculo){
         return $this->database->execute("UPDATE Vehiculo set id_disponible=4 where id_vehiculo='$id_vehiculo'");
     }

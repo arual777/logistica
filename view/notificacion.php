@@ -45,6 +45,10 @@
 </head>
 <body onload="loadMap()">
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card-header border border-dark w-50 m-auto bg-white">
 
 <h1>NOTIFICACIONES DEL VIAJE </h1>
 <form action="/logistica/viajes/crear/id_viaje={{#id}}{{id}}{{/id}}" method="post">
@@ -80,10 +84,15 @@
     <input type="hidden" id="idViaje" name="idViaje" value="{{#id}}{{id}}{{/id}}"/>
     <input type="hidden" id="idViajeDetalle" name="idViajeDetalle" value="{{#idViajeDetalle}}{{idViajeDetalle}}{{/idViajeDetalle}}"/>
 
+    <div id="mapa" style="width:100%; height:400px;" class="mt-3"></div>
 
-        <button class="btn btn-success" type="submit">Guardar</button>
+    <button class="btn btn-success btn-block mt-3" type="submit">Guardar</button>
 </form>
-<div id="mapa" style="width:500px; height:400px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 {{>footer}}
