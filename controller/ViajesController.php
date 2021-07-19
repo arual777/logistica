@@ -39,26 +39,39 @@ class ViajesController
     }
 
     public function verFormNotificacion(){
-        $id = $_GET["id_viaje"];
-        $data = array("id" =>$id);
-        echo $this->render->render("view/notificacion.php", $data);
+
+        if($_SESSION['id_Rol'] == CHOFER) {
+            $id = $_GET["id_viaje"];
+            $data = array("id" => $id);
+            echo $this->render->render("view/notificacion.php", $data);
+        } else{
+            $data = array();
+            $data["mensajeError"] = "Su rol no le permite crear ni editar notificaciones de los viajes en curso";
+            echo $this->render->render("view/viajes.php", $data);
+        }
     }
 
-    public function editarNotificacion(){
+   public function editarNotificacion(){
         $id = $_GET["id_viaje"];
         $estadoActual = $this-> viajesModel->consultarEstadoViaje($id);
 
-        if($estadoActual== ENCURSO) {
+        if($_SESSION['id_Rol'] == CHOFER) {
+            if ($estadoActual == ENCURSO) {
 
-            $idViajeDetalle = $_GET["id_Viaje_Detalle"];
-            $id = $_GET["id_viaje"];
-            $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
-            $data = array("viajes" => $viaje, "idViajeDetalle" => $idViajeDetalle, "id" => $id);
-            echo $this->render->render("view/notificacion.php", $data);
+                $idViajeDetalle = $_GET["id_Viaje_Detalle"];
+                $id = $_GET["id_viaje"];
+                $viaje = $this->viajesModel->obtenerDetalleViajePorIdViajeDetalle($idViajeDetalle);
+                $data = array("viajes" => $viaje, "idViajeDetalle" => $idViajeDetalle, "id" => $id);
+                echo $this->render->render("view/notificacion.php", $data);
+            } else {
+                $data = array();
+                $data["mensajeError"] = "No es posible editar un viaje finalizado";
+                echo $this->render->render("view/infoViaje.php", $data);
+            }
         }
-        else {
+        else{
             $data = array();
-            $data["mensajeError"] = "No es posible editar un viaje finalizado";
+            $data["mensajeErrorRol"] = "Usted no tiene permiso para editar un viaje";
             echo $this->render->render("view/infoViaje.php", $data);
         }
     }
@@ -85,17 +98,26 @@ class ViajesController
         }
 
         $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
-        $data = array('viajes' => $notificaciones);
+        $data = array('viajes' => $notificaciones, 'id'=>$idViaje);
         echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
     }
 
     public function finalizarViaje(){
-        $idViaje= $_POST["idViaje"];
-        $this->cambiaEstadoViaje($idViaje, FINALIZADO);
 
-        $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
-        $data = array('viajes' => $notificaciones);
-        echo $this->render->render("view/infoViaje.php", $data);
+        if($_SESSION['id_Rol'] == CHOFER) {
+
+            $idViaje = $_POST["idViaje"];
+            $this->cambiaEstadoViaje($idViaje, FINALIZADO);
+
+            $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
+            $data = array('viajes' => $notificaciones);
+            echo $this->render->render("view/infoViaje.php", $data);
+
+        }else{
+            $data = array();
+            $data["mensajeErrorPorFinalizacion"] = "Usted no tiene permiso para finalizar un viaje en curso";
+            echo $this->render->render("view/infoViaje.php", $data);
+        }
     }
 
     //
