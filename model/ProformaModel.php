@@ -135,6 +135,22 @@ class ProformaModel
         return $costoTotalCombustible;
     }
 
+    public function calcularKilometros($idViaje){
+
+        $consulta = "SELECT kilometraje
+                     from Viaje_Detalle
+                    where id_Viaje = '$idViaje'";
+        $calcularKilometrosConsulta = $this->database->query($consulta);
+        $kilometrosCargados= $calcularKilometrosConsulta[0]["kilometraje"];
+
+        $kilometrosActuales = "select kilometros_estimados from Proforma where id_Viaje = '$idViaje'";
+        $resultadoKilometrosActuales= $this->database->query($kilometrosActuales);
+        $kilometrosEstimados= $resultadoKilometrosActuales [0] ["kilometros_estimados"];
+
+        $kilometrosDiferencia = ($kilometrosEstimados - $kilometrosCargados);
+
+        return $kilometrosDiferencia;
+    }
 
     public function calcularFacturacion($idViaje)
     {
@@ -157,6 +173,7 @@ class ProformaModel
             $resultadoTarifaConsulta = $this->database->query($costoTarifa);
             $costoTarifa= $resultadoTarifaConsulta[0]["tarifa"];
 
+            $calculoKilometros = $this->calcularKilometros($idViaje);
             $costoCombusitble = $this->calcularCostosCombustibleCargado($idViaje);
 
             $costoPeajesConsulta = "select sum(peajes) as peajes  from Viaje_Detalle where id_viaje = '$idViaje'";
@@ -180,7 +197,8 @@ class ProformaModel
                             "costoCombustible" => $costoCombusitble,
                             "costoTarifa" => $costoTarifa,
                             "costoRefrigeracion" => $costoRefrigeracion,
-                            "costoPeligroso" => $costoPeligroso);
+                            "costoPeligroso" => $costoPeligroso,
+                            "calculoKilometros" => $calculoKilometros);
 
             return $facturacionFinal;
         }

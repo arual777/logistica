@@ -142,7 +142,7 @@ CREATE TABLE Viaje(
 CREATE TABLE Viaje_Detalle(
                               id_Viaje_Detalle int not null auto_increment,
                               id_viaje int not null,
-                              kilometraje int not null,
+                              kilometraje decimal not null,
                               latitud varchar (80) not null,
                               longitud varchar (80) not null,
                               fecha date not null,

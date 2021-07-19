@@ -200,6 +200,11 @@
 
                 {{#costos}}
                 <H2> COSTOS REALES</H2>
+
+                    <label for="kilometros">Diferencia de Kilometros (Estimado - Cargado):</label>
+                    <input type="number" name="calculoKilometros" id="calculoKilometros" class="form-control"
+                           value="{{calculoKilometros}}">
+
                 <label for="combustible">Combustible:</label>
                 <input type="number" name="costoCombustibleFinal" id="costoCombustibleFinal" class="form-control"
                        value="{{costoCombustible}}">
