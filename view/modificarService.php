@@ -58,7 +58,7 @@
                         {{/mecanicoActual}}
                         <optgroup label="Mecánicos">
                             {{#mecanico}}
-                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{id_Mecanico}}{{nombre}} - {{apellido}}</option>
+                            <option value="{{id_Mecanico}}" class="form-control d-inline">{{nombre}} - {{apellido}}</option>
                             {{/mecanico}}
                         </optgroup>
                     </select>
@@ -76,6 +76,21 @@
                                 {{/tipoService}}
                             </optgroup>
                         </select>
+
+                    <h3>Estado del vehiculo</h3>
+                    <select name="estado" id="estado" class="form-control">
+                        <optgroup label="Estado actual">
+                            {{#estadoActual}}
+                            <option value="{{id_estado}}">{{estadoActual}}</option>
+                            {{/estadoActual}}
+                        </optgroup>
+                        <optgroup label="Estado a cambiar">
+                            {{#estados}}
+                            <option value="{{id_estado}}">{{descripcion}}</option>
+                            {{/estados}}
+                        </optgroup>
+
+                    </select>
 
                     <input type="submit" value="Editar" class="btn btn-primary btn-block mb-3 mt-3">
                     <input type="hidden" id="idService" name="idService" value="{{id_Service}}" />

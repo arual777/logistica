@@ -82,6 +82,10 @@ class ServiceModel
         $this->database->execute($sql);
     }
 
+    public function cambiarVehiculoAestadoDeReparacion($id_vehiculo){
+        return $this->database->execute("UPDATE Vehiculo set id_disponible=1 where id_vehiculo='$id_vehiculo'");
+    }
+
     public function editarService($data){
         $id_Service = $data['idService'];
         $id_Vehiculo = $data['vehiculo'];
@@ -91,6 +95,7 @@ class ServiceModel
         $fecha = $data['fecha'];
         $kilometraje = $data['kilometraje'];
         $repuestos_cambiados = $data['repuestos'];
+        $estado = $data['estado'];
 
         $sql = "UPDATE Service SET  id_Vehiculo = '$id_Vehiculo',
                                     id_Chofer = '$id_Chofer',
@@ -101,8 +106,22 @@ class ServiceModel
                                     repuestos_cambiados = '$repuestos_cambiados'
                                     WHERE id_Service = '$id_Service'";
 
+        $this->cambiarEstadoDeUnVehiculo($id_Vehiculo,$estado);
         $this->database->execute($sql);
 
+    }
+
+    public function cambiarEstadoDeUnVehiculo($id_vehiculo,$id_estado){
+        $sql = "UPDATE Vehiculo set id_disponible='$id_estado' where id_vehiculo='$id_vehiculo'";
+        $this->database->execute($sql);
+    }
+
+    public function obtenerEstadosPosiblesConUnMecanico(){
+        return $this->database->query("select * from Estado_Vehiculo where id_estado<4");
+    }
+
+    public function obtenerEstadoActualDeUnVehiculo($id_vehiculo){
+        return $this->database->query("select e.id_estado,e.descripcion as estadoActual from Vehiculo v join Estado_Vehiculo e on v.id_disponible=e.id_estado where v.id_vehiculo='$id_vehiculo'");
     }
 
     public function borrarService($id){

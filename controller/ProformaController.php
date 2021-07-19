@@ -36,6 +36,10 @@ class ProformaController
         $data = array('proforma' => $proforma);
         $datosFormulario = $this->obtenerDatosFormulario($id);
         $datosFormulario["proforma"] = $proforma;
+        $qrExistente[] = $this->proformaModel->obtenerCodigoQrPorIdDeProforma($id);
+        if(isset($qrExistente)){
+            $datosFormulario['tieneQr'] = true;
+        }
 
         $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
         $datosFormulario["costos"] = $costosReales;
