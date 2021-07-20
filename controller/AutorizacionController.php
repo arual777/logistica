@@ -20,6 +20,7 @@ class AutorizacionController
     public function execute()
     {
         if(isset($_GET['registro'])&&$_GET['registro']==true){
+            //si la url tiene registro y si ese registro es true
             $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un administrador te asigne un rol para poder iniciar sesión";
             echo $this->render->render("view/login.php",$data);
             exit();
@@ -39,12 +40,11 @@ class AutorizacionController
                 $_SESSION['usuario'] = $usuario[0]["id_Usuario"];
                 $_SESSION['id_Rol'] = $usuario[0]["id_Rol"];
 
-                echo $this->home();
+              $this->home();
             }else{
                 $data = array();
-
                 $data["mensajeError"] = "Usuario o contraseña invalidos";
-                echo $this->render->render("view/login.php", $data);
+               echo $this->render->render("view/login.php", $data);
             }
         }
         else{

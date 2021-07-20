@@ -29,7 +29,7 @@ class ProformaController
 
     public function detalleProforma()
     {
-        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";   //ESTO PARA QUÉ ESTÁ ACÁ?
+        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";   //En qué caso sería un cero?
         $idViaje = $_GET["id_viaje"];
 
         $proforma = $this->proformaModel->detalleProforma($id);
@@ -37,7 +37,7 @@ class ProformaController
         $datosFormulario = $this->obtenerDatosFormulario($id);
         $datosFormulario["proforma"] = $proforma;
         $qrExistente[] = $this->proformaModel->obtenerCodigoQrPorIdDeProforma($id);
-        if(isset($qrExistente)){
+        if(isset($qrExistente)){ //PERO NO SE SETEA EL QR??  ¿QUÉ HACE ESTO?
             $datosFormulario['tieneQr'] = true;
         }
 
@@ -57,6 +57,7 @@ class ProformaController
         $origen = $_POST["origen"];
         $vehiculo = $_POST ["vehiculo"];
         $arrastre = $_POST ["arrastre"];
+
         $destino = $_POST["destino"];
         $fechaPartida = $_POST["fechaCarga"];
         $tiempoEstimadollegada = $_POST["llegada"];
@@ -64,7 +65,7 @@ class ProformaController
         $peso = $_POST["peso"];
         $peligrosidad = $_POST["tipoHazard"];
         $refrigeracion = $_POST["refrigeracion"];
-        $graduacion = isset($_POST["graduacion"]) ? : "0";  // POR QUÉ ESTO ESTÁ DIFERENTE??
+        $graduacion = isset($_POST["graduacion"]) ? : "0";
         $kmEstimados = $_POST["km"];
         $combustibleEstimado = $_POST["combustible"];
         $costoPeaje = $_POST["peaje"];
@@ -91,10 +92,18 @@ class ProformaController
 
     private function obtenerDatosFormulario($id)
     {
+        //Obtengo todos los choferes disponibles
         $choferes = $this->proformaModel->obtenerChoferes();
+
+        if(isset($_GET["id_viaje"])){
+            $choferViaje = $this->proformaModel->obtenerChoferAsignadoAlViaje($_GET["id_viaje"]);
+            $choferes = array_merge($choferes, $choferViaje);
+        }
+
+        //Obtengo chofer asignado al viaje
         $tipoCarga = $this->proformaModel->obtenerTipoDeCarga();
         $tipoHazard = $this->proformaModel->obtenerTipoHazard();
-        if($id==0){
+        if($id==0){  //CUANDO NO HAY PROFORMA SERÍA CERO?
             $tipoVehiculo = $this->proformaModel->obtenerVehiculosDisponibles();
         }else{
             $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
