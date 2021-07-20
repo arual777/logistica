@@ -174,7 +174,7 @@
                         <div class="col-12 col-md-10">
                             <select name="chofer" id="chofer"  class="form-control">
                                 {{#choferes}}
-                                <option value="{{ID_USUARIO}}">{{NOMBRE}} {{APELLIDO}}</option>
+                                <option value="{{id_usuario}}">{{nombre}} {{apellido}}</option>
                                 {{/choferes}}
                             </select><br>
                         </div>
