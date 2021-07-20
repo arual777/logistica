@@ -157,4 +157,17 @@ class UsuarioModel
         $sql = "select u.mail from Usuario u join Rol r on U.id_Rol=r.id_Rol where r.descripcion='Administrador'";
         return $this->database->query($sql);
     }
+
+    public function verificarUsuariosPendientesDeActivacion()
+    {
+
+        $solicitud = "SELECT activo FROM Usuario where activo= 0";
+        $resultado = $this->database->query($solicitud);
+
+        if (count($resultado) > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

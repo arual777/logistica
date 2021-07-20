@@ -4,7 +4,6 @@ class ProformaController
 {
     private $render;
     private $proformaModel;
-
     public function __construct($render, $proformaModel, $viajesModel, $vehiculoModel)
     {
         $this->render = $render;
@@ -22,14 +21,14 @@ class ProformaController
 
     public function formularioProforma()
     {
-        $id = 0;
+        $id = 0;    //POR QUÉ ESTÁ HARDCODEADO??
         $data = $this->obtenerDatosFormulario($id);
         echo $this->render->render("view/proforma.php", $data);
     }
 
     public function detalleProforma()
     {
-        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";
+        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";   //ESTO PARA QUÉ ESTÁ ACÁ?
         $idViaje = $_GET["id_viaje"];
 
         $proforma = $this->proformaModel->detalleProforma($id);
@@ -65,7 +64,7 @@ class ProformaController
         $peso = $_POST["peso"];
         $peligrosidad = $_POST["tipoHazard"];
         $refrigeracion = $_POST["refrigeracion"];
-        $graduacion = isset($_POST["graduacion"]) ? : "0";
+        $graduacion = isset($_POST["graduacion"]) ? : "0";  // POR QUÉ ESTO ESTÁ DIFERENTE??
         $kmEstimados = $_POST["km"];
         $combustibleEstimado = $_POST["combustible"];
         $costoPeaje = $_POST["peaje"];
@@ -131,6 +130,10 @@ class ProformaController
         $data['tipoDeCarga'] = $this->viajeModel->obtenerElTipoDeCargaPeligrosa($data['proforma'][0]['id_carga']);
         $data['refrigeracion'] = $this->viajeModel->obtenerRefrigeracion($data['proforma'][0]['id_carga']);
         $data['chofeAsignado'] = $this->viajeModel->obtenerChoferDeUnViaje($data['proforma'][0]['id_viaje']);
+        $qr = $data["proforma"][0]["codigo_qr"];  //traemos el directorio con el nombre del archivo
+        $type = pathinfo('.'.$qr, PATHINFO_EXTENSION);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode(file_get_contents('.'.$qr));
+        //agarra el archivo png y lo convierte a base 64 para que se pueda ver dentro del pdf
 
         if ($data['refrigeracion'][0]['refrigeracion'] == 1) {
             $data['refrigeracion'][0]['refrigeracion'] = "Si";
@@ -140,6 +143,7 @@ class ProformaController
         }
 
         $id_Proforma = $data['proforma'][0]['id_factura'];
+
         //    $html = file_get_contents_curl("http://localhost/logistica/Proforma/detalleProforma/id=".$_GET['id']);
         $dompdf->loadHtml('<!DOCTYPE html>
                            <html lang="en">
@@ -241,6 +245,15 @@ class ProformaController
                                                                   <tr>
                                                                       <td>Chofer asignado:  ' . $data['chofeAsignado'][0]['nombre'] . ' ' . $data['chofeAsignado'][0]['apellido'] . '</td>
                                                                   </tr>                         
+                                                          </table>
+                                                          <table>
+                                                          <tr>
+                                                            <td> 
+                                                            <img src="'.$base64.'">
+
+                                                            </td>
+                                                          </tr>
+
                                                           </table>
                            </body>
                            </html>'

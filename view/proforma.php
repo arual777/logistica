@@ -178,11 +178,47 @@
                                 {{/choferes}}
                             </select><br>
                         </div>
+                    </div>
+                    {{#costos}}
+                    <H2> COSTOS REALES</H2>
+
+                    <label for="kilometros">Diferencia de Kilometros (Estimado - Cargado):</label>
+                    <input type="number" name="calculoKilometros" id="calculoKilometros" class="form-control"
+                           value="{{calculoKilometros}}">
+
+                    <label for="combustible">Combustible:</label>
+                    <input type="number" name="costoCombustibleFinal" id="costoCombustibleFinal" class="form-control"
+                           value="{{costoCombustible}}">
+
+                    <label for="viatico">Viáticos:</label>
+                    <input type="number" name="viatico" id="costoViaticoFinal" class="form-control"
+                           value="{{costoExtras}}">
+
+                    <label for="peaje">Peajes:</label>
+                    <input type="number" name="peaje" id="peaje" class="form-control"
+                           value="{{costoPeajes}}">
+
+                    <label for="haz">Peligrosidad:</label>
+                    <input type="number" name="costoHazard" id="costoHazard" class="form-control"
+                           value="{{costoPeligroso}}">
+
+                    <label for="ref">Refrigeración:</label>
+                    <input type="number" name="costoRefrigeracion" id="costoRefrigeracion" class="form-control"
+                           value="{{costoRefrigeracion}}">
+
+                    <label for="tarifa">Tarifa:</label>
+                    <input type="number" name="tarifa" id="tarifa" class="form-control"
+                           value="{{costoTarifa}}">
+
+                    <label for="tarifa">Gastos reales:</label>
+                    <input type="number" name="gastosReales" id="gastosReales" class="form-control"
+                           value="{{importeFinal}}">
+                    {{/costos}}
+                    {{^costos}}
                         <div class="col">
                             <button class="btn btn-success btn-block" type="submit">Guardar</button>
                         </div>
-                    </div>
-
+                    {{/costos}}
                     <input type="hidden" id="vehiculoH" value="{{#proforma}}{{id_vehiculo}}{{/proforma}}"/>
                     <input type="hidden" id="arrastreH" value="{{#proforma}}{{id_arrastre}}{{/proforma}}"/>
                     <input type="hidden" id="cargaH" value="{{#proforma}}{{id_TipoCarga}}{{/proforma}}"/>
@@ -193,45 +229,13 @@
                     <input type="hidden" id="choferH" name="choferH" value="{{#proforma}}{{id_usuario}}{{/proforma}}"/>
 
                     {{#tieneQr}}<img src=".{{#proforma}}{{codigo_qr}}{{/proforma}}">{{/tieneQr}}
-                {{#costos}}
-                <H2> COSTOS REALES</H2>
-
-                    <label for="kilometros">Diferencia de Kilometros (Estimado - Cargado):</label>
-                    <input type="number" name="calculoKilometros" id="calculoKilometros" class="form-control"
-                           value="{{calculoKilometros}}">
-
-                <label for="combustible">Combustible:</label>
-                <input type="number" name="costoCombustibleFinal" id="costoCombustibleFinal" class="form-control"
-                       value="{{costoCombustible}}">
-
-                <label for="viatico">Viáticos:</label>
-                <input type="number" name="viatico" id="costoViaticoFinal" class="form-control"
-                       value="{{costoExtras}}">
-
-                <label for="peaje">Peajes:</label>
-                <input type="number" name="peaje" id="peaje" class="form-control"
-                       value="{{costoPeajes}}">
-
-                <label for="haz">Peligrosidad:</label>
-                <input type="number" name="costoHazard" id="costoHazard" class="form-control"
-                       value="{{costoPeligroso}}">
-
-                <label for="ref">Refrigeración:</label>
-                <input type="number" name="costoRefrigeracion" id="costoRefrigeracion" class="form-control"
-                       value="{{costoRefrigeracion}}">
-
-                <label for="tarifa">Tarifa:</label>
-                <input type="number" name="tarifa" id="tarifa" class="form-control"
-                       value="{{costoTarifa}}">
-
-                <label for="tarifa">Gastos reales:</label>
-                <input type="number" name="gastosReales" id="gastosReales" class="form-control"
-                       value="{{importeFinal}}">
-                {{/costos}}
             </form>
-                <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
-                    <button class="btn btn-primary">Imprimir</button>
-                </a>
+                <br>
+                <div class="col">
+                    <a target="_blank" href="/logistica/Proforma/printPdf/id={{#proforma}}{{id_factura}}{{/proforma}}">
+                        <button class="btn btn-primary btn-block">Imprimir</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
