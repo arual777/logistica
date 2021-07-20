@@ -56,23 +56,20 @@ class PermisoModel
     }
 
     public function validarAccesoASeccion($usuario, $seccion, $accion){
-        //le pasamos el Id del usuario que sacamos de la sesion, el nombre del modulo (seccion) al que quiere ingresar y el action ()
 
-        //con la seccion que tengo por parametro, busco el valor en el array secciones
-        $idSeccion = $this->secciones[$seccion];
+        //con la seccion que tenemos por parametro, buscamos el valor en el array secciones
+        $idSeccion = $this->secciones[$seccion]; // 1
 
-        //con la accion que tengo por parametro busco el valor en el array de acciones
-        $idAccion = $this->acciones[$accion];
+        //con la accion que tenemos por parametro, buscamos el valor en el array de acciones
+        $idAccion = $this->acciones[$accion]; // MODIFICACION
 
         $solicitud= "select RS.alta as alta, RS.baja as baja, RS.modificacion as modificacion, RS.lectura as lectura
                             from Usuario US JOIN Rol_Seccion RS on US.id_Rol= RS.id_Rol
                             where US.id_usuario = $usuario and id_Seccion= $idSeccion";
 
-        //puede arrojar un solo resultado o ninguno
-
         $resultado = $this->database->query($solicitud);
 
-        if(count($resultado) == 0){
+        if(count($resultado) == 0){  //Daría cero, si hay un usuario que no tenga especificada una seccion.
             return false;
         }
 

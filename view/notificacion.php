@@ -21,18 +21,6 @@
 
             var map = new google.maps.Map(document.getElementById("mapa"),mapOptions);
 
-/*
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(-34.6686986,-58.5614947),
-                map: map,
-                draggable:true,
-            });
-
-            var info = new google.maps.InfoWindow({
-                content:"Florencio Varela 1903, San Justo, Buenos Aires, Argentina"
-            });
-*/
-
             google.maps.event.addListener(map, "click", function (event) {
                 var latitude = event.latLng.lat();
                 var longitude = event.latLng.lng();
