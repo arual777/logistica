@@ -84,7 +84,15 @@ class ProformaModel
         }
     }
     public function obtenerChoferes(){
-        $sql = "SELECT ID_USUARIO,NOMBRE, APELLIDO FROM USUARIO where id_rol=".CHOFER;
+        $viajePendiente = PENDIENTE;
+        $viajeEncurso = ENCURSO;
+
+        $sql= "select distinct u.id_usuario as id_usuario, nombre, apellido from usuario u 
+		left join viaje v on u.id_usuario = v.id_usuario
+            where v.id_estado not in ('$viajePendiente','$viajeEncurso') or v.id_estado is null                                          
+            and activo = 1 
+            and id_rol = ".CHOFER;
+
         return $this->database->query($sql);
     }
 
