@@ -9,7 +9,6 @@ class PermisoModel
     {
         $this->database = $database;
 
-        //estas secciones son nuestros controllers
         $this->secciones = array(
             "USUARIO" => 1,
             "VIAJES" => 2,
@@ -18,9 +17,6 @@ class PermisoModel
             "PROFORMA" => 5
         );
 
-        //estas acciones son las functiones que tenemos en los controllers
-        //de esta manera dos usuarios distintos pueden tener distintos permisos para una misma vista
-        //por ejemplo, un mecánico puede leer los viajes pero no modificarlos
         $this->acciones = array(
             "EXECUTE" => LECTURA,
             "CREAR" =>  ALTA,
@@ -57,19 +53,16 @@ class PermisoModel
 
     public function validarAccesoASeccion($usuario, $seccion, $accion){
 
-        //con la seccion que tenemos por parametro, buscamos el valor en el array secciones
-        $idSeccion = $this->secciones[$seccion]; // 1
+        $idSeccion = $this->secciones[$seccion];
 
-        //con la accion que tenemos por parametro, buscamos el valor en el array de acciones
-        $idAccion = $this->acciones[$accion]; // MODIFICACION
-
+        $idAccion = $this->acciones[$accion];
         $solicitud= "select RS.alta as alta, RS.baja as baja, RS.modificacion as modificacion, RS.lectura as lectura
                             from Usuario US JOIN Rol_Seccion RS on US.id_Rol= RS.id_Rol
                             where US.id_usuario = $usuario and id_Seccion= $idSeccion";
 
         $resultado = $this->database->query($solicitud);
 
-        if(count($resultado) == 0){  //Daría cero, si hay un usuario que no tenga especificada una seccion.
+        if(count($resultado) == 0){
             return false;
         }
 

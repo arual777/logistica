@@ -30,7 +30,7 @@
                             <button class="btn btn-success" type="button">Registrarse</button>
                         </a>
                     </form>
-                    <!--Si mensajeError tiene elementos entra y muestra solo el primer elemento-->
+
 
                 </div>
             </div>

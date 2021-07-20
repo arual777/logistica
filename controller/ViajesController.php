@@ -23,7 +23,7 @@ class ViajesController
            $data["viajes"] = $this->viajesModel->obtenerViajesPorIdUsuario($_SESSION['usuario']);
        }
         else{
-            //si el usuario en sesion no es chofer, es decir,administrador / supervisor
+
             $data["viajes"] = $this->viajesModel->obtenerViajesPorOrdenFecha();
         }
         echo $this->render->render( "view/viajes.php", $data );
@@ -105,7 +105,7 @@ class ViajesController
 
             $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
             $data = array('viajes' => $notificaciones, 'id' => $idViaje);
-            echo $this->render->render("view/infoViaje.php", $data);//mostrar lista de notificaciones del chofer
+            echo $this->render->render("view/infoViaje.php", $data);
 
         }else{
             $data = array();
@@ -115,7 +115,6 @@ class ViajesController
     }
 
     public function finalizarViaje(){
-
 
         if($_SESSION['id_Rol'] == CHOFER) {
 

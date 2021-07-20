@@ -31,7 +31,7 @@
         <td>{{fecha_nac}}</td>
         <td>{{codigo_licencia}}</td>
         <td>{{descripcion}}</td>
-        <!--<td><a href="/logistica/Usuario/mostrarUsuario/id={{id_Usuario}}"><button type="submit" class="btn btn-info ">Info</button></a></td>!-->
+
         <td><a href="/logistica/Usuario/editar/id={{id_Usuario}}"><button type="submit" class="btn btn-warning ">Modificar</button></a></td>
         <td><a href="/logistica/Usuario/borrarUsuario/id={{id_Usuario}}"><button type="submit" class="btn btn-danger ">Borrar</button></a></td>
     </tr>

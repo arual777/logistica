@@ -17,8 +17,6 @@ class ProformaModel
                                   $costoPeaje, $viatico, $costoHazard, $costoRefrigeracion,
                                   $tarifa, $idChofer){
 
-
-
          if($idProforma=="") {
                     $idCarga = $this->insertarCarga($tipoCarga, $peligrosidad, $refrigeracion, $graduacion, $peso);
                     $idViaje = $this->insertarViaje($idChofer, $idCarga,  $origen, $destino, $fechaPartida,
@@ -85,7 +83,7 @@ class ProformaModel
     }
     public function obtenerChoferes(){
 
-        $sql= "select u.id_usuario, nombre, apellido  from usuario u
+        $sql= "select distinct u.id_usuario, nombre, apellido  from usuario u
                     left join viaje v on v.id_usuario = u.id_usuario
                     where v.id_estado = ".FINALIZADO." or v.id_estado is null
                     and id_rol = ".CHOFER;
@@ -284,6 +282,5 @@ class ProformaModel
         return $this->database->execute("UPDATE Vehiculo set id_disponible=3 where id_vehiculo='$id_vehiculo'");
 
     }
-
 
 }

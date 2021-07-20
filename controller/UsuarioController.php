@@ -65,7 +65,6 @@ class UsuarioController
 
     }
 
-
     public function editar()
     {
         $id_Usuario = $_GET["id"];
