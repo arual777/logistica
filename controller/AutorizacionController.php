@@ -20,7 +20,7 @@ class AutorizacionController
     public function execute()
     {
         if(isset($_GET['registro'])&&$_GET['registro']==true){
-            //si la url tiene registro y si ese registro es true
+
             $data['registroExitoso'] = "Tu registro fue exitoso, por favor espera a que un administrador te asigne un rol para poder iniciar sesión";
             echo $this->render->render("view/login.php",$data);
             exit();

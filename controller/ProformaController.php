@@ -94,10 +94,8 @@ class ProformaController
 
     private function obtenerDatosFormulario($id)
     {
-        //Obtengo todos los choferes disponibles
         $choferes = $this->proformaModel->obtenerChoferes();
 
-        //cuando se edita o se lee una proforma
         if(isset($_GET["id_viaje"])){
             $choferViaje = $this->proformaModel->obtenerChoferAsignadoAlViaje($_GET["id_viaje"]);
             $choferes = array_merge($choferes, $choferViaje);
@@ -129,10 +127,9 @@ class ProformaController
         $data['tipoDeCarga'] = $this->viajesModel->obtenerElTipoDeCargaPeligrosa($data['proforma'][0]['id_carga']);
         $data['refrigeracion'] = $this->viajesModel->obtenerRefrigeracion($data['proforma'][0]['id_carga']);
         $data['chofeAsignado'] = $this->viajesModel->obtenerChoferDeUnViaje($data['proforma'][0]['id_viaje']);
-        $qr = $data["proforma"][0]["codigo_qr"];  //traemos el código qr con el nombre del archivo
+        $qr = $data["proforma"][0]["codigo_qr"];
         $type = pathinfo('.'.$qr, PATHINFO_EXTENSION);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode(file_get_contents('.'.$qr));
-        //agarra el archivo png y lo convierte a base 64 para que se pueda ver dentro del pdf
 
         if ($data['refrigeracion'][0]['refrigeracion'] == 1) {
             $data['refrigeracion'][0]['refrigeracion'] = "Si";
@@ -160,9 +157,6 @@ class ProformaController
 
         $id_Proforma = $data['proforma'][0]['id_factura'];
 
-
-
-        //    $html = file_get_contents_curl("http://localhost/logistica/Proforma/detalleProforma/id=".$_GET['id']);
         $dompdf->loadHtml('<!DOCTYPE html>
                            <html lang="en">
                            <head>

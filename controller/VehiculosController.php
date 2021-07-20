@@ -22,7 +22,7 @@ class VehiculosController
         echo $this->render->render("view/vehiculos.php",$data);
     }
 
-    public function insertar(){      //CAMBIAR NOMBRE A MOSTRAR VEHICULOS
+    public function insertar(){
         $data['tipoVehiculo'] = $this->model->obtenerTiposVehiculos();
         $data['tipoArrastre'] = $this->model->obtenerTiposRemolques();
         echo $this->render->render("view/nuevoVehiculo.php",$data);

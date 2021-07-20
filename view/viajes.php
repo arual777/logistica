@@ -29,8 +29,7 @@
             <td>{{tiempo_estimadoLlegada}}</td>
             <td><a href="/logistica/Viajes/detalleViaje/id={{id_viaje}}" ><button type="submit" class="btn btn-primary">Info</button></a></td>
             <td><a href="/logistica/Proforma/detalleProforma/id={{id_factura}}&id_viaje={{id_viaje}}" ><button type="submit" class="btn btn-primary">Detalle proforma</button></a></td>
-            <!--   <td><a href=""><button type="submit" class="btn btn-warning ">Modificar</button></a></td>
-            <td><a href=""><button type="submit" class="btn btn-danger ">Borrar</button></a></td>-->
+
         </tr>
         {{/viajes}}
     </table>

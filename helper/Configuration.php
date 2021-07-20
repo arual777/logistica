@@ -46,7 +46,6 @@ class Configuration
         return new Render('view/partial');
     }
 
-    //Este método devuelve un objeto de la clase autorización controler y le pasa el parámetro que necesita
     public function getAutorizacionController()
     {
         $render = $this->getRender();

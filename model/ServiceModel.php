@@ -58,10 +58,6 @@ class ServiceModel
         return $this->database->query("SELECT * FROM Tipo_Service");
     }
 
-    /*public function obtenerUsuarios(){
-        return $this->database->query("SELECT * FROM Usuario");
-    }*/
-
     public function obtenerChoferes(){
         $rol_Chofer = 4;
         return $this->database->query("SELECT * FROM Usuario WHERE id_Rol = '$rol_Chofer'");
