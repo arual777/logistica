@@ -129,7 +129,6 @@ class ViajesController
             $data = array('viajes' => $notificaciones, 'id' => $idViaje, 'mensajeViajeFinalizadoExiosamente' => $mensaje);
             echo $this->render->render("view/infoViaje.php", $data);
 
-
         }else{
             $data = array();
             $data["mensajeErrorPorFinalizacion"] = "Usted no tiene permiso para finalizar un viaje";

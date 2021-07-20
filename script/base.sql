@@ -336,3 +336,13 @@ create table Combustible(id_Combustible int not null auto_increment,
 
 insert into Combustible ( descripcion, precio_litro)
 values('gasoil', 2455);
+
+
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (1,2, 'MBenz','Actros' ,'JOM888', 888 , 'T595999', '20180914', 88888, 'Usado',3);
+
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (2,1, 'MBenz','Actros' ,'GHJ888', 999 , 'Th2222', '20180914', 2222, 'Usado',3);
+
+INSERT INTO Vehiculo(id_Tipo, id_TipoSemi, marca, modelo, patente, motor, chasis, anio_fabricacion, kilometraje, estado,id_disponible)
+VALUES (1,2, 'MBenz','Araña' , 'HJY330', null , 'T595444', '20180914', 88888, 'Usado',3);

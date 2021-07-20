@@ -2,6 +2,10 @@
 {{>headerUsuario}}
 <div>
     <h2>Proformas</h2>
+    <br>
+
+    <h3> {{#mensajeUsuariosPendientesDeActivacion}} {{.}} {{/mensajeUsuariosPendientesDeActivacion}} </h3> <br>
+
     <a class="btn btn-success" href="/logistica/proforma/formularioProforma" role="button">
         Crear
     </a>

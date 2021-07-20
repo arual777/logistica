@@ -89,8 +89,16 @@ class AutorizacionController
 
     private function renderAdministradorSupervisorHome(){
         $proformas = $this->proformaModel->obtenerProformas();
-        $data = array('proformas'=>$proformas);
-        echo $this->render->render("view/proformas.php", $data);
+        $usuariosPendientes= $this-> usuarioModel->verificarUsuariosPendientesDeActivacion();
+        if($usuariosPendientes){
+            $mensaje= "Hay usuarios pendientes de activación";
+            $data = array('proformas'=>$proformas, 'mensajeUsuariosPendientesDeActivacion'=> $mensaje);
+            echo $this->render->render("view/proformas.php", $data);
+
+        }else {
+            $data = array('proformas' => $proformas);
+            echo $this->render->render("view/proformas.php", $data);
+        }
     }
 
     private function renderChoferHome(){
