@@ -91,4 +91,14 @@ class ViajesModel
         $resultado = $this->database->query($sql);
         return $resultado[0]["id_estado"];
     }
+
+    public function obtenerVehiculoDeUnViaje($id_viaje){
+        $sql = "select v.id_vehiculo from Vehiculo v join Viaje vi on v.id_vehiculo=vi.id_vehiculo where vi.id_viaje=1";
+        return $this->database->query($sql);
+    }
+
+    public function cambiarVehiculoADisponibleAlFinalizarUnViaje($id_vehiculo){
+        $sql = "UPDATE Vehiculo set id_disponible=3 where id_vehiculo='$id_vehiculo'";
+        $this->database->execute($sql);
+    }
 }

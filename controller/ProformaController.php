@@ -4,6 +4,7 @@ class ProformaController
 {
     private $render;
     private $proformaModel;
+
     public function __construct($render, $proformaModel, $viajesModel, $vehiculoModel)
     {
         $this->render = $render;
@@ -21,8 +22,8 @@ class ProformaController
 
     public function formularioProforma()
     {
-        $id = 0;    //POR QUÉ ESTÁ HARDCODEADO??
-        $data = $this->obtenerDatosFormulario($id);
+        $id_ProformaParaSaberSiTieneQr = 0;
+        $data = $this->obtenerDatosFormulario($id_ProformaParaSaberSiTieneQr);
         echo $this->render->render("view/proforma.php", $data);
     }
 
@@ -42,7 +43,6 @@ class ProformaController
 
         $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
         $datosFormulario["costos"] = $costosReales;
-
         echo $this->render->render("view/proforma.php", $datosFormulario);
     }
 
@@ -118,6 +118,7 @@ class ProformaController
         $datosFormulario["proforma"] = $proforma;
         $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
         $datosFormulario["costos"] = $costosReales;
+
         echo $this->render->render("view/proforma.php", $datosFormulario);
     }
 
@@ -142,7 +143,26 @@ class ProformaController
             $data['refrigeracion'][0]['graduacion'] = 0;
         }
 
+        $costosReales = $this-> proformaModel->calcularFacturacion($data['proforma'][0]['id_viaje']);
+        $data["costos"] = $costosReales;
+
+        if(isset($costosReales)){
+            $data["costos"] = $costosReales;
+        }else{
+            $data['costos']['calculoKilometros'] = "El viaje aún no finalizo";
+            $data['costos']['costoCombustible'] = "El viaje aún no finalizo";
+            $data['costos']['costoExtras'] = "El viaje aún no finalizo";
+            $data['costos']['costoPeajes'] = "El viaje aún no finalizo";
+            $data['costos']['costoPeligroso'] = "El viaje aún no finalizo";
+            $data['costos']['costoRefrigeracion'] = "El viaje aún no finalizo";
+            $data['costos']['costoTarifa'] = "El viaje aún no finalizo";
+            $data['costos']['calculoKilometros'] = "El viaje aún no finalizo";
+            $data['costos']['importeFinal'] = "El viaje aún no finalizo";
+        }
+
         $id_Proforma = $data['proforma'][0]['id_factura'];
+
+
 
         //    $html = file_get_contents_curl("http://localhost/logistica/Proforma/detalleProforma/id=".$_GET['id']);
         $dompdf->loadHtml('<!DOCTYPE html>
@@ -245,6 +265,33 @@ class ProformaController
                                                                   <tr>
                                                                       <td>Chofer asignado:  ' . $data['chofeAsignado'][0]['nombre'] . ' ' . $data['chofeAsignado'][0]['apellido'] . '</td>
                                                                   </tr>                         
+                                                          </table>
+                                                                                                              <h2>Costos reales</h2>
+                                                          <table>
+                                                                  <tr>
+                                                                        <td>Diferencia de kilometros: ' . $data['costos']['calculoKilometros'] . '</td>
+                                                                  </tr>
+                                                                   <tr>
+                                                                        <td>Combustible: ' . $data['costos']['costoCombustible'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Viaticos(extra): ' . $data['costos']['costoExtras'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Peajes: ' . $data['costos']['costoPeajes'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Peligrosidad: ' . $data['costos']['costoPeligroso'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Refrigeración: ' . $data['costos']['costoRefrigeracion'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Tarifa: ' . $data['costos']['costoTarifa'] . '</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                        <td>Gastos reales: ' . $data['costos']['importeFinal'] . '</td>
+                                                                  </tr>
                                                           </table>
                                                           <table>
                                                           <tr>

@@ -127,6 +127,8 @@ class ViajesController
             $notificaciones = $this->viajesModel->obtenerDetalleViaje($idViaje);
             $mensaje = "Usted finalizó su viaje exitosamente";
             $data = array('viajes' => $notificaciones, 'id' => $idViaje, 'mensajeViajeFinalizadoExiosamente' => $mensaje);
+            $id_vehiculo ['id']= $this->viajesModel->obtenerVehiculoDeUnViaje($idViaje);
+            $this->viajesModel->cambiarVehiculoADisponibleAlFinalizarUnViaje($id_vehiculo['id'][0]['id_vehiculo']);
             echo $this->render->render("view/infoViaje.php", $data);
 
         }else{
