@@ -240,8 +240,11 @@
         </div>
     </div>
 </div>
+
 <script>
     const vehiculoId = document.getElementById("vehiculoH").value;
+                        //busca en el html los elem cuyo id sea vehiculoH (hiden) y le pregutna el valor (ID_vehiculo)
+
     if (vehiculoId != 0) {
         document.getElementById("vehiculo").value = vehiculoId;
     }
@@ -265,7 +268,5 @@
     if (choferId != 0) {
         document.getElementById("chofer").value = choferId;
     }
-
-
 </script>
 {{> footer}}

@@ -19,13 +19,11 @@ class ViajesController
 
    public function listarViajes(){
         if($_SESSION['id_Rol'] == CHOFER){
-            //si el rol del usuario en sesion es chofer
-            //entonces obtengo los viajes de ese usuario
+
            $data["viajes"] = $this->viajesModel->obtenerViajesPorIdUsuario($_SESSION['usuario']);
        }
         else{
-            //si el usuario en sesion no es chofer, es decir,
-            // administrador / supervisor muestro todos los viajes de todos los choferes
+            //si el usuario en sesion no es chofer, es decir,administrador / supervisor
             $data["viajes"] = $this->viajesModel->obtenerViajesPorOrdenFecha();
         }
         echo $this->render->render( "view/viajes.php", $data );
@@ -138,9 +136,6 @@ class ViajesController
         }
     }
 
-    //
-    // Recibe Id del viaje y un estado
-    // Realiza una actualizacion del estado del viaje en la Db
     private function cambiaEstadoViaje($idViaje, $estado){
         $this-> viajesModel->cambiarEstadoViaje($idViaje, $estado);
     }

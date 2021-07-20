@@ -4,12 +4,14 @@ class ProformaController
 {
     private $render;
     private $proformaModel;
+    private $viajesModel;
+    private $vehiculoModel;
 
     public function __construct($render, $proformaModel, $viajesModel, $vehiculoModel)
     {
         $this->render = $render;
         $this->proformaModel = $proformaModel;
-        $this->viajeModel = $viajesModel;
+        $this->viajesModel = $viajesModel;
         $this->vehiculoModel = $vehiculoModel;
     }
 
@@ -29,15 +31,15 @@ class ProformaController
 
     public function detalleProforma()
     {
-        $id = isset($_GET["id"]) ? $_GET["id"]  : "0";   //En qué caso sería un cero?
+        $id = $_GET["id"];
         $idViaje = $_GET["id_viaje"];
 
         $proforma = $this->proformaModel->detalleProforma($id);
-        $data = array('proforma' => $proforma);
+
         $datosFormulario = $this->obtenerDatosFormulario($id);
         $datosFormulario["proforma"] = $proforma;
         $qrExistente[] = $this->proformaModel->obtenerCodigoQrPorIdDeProforma($id);
-        if(isset($qrExistente)){ //PERO NO SE SETEA EL QR??  ¿QUÉ HACE ESTO?
+        if(isset($qrExistente)){
             $datosFormulario['tieneQr'] = true;
         }
 
@@ -71,7 +73,7 @@ class ProformaController
         $costoPeaje = $_POST["peaje"];
         $viatico = $_POST["viatico"];
         $costoHazard = $_POST["costoHazard"];
-        $costoRefrigeracion = $_POST["costoRefrigeracion"];
+        $costoRefrigeracion = isset($_POST["costoRefrigeracion"]) ? : "0";
         $tarifa = $_POST["tarifa"];
         $idProforma = $_POST ["factura"];
         $idViaje = $_POST["viaje"];
@@ -95,15 +97,15 @@ class ProformaController
         //Obtengo todos los choferes disponibles
         $choferes = $this->proformaModel->obtenerChoferes();
 
+        //cuando se edita o se lee una proforma
         if(isset($_GET["id_viaje"])){
             $choferViaje = $this->proformaModel->obtenerChoferAsignadoAlViaje($_GET["id_viaje"]);
             $choferes = array_merge($choferes, $choferViaje);
         }
 
-        //Obtengo chofer asignado al viaje
         $tipoCarga = $this->proformaModel->obtenerTipoDeCarga();
         $tipoHazard = $this->proformaModel->obtenerTipoHazard();
-        if($id==0){  //CUANDO NO HAY PROFORMA SERÍA CERO?
+        if($id==0){  //es decir, cuando todavía no se creó un viaje
             $tipoVehiculo = $this->proformaModel->obtenerVehiculosDisponibles();
         }else{
             $tipoVehiculo = $this->proformaModel->obtenerVehiculos();
@@ -118,29 +120,16 @@ class ProformaController
         return $data;
     }
 
-    public function verFacturacion()
-    {
-        $idProforma = $_GET["id"];
-        $idViaje = $_GET["id_viaje"];
-        $proforma = $this->proformaModel->detalleProforma($idProforma);
-        $datosFormulario = $this->obtenerDatosFormulario();
-        $datosFormulario["proforma"] = $proforma;
-        $costosReales = $this-> proformaModel->calcularFacturacion($idViaje);
-        $datosFormulario["costos"] = $costosReales;
-
-        echo $this->render->render("view/proforma.php", $datosFormulario);
-    }
-
     public function printPdf()
     {
         include_once('helper/DomPdf.php');
         $data['proforma'] = $this->proformaModel->detalleProforma($_GET['id']);
         $data['vehiculoAusar'] = $this->vehiculoModel->obtenerVehiculoPorIdDeVehiculo($data['proforma'][0]['id_vehiculo']);
         $data['arrastreAusar'] = $this->vehiculoModel->obtenerArrastrePorIdDeVehiculos($data['proforma'][0]['id_vehiculo']);
-        $data['tipoDeCarga'] = $this->viajeModel->obtenerElTipoDeCargaPeligrosa($data['proforma'][0]['id_carga']);
-        $data['refrigeracion'] = $this->viajeModel->obtenerRefrigeracion($data['proforma'][0]['id_carga']);
-        $data['chofeAsignado'] = $this->viajeModel->obtenerChoferDeUnViaje($data['proforma'][0]['id_viaje']);
-        $qr = $data["proforma"][0]["codigo_qr"];  //traemos el directorio con el nombre del archivo
+        $data['tipoDeCarga'] = $this->viajesModel->obtenerElTipoDeCargaPeligrosa($data['proforma'][0]['id_carga']);
+        $data['refrigeracion'] = $this->viajesModel->obtenerRefrigeracion($data['proforma'][0]['id_carga']);
+        $data['chofeAsignado'] = $this->viajesModel->obtenerChoferDeUnViaje($data['proforma'][0]['id_viaje']);
+        $qr = $data["proforma"][0]["codigo_qr"];  //traemos el código qr con el nombre del archivo
         $type = pathinfo('.'.$qr, PATHINFO_EXTENSION);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode(file_get_contents('.'.$qr));
         //agarra el archivo png y lo convierte a base 64 para que se pueda ver dentro del pdf
@@ -326,7 +315,5 @@ class ProformaController
         // Output the generated PDF to Browser
         $dompdf->stream("document.pdf", ['Attachment' => 0]);
 
-
     }
-
 }
